@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
  * admin
  *
  * @ORM\Table(name="admin")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\dminRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\AdminRepository")
  */
-class admin
+class Admin
 {
     /**
      * @var int

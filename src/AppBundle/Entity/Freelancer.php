@@ -59,7 +59,14 @@ class Freelancer extends User
     /**
      * @ORM\OneToMany(targetEntity="Note", mappedBy="freelancer")
      */
-    private $freelancer;
+    private $notes;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="Postulation", mappedBy="freelance")
+
+     */
+    private $postulations;
 
     /**
      * Get id
@@ -190,5 +197,39 @@ class Freelancer extends User
     {
         return $this->domaine;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getNotes()
+    {
+        return $this->notes;
+    }
+
+    /**
+     * @param mixed $notes
+     */
+    public function setNotes($notes)
+    {
+        $this->notes = $notes;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPostulations()
+    {
+        return $this->postulations;
+    }
+
+    /**
+     * @param mixed $postulations
+     */
+    public function setPostulations($postulations)
+    {
+        $this->postulations = $postulations;
+    }
+
+
 }
 

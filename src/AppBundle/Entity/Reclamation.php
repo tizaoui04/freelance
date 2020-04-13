@@ -97,5 +97,23 @@ class Reclamation
     {
         return $this->date;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getSender()
+    {
+        return $this->sender;
+    }
+
+    /**
+     * @param mixed $sender
+     */
+    public function setSender($sender)
+    {
+        $this->sender = $sender;
+    }
+
+
 }
 

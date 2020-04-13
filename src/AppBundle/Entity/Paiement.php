@@ -35,6 +35,29 @@ class Paiement
      */
     private $datepaiment;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Postulation",cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="id_postulation", referencedColumnName="id",nullable=true)
+     */
+    private $postulation;
+
+    /**
+     * @return mixed
+     */
+    public function getPostulation()
+    {
+        return $this->postulation;
+    }
+
+    /**
+     * @param mixed $postulation
+     */
+    public function setPostulation($postulation)
+    {
+        $this->postulation = $postulation;
+    }
+
+
 
     /**
      * Get id

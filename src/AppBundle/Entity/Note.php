@@ -53,6 +53,44 @@ class Note
      * @ORM\JoinColumn(name="freelancer_id", referencedColumnName="id")
      */
     private $freelancer;
+
+    /**
+     * @return mixed
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    /**
+     * @param mixed $client
+     */
+    public function setClient($client)
+    {
+        $this->client = $client;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFreelancer()
+    {
+        return $this->freelancer;
+    }
+
+    /**
+     * @param mixed $freelancer
+     */
+    public function setFreelancer($freelancer)
+    {
+        $this->freelancer = $freelancer;
+    }
+
+
+
+
+
+
     /**
      * Get id
      *

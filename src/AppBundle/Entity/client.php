@@ -63,6 +63,39 @@ class client extends User
      */
     private $adress;
 
+    /**
+     * @return mixed
+     */
+    public function getNotes()
+    {
+        return $this->notes;
+    }
+
+    /**
+     * @param mixed $notes
+     */
+    public function setNotes($notes)
+    {
+        $this->notes = $notes;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProjects()
+    {
+        return $this->projects;
+    }
+
+    /**
+     * @param mixed $projects
+     */
+    public function setProjects($projects)
+    {
+        $this->projects = $projects;
+    }
+
+
 
     /**
      * Get id

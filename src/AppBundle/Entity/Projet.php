@@ -60,6 +60,62 @@ class Projet
      */
     private $budget;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="categorie", inversedBy="projects")
+     * @ORM\JoinColumn(name="id_categorie", referencedColumnName="id")
+     */
+    private $categorie;
+
+    /**
+     * @return mixed
+     */
+    public function getCategorie()
+    {
+        return $this->categorie;
+    }
+
+    /**
+     * @param mixed $categorie
+     */
+    public function setCategorie($categorie)
+    {
+        $this->categorie = $categorie;
+    }
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    /**
+     * @param mixed $client
+     */
+    public function setClient($client)
+    {
+        $this->client = $client;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPostuler()
+    {
+        return $this->postuler;
+    }
+
+    /**
+     * @param mixed $postuler
+     */
+    public function setPostuler($postuler)
+    {
+        $this->postuler = $postuler;
+    }
+
 
     /**
      * Get id

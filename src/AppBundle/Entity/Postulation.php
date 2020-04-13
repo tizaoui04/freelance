@@ -40,6 +40,30 @@ class Postulation
      */
     private $project;
 
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Freelancer", inversedBy="postulations")
+     * @ORM\JoinColumn(name="idfre", referencedColumnName="id")
+     */
+    private $freelance;
+
+    /**
+     * @return mixed
+     */
+    public function getFreelance()
+    {
+        return $this->freelance;
+    }
+
+    /**
+     * @param mixed $freelance
+     */
+    public function setFreelance($freelance)
+    {
+        $this->freelance = $freelance;
+    }
+
+
     /**
      * Get id
      *
@@ -63,6 +87,7 @@ class Postulation
 
         return $this;
     }
+
 
     /**
      * Get lettre
