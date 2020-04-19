@@ -21,7 +21,7 @@ class Projet
      */
     private $id;
     /**
-     * @ORM\ManyToOne(targetEntity="client", inversedBy="projects")
+     * @ORM\ManyToOne(targetEntity="Client", inversedBy="projects")
      * @ORM\JoinColumn(name="id_client", referencedColumnName="id")
      */
     private $client;

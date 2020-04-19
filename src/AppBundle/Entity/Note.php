@@ -43,7 +43,7 @@ class Note
     private $datenote;
 
     /**
-     * @ORM\ManyToOne(targetEntity="client", inversedBy="notes")
+     * @ORM\ManyToOne(targetEntity="Client", inversedBy="notes")
      * @ORM\JoinColumn(name="client_id", referencedColumnName="id")
      */
     private $client;

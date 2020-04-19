@@ -27,12 +27,12 @@ class User extends BaseUser
 
 
     /**
-     * @ORM\OneToMany(targetEntity="message", mappedBy="sender")
+     * @ORM\OneToMany(targetEntity="Message", mappedBy="sender")
      */
      private $senderMessages;
 
     /**
-     * @ORM\OneToMany(targetEntity="message", mappedBy="receiver")
+     * @ORM\OneToMany(targetEntity="Message", mappedBy="receiver")
      */
     private $receiverMessages;
 
