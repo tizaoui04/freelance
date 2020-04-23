@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="admin")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\AdminRepository")
  */
-class Admin
+class Admin extends User
 {
     /**
      * @var int

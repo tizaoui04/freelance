@@ -1,3 +1,7 @@
+app_client:
+    resource: "@UserBundle/Controller/ClientController.php"
+    type:     annotation
+
 app_freelancer:
     resource: "@UserBundle/Controller/FreelancerController.php"
     type:     annotation

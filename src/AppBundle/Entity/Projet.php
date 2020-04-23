@@ -61,7 +61,7 @@ class Projet
     private $budget;
 
     /**
-     * @ORM\ManyToOne(targetEntity="categorie", inversedBy="projects")
+     * @ORM\ManyToOne(targetEntity="Categorie", inversedBy="projects")
      * @ORM\JoinColumn(name="id_categorie", referencedColumnName="id")
      */
     private $categorie;
