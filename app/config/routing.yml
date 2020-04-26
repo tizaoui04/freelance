@@ -1,3 +1,12 @@
+projet:
+    resource: "@ProjetBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+app_categorie:
+    resource: "@ProjetBundle/Controller/CategorieController.php"
+    type:     annotation
+
 app_client:
     resource: "@UserBundle/Controller/ClientController.php"
     type:     annotation
