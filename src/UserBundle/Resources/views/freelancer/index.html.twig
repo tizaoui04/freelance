@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Freelancers list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>Numtel</th>
+                <th>Date</th>
+                <th>Domaine</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for freelancer in freelancers %}
+            <tr>
+                <td><a href="{{ path('freelancer_show', { 'id': freelancer.id }) }}">{{ freelancer.id }}</a></td>
+                <td>{{ freelancer.nom }}</td>
+                <td>{{ freelancer.prenom }}</td>
+                <td>{{ freelancer.numtel }}</td>
+                <td>{% if freelancer.date %}{{ freelancer.date|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ freelancer.domaine }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('freelancer_show', { 'id': freelancer.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('freelancer_edit', { 'id': freelancer.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('freelancer_new') }}">Create a new freelancer</a>
+        </li>
+    </ul>
+{% endblock %}

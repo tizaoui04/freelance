@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Freelancer</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ freelancer.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ freelancer.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ freelancer.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Numtel</th>
+                <td>{{ freelancer.numtel }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{% if freelancer.date %}{{ freelancer.date|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Domaine</th>
+                <td>{{ freelancer.domaine }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('freelancer_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('freelancer_edit', { 'id': freelancer.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

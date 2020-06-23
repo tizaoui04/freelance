@@ -283,7 +283,7 @@ img { max-width: 100%; }
 }
 
 #logo img {
-	height: 42px;
+	height: 80px;
 	width: auto;
 	top: 50%;
 	position: relative;
@@ -2172,7 +2172,7 @@ em.mm-counter+a.mm-fullsubopen+span {
 	border-bottom: 1px solid #484848;
 }
 
-.footer-top-section .footer-logo img { max-height: 46px; }
+.footer-top-section .footer-logo img { max-height: 80px; }
 
 .footer-rows-container { 
 	display: block;
@@ -2207,7 +2207,7 @@ em.mm-counter+a.mm-fullsubopen+span {
 
 .footer-row-inner.footer-logo img {
 	position: relative;
-	top: 50%;
+	top: 23%;
  }
 
 .footer-row:first-child { padding-left: 0; border-left: none; }
@@ -2485,7 +2485,7 @@ em.mm-counter+a.mm-fullsubopen+span {
 	.footer-row-inner.footer-logo {
 	    top: 0;
 	    position: relative;
-	    height: 46px;
+	    height: 70px;
 	}
 
 	#footer .footer-row {
