@@ -86,22 +86,23 @@
                                         <div class="user-details">
                                             <div class="user-avatar status-online"><img src="images/user-avatar-small-01.jpg" alt=""></div>
                                             <div class="user-name">
-                                                Tom Smith <span>Freelancer</span>
+                                                {{app.user.username}} <span>
+                                                    {% if is_granted('ROLE_FREELANCER') %}
+                                                        Freelancer
+                                                    {% elseif is_granted('ROLE_CLIENT') %}
+                                                        Prestataire
+                                                    {% else %}
+                                                        Anonymous
+                                                    {% endif %}
+                                                </span>
                                             </div>
                                         </div>
 
                                         <!-- User Status Switcher -->
-                                        <div class="status-switch" id="snackbar-user-status">
-                                            <label class="user-online current-status">Online</label>
-                                            <label class="user-invisible">Invisible</label>
-                                            <!-- Status Indicator -->
-                                            <span class="status-indicator" aria-hidden="true"></span>
-                                        </div>
-                                    </div>
+
 
                                     <ul class="user-menu-small-nav">
-                                        <li><a href="dashboard.html"><i class="icon-material-outline-dashboard"></i> Dashboard</a></li>
-                                        <li><a href="dashboard-settings.html"><i class="icon-material-outline-settings"></i> Settings</a></li>
+                                        <li><a href="profile.html.twig"><i class="icon-material-outline-settings"></i> Settings</a></li>
                                         <li><a href="{{ path('fos_user_security_logout') }}"><i class="icon-material-outline-power-settings-new"></i> Logout</a></li>
 
 
@@ -325,15 +326,17 @@
                 </div>
 
                 <!-- Form -->
-                <form method="post" id="login-form">
+                <form method="post" action="{{ path('user_login') }}" id="login-form">
                     <div class="input-with-icon-left">
                         <i class="icon-material-baseline-mail-outline"></i>
-                        <input type="text" class="input-text with-border" name="emailaddress" id="emailaddress" placeholder="Email Address" required/>
+                        <input type="text" class="input-text with-border" name="username"
+                               id="emailaddress" placeholder="Nom d'utilisateur" required/>
                     </div>
 
                     <div class="input-with-icon-left">
                         <i class="icon-material-outline-lock"></i>
-                        <input type="password" class="input-text with-border" name="password" id="password" placeholder="Password" required/>
+                        <input type="password" class="input-text with-border" name="password" id="password"
+                               placeholder="Password" required/>
                     </div>
                     <a href="#" class="forgot-password">Forgot Password?</a>
                 </form>
@@ -361,7 +364,7 @@
 
 
                 <!-- Form -->
-                <form method="post" id="register-account-form" action="{{ path('signin') }}">
+                <form method="post" id="register-account-form" action="{{ path('signup') }}">
 
                     <!-- Account Type -->
                     <div class="account-type">

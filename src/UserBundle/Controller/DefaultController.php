@@ -9,6 +9,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
 
@@ -26,12 +28,12 @@ class DefaultController extends Controller
 
 
     /**
-     * @Route("/signin",name="signin")
+     * @Route("/signup",name="signup")
      * @Method({"GET","POST"})
      */
-    public function signin(Request $request){
+    public function signup(Request $request){
         if($request->isMethod("GET")){
-            return $this->render('@User/Default/signin.html.twig');
+            return $this->render('@User/Default/signup.html.twig');
         }
         $validator=Validation::createValidator();
         $type=$request->get("account-type-radio");
@@ -39,7 +41,7 @@ class DefaultController extends Controller
         $firstpass=$request->get('password');
         $secondpass=$request->get("passtwo");
         if(strcmp($firstpass,$secondpass)!=0){
-            return $this->render('@User/Default/signin.html.twig',array("msg"=>"verifier les mot de passe"));
+            return $this->render('@User/Default/signup.html.twig',array("msg"=>"verifier les mot de passe"));
         }
         if(strcmp($type,"freelancer")==0){
             $freelancer=new Freelancer();
@@ -54,7 +56,7 @@ class DefaultController extends Controller
             $freelancer->setDomaine("");
             $errors = $validator->validate($freelancer);
             if(count($errors)>0){
-                return $this->render('@User/Default/signin.html.twig',array("msg"=>"verifier les donnes saisie"));
+                return $this->render('@User/Default/signup.html.twig',array("msg"=>"verifier les donnes saisie"));
             }else{
                 $this->getDoctrine()->getManager()->persist($freelancer);
                 $this->getDoctrine()->getManager()->flush();
@@ -74,7 +76,7 @@ class DefaultController extends Controller
 
             $errors = $validator->validate($client);
             if(count($errors)>0){
-                return $this->render('@User/Default/signin.html.twig',array("msg"=>"verifier les donnes saisie"));
+                return $this->render('@User/Default/signup.html.twig',array("msg"=>"verifier les donnes saisie"));
             }else{
                 $this->getDoctrine()->getManager()->persist($client);
                 $this->getDoctrine()->getManager()->flush();
@@ -113,7 +115,7 @@ class DefaultController extends Controller
 
             // Check if the user exists !
             if(!$user){
-                return $this->render("default/login.html.twig",array("msg"=>"username non trouvé"));
+                return $this->render("@User/Default/login.html.twig",array("msg"=>"username non trouvé"));
             }
 
             /// Start verification
@@ -121,7 +123,7 @@ class DefaultController extends Controller
             $salt = $user->getSalt();
 
             if(!$encoder->isPasswordValid($user->getPassword(), $password, $salt)) {
-                return $this->render("default/login.html.twig",array("msg"=>"username ou mot de passe incorrect"));
+                return $this->render("@User/Default/login.html.twig",array("msg"=>"username ou mot de passe incorrect"));
             }
             /// End Verification
 
@@ -142,10 +144,10 @@ class DefaultController extends Controller
 
             // $us=$this->container->get('security.token_storage')->getToken()->getUser();
 
-            if ($this->container->get('security.authorization_checker')->isGranted("ROLE_FREELANCE")) {
-                // SUPER_ADMIN roles go to the `admin_home` route
-                return $this->redirectToRoute("dashboard");
-            }elseif($this->container->get('security.authorization_checker')->isGranted('ROLE_PARENT')) {
+            if ($this->container->get('security.authorization_checker')->isGranted("ROLE_FREELANCER")) {
+
+                return $this->redirect("/");
+            }elseif($this->container->get('security.authorization_checker')->isGranted('ROLE_CLIENT')) {
                 // Everyone else goes to the `home` route
                 return $this->redirect("/");
             }
