@@ -102,7 +102,12 @@
 
 
                                     <ul class="user-menu-small-nav">
-                                        <li><a href="profile.html.twig"><i class="icon-material-outline-settings"></i> Settings</a></li>
+                                        {% if is_Granted("ROLE_FREELANCER") %}
+                                        <li><a href="{{ path("update_profile",{'id':app.user.id})  }}"><i class="icon-material-outline-settings"></i> Settings</a></li>
+                                        {% else %}
+                                        <li><a href=" "><i class="icon-material-outline-settings"></i> Settings</a></li>
+
+                                        {% end %}
                                         <li><a href="{{ path('fos_user_security_logout') }}"><i class="icon-material-outline-power-settings-new"></i> Logout</a></li>
 
 

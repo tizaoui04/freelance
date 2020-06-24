@@ -15,6 +15,90 @@ use UserBundle\Form\FreelancerType;
  */
 class FreelancerController extends Controller
 {
+
+
+    /**
+     * @Route("/update/{id}",name="update_profile", requirements={"id":"\d+"})
+     * @Method({"GET","POST"})
+     */
+    public function updateprofile(Request $request, Freelancer $freelancer){
+        $editForm = $this->createForm(FreelancerType::class, $freelancer);
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('update_profile', array('id' => $freelancer->getId()));
+        }
+
+        return $this->render('@User/freelancer/profile.html.twig', array(
+            'freelancer' => $freelancer,
+            'edit_form' => $editForm->createView(),
+        ));
+
+    }
+
+    /**
+     * @Route("/updatepass",name="update_pass")
+     */
+    public function updatepass(Request $request, Freelancer $freelancer)
+    {
+
+        $factory = $this->get('security.encoder_factory');
+
+        $encoder = $factory->getEncoder($freelancer);
+
+
+        if ($encoder->isPasswordValid($freelancer->getPassword(), $request->get("oldpass"), $freelancer->getSalt()) and
+            strcmp($request->get("newpass"), $request->get("newpass1")) == 0) {
+            $freelancer->setPlainPassword($request->get("newpass"));
+            $this->getDoctrine()->getManager()->flush();
+            return $this->render('@User/freelancer/profile.html.twig', array(
+                'edit_form' => $this->createForm(FreelancerType::class, $freelancer)->createView(),
+                "freelancer" => $freelancer, "passmsg" => "Mot de pass verifié"));
+
+        } else {
+            return $this->render('@User/freelancer/profile.html.twig', array(
+                'edit_form' => $this->createForm(FreelancerType::class, $freelancer)->createView(),
+                "freelancer" => $freelancer, "passmsg" => "Verifiez Mot de pass verifié"));
+
+
+        }
+    }
+
+
+    /**
+     * @Route("/updateskills",name="updateskills")
+     */
+    public function updateskills(Request $request,Freelancer $freelancer){
+
+
+        if($request->get("skills")){
+            $freelancer->setDomaine($request->get("skills"));
+            $this->getDoctrine()->getManager()->flush();
+            return $this->render('@User/freelancer/profile.html.twig', array(
+                'freelancer' => $freelancer,
+                'edit_form' => $this->createForm(FreelancerType::class, $freelancer)->createView(),
+                "skillsmsg"=>"domaine modifié"
+            ));
+        }
+        return $this->render('@User/freelancer/profile.html.twig', array(
+            'freelancer' => $freelancer,
+            'edit_form' => $this->createForm(FreelancerType::class, $freelancer)->createView(),
+        ));
+
+
+
+
+    }
+
+
+
+
+
+
+
+
     /**
      * Lists all freelancer entities.
      *
