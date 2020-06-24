@@ -4,15 +4,19 @@ namespace UserBundle\Controller;
 
 use AppBundle\Entity\Client;
 use AppBundle\Entity\Freelancer;
+use AppBundle\Entity\User;
 use Cassandra\Date;
+
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Validator\Validation;
 use Symfony\Component\Validator\Validator\ValidatorInterface;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class DefaultController extends Controller
 {
@@ -58,9 +62,28 @@ class DefaultController extends Controller
             if(count($errors)>0){
                 return $this->render('@User/Default/signup.html.twig',array("msg"=>"verifier les donnes saisie"));
             }else{
+                $token = sha1(uniqid());
+                $freelancer->setConfirmationToken($token);
                 $this->getDoctrine()->getManager()->persist($freelancer);
                 $this->getDoctrine()->getManager()->flush();
-                return $this->redirect("/");
+
+                $message = (new \Swift_Message("Verification Email"))
+                    ->setFrom('marwene04@gmail.com')
+                    ->setTo($freelancer->getEmail())
+                    ->setSubject("Verification Email")
+                    ->setBody(
+                        $this->renderView('@User/email/confirm.html.twig',[
+                            'name' => $freelancer->getUsername() ,
+                            'uri' => 'verification',
+                            'param' => ['token' => $token]
+                        ]),
+                        'text/html'
+                    );
+
+
+                $this->get('mailer')->send($message);
+
+                return new Response("<p> check your email </p>");
             }
         }else{
             $client=new Client();
@@ -78,9 +101,29 @@ class DefaultController extends Controller
             if(count($errors)>0){
                 return $this->render('@User/Default/signup.html.twig',array("msg"=>"verifier les donnes saisie"));
             }else{
+
+                $token = sha1(uniqid());
+                $client->setConfirmationToken($token);
                 $this->getDoctrine()->getManager()->persist($client);
                 $this->getDoctrine()->getManager()->flush();
-                return $this->redirect("/");
+
+                $message = (new \Swift_Message("Verification Email"))
+                    ->setFrom('marwene04@gmail.com')
+                    ->setTo($client->getEmail())
+                    ->setSubject("Verification Email")
+                    ->setBody(
+                        $this->renderView('@User/email/confirm.html.twig',[
+                            'name' => $client->getUsername() ,
+                            'uri' => 'verification',
+                            'param' => ['token' => $token]
+                        ]),
+                        'text/html'
+                    );
+
+
+                $this->get('mailer')->send($message);
+
+                return new Response("<p> check your email </p>");
             }
         }
 
@@ -89,6 +132,33 @@ class DefaultController extends Controller
     }
 
 
+    /**
+     * @Route("/verif/{token}",name="verification")
+     * @Method({"GET"})
+     */
+    public function verifAction(Request $request,$token)
+    {
+        $usermanager = $this->get('fos_user.user_manager');
+        $user = $usermanager->findUserByConfirmationToken($token);
+        if($user ){
+            $user->setEnabled(true);
+            $user->setConfirmationToken(null);
+            $this->getDoctrine()->getManager()->flush();
+            return $this->redirectToRoute('homepage');
+        }else{
+            return $this->redirectToRoute('emailerror',['msg' => 'erreur de token']);
+        }
+
+    }
+
+    /**
+     * @Route("/emailerror/{msg}",name="emailerror")
+     * @Method({"GET"})
+     */
+    public function emailError(Request $request,$msg)
+    {
+        $this->render('@User/email/err.html.twi',['msg' => $msg]);
+    }
 
     /**
      * @Route("/login", name="user_login")
@@ -116,6 +186,10 @@ class DefaultController extends Controller
             // Check if the user exists !
             if(!$user){
                 return $this->render("@User/Default/login.html.twig",array("msg"=>"username non trouvé"));
+            }
+
+            if(!$user->isEnabled()){
+                return $this->render("@User/Default/login.html.twig",array("msg"=>"username n'est pas active check your email"));
             }
 
             /// Start verification
