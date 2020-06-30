@@ -150,6 +150,14 @@ class DefaultController extends Controller
         }
 
     }
+    /**
+     * @Route("/freelancerlist",name="freelancersite")
+     * @Method({"GET"})
+     */
+    public function freelancerlist(Request $request)
+    {
+    }
+
 
     /**
      * @Route("/emailerror/{msg}",name="emailerror")
