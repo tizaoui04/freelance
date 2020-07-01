@@ -9,8 +9,8 @@
             <div class="login-register-page">
                 <!-- Welcome Text -->
                 <div class="welcome-text">
-                    <h3 style="font-size: 26px;">Let's create your account!</h3>
-                    <span>Already have an account? <a href="pages-login.html">Log In!</a></span>
+                    <h3 style="font-size: 26px;">crée votre compte !</h3>
+                    <span>Vous avez déjà un compte? <a href="pages-login.html">S'identifier!</a></span>
                 </div>
 
                 <!-- Form -->
@@ -45,6 +45,7 @@
                         <i class="icon-material-outline-date-range"></i>
                         <input type="date" class="input-text with-border" name="date" id="lastname-register" placeholder="Date" required/>
                     </div>
+
                     <div class="input-with-icon-left">
                         <i class="icon-material-baseline-mail-outline"></i>
                         <input type="text" class="input-text with-border" name="mail" id="emailaddress-register" placeholder="Email Address" required/>
@@ -63,6 +64,7 @@
                         <i class="icon-material-outline-lock"></i>
                         <input type="password" class="input-text with-border" name="passtwo" id="password-repeat-register" placeholder="Repeat Password" required/>
                     </div>
+
       {% if msg is defined %}
                     <span>{{ msg }}</span>
                     {% endif %}

@@ -40,7 +40,7 @@
                     <nav id="navigation">
                         <ul id="responqqsive">
 
-                            <li><a href="#" class="current">Acceuil</a>
+                            <li><a href="/" class="current">Acceuil</a>
 
                             </li>
 
@@ -48,7 +48,7 @@
 
                             </li>
 
-                            <li><a href="/freelancersite">Pour les employeurs</a>
+                            <li><a href="{{path("freelancer_index")}}">Pour les employeurs</a>
 
                             </li>
 
@@ -164,7 +164,7 @@
                         <div class="footer-rows-left">
                             <div class="footer-row">
                                 <div class="footer-row-inner footer-logo">
-                                    <img src="images/titane.png" alt="">
+                                    <img src="{{ asset('images/titane.png') }}" alt="">
                                 </div>
                             </div>
                         </div>
@@ -490,8 +490,7 @@
 
 </script>
 
-<!-- Google API -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAgeuuDfRlweIs7D6uo4wdIHVvJ0LonQ6g&libraries=places&callback=initAutocomplete"></script>
+
 {% endblock %}
 </body>
 </html>

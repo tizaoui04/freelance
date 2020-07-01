@@ -17,6 +17,8 @@ class FreelancerController extends Controller
 {
 
 
+
+
     /**
      * @Route("/update/{id}",name="update_profile", requirements={"id":"\d+"})
      * @Method({"GET","POST"})

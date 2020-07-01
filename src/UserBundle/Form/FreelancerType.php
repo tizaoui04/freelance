@@ -24,8 +24,8 @@ class FreelancerType extends AbstractType
 
             ->add('domaine',ChoiceType::class,[
                 'choices'=>[
-                    'Designe'=>'designe',
-                    'Developpement'=>'developpement'],])
+                    'Designe'=>'UI/UX Designe',
+                    'Developpement'=>'Developpement'],])
 
             ->add('username')->add('email');
     }/**
