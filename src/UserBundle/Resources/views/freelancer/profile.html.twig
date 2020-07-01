@@ -28,34 +28,34 @@
                     <div class="dashboard-nav">
                         <div class="dashboard-nav-inner">
 
-                            <ul data-submenu-title="Start">
+                            <ul data-submenu-title="Debut">
                                 <li><a href="dashboard.html"><i class="icon-material-outline-dashboard"></i> Dashboard</a></li>
                                 <li><a href="dashboard-messages.html"><i class="icon-material-outline-question-answer"></i> Messages <span class="nav-tag">2</span></a></li>
-                                <li><a href="dashboard-bookmarks.html"><i class="icon-material-outline-star-border"></i> Bookmarks</a></li>
-                                <li><a href="dashboard-reviews.html"><i class="icon-material-outline-rate-review"></i> Reviews</a></li>
+
+                                <li><a href="dashboard-reviews.html"><i class="icon-material-outline-rate-review"></i> Commentaires</a></li>
                             </ul>
 
-                            <ul data-submenu-title="Organize and Manage">
-                                <li><a href="#"><i class="icon-material-outline-business-center"></i> Jobs</a>
+                            <ul data-submenu-title="Organiser et Gérer">
+                                <li><a href="#"><i class="icon-material-outline-business-center"></i> Travaille</a>
                                     <ul>
-                                        <li><a href="dashboard-manage-jobs.html">Manage Jobs <span class="nav-tag">3</span></a></li>
+                                        <li><a href="dashboard-manage-jobs.html">Gérer les travaux <span class="nav-tag">3</span></a></li>
                                         <li><a href="dashboard-manage-candidates.html">Manage Candidates</a></li>
-                                        <li><a href="dashboard-post-a-job.html">Post a Job</a></li>
+                                        <li><a href="dashboard-post-a-job.html">Publier une offre</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="#"><i class="icon-material-outline-assignment"></i> Tasks</a>
+                                <li><a href="#"><i class="icon-material-outline-assignment"></i>Tâches</a>
                                     <ul>
-                                        <li><a href="dashboard-manage-tasks.html">Manage Tasks <span class="nav-tag">2</span></a></li>
-                                        <li><a href="dashboard-manage-bidders.html">Manage Bidders</a></li>
-                                        <li><a href="dashboard-my-active-bids.html">My Active Bids <span class="nav-tag">4</span></a></li>
-                                        <li><a href="dashboard-post-a-task.html">Post a Task</a></li>
+                                        <li><a href="dashboard-manage-tasks.html">Gérer les tâches <span class="nav-tag">2</span></a></li>
+                                        <li><a href="dashboard-manage-bidders.html">Postulation</a></li>
+                                        <li><a href="dashboard-my-active-bids.html">Mes enchères actives <span class="nav-tag">4</span></a></li>
+                                        <li><a href="dashboard-post-a-task.html">Publier une tâche</a></li>
                                     </ul>
                                 </li>
                             </ul>
 
-                            <ul data-submenu-title="Account">
-                                <li class="active"><a href="dashboard-settings.html"><i class="icon-material-outline-settings"></i> Settings</a></li>
-                                <li><a href="index-logged-out.html"><i class="icon-material-outline-power-settings-new"></i> Logout</a></li>
+                            <ul data-submenu-title="Compte">
+                                <li class="active"><a href="dashboard-settings.html"><i class="icon-material-outline-settings"></i>Paramètres</a></li>
+                                <li><a href="index-logged-out.html"><i class="icon-material-outline-power-settings-new"></i>Se déconnecter</a></li>
                             </ul>
 
                         </div>
@@ -96,7 +96,7 @@
 
                             <!-- Headline -->
                             <div class="headline">
-                                <h3><i class="icon-material-outline-account-circle"></i> My Account</h3>
+                                <h3><i class="icon-material-outline-account-circle"></i> Mon Compte</h3>
                             </div>
 
                             <!--Profile update-->
@@ -118,7 +118,7 @@
 
                                             <div class="col-xl-6">
                                                 <div class="submit-field">
-                                                    <h5>First Name</h5>
+                                                    <h5>Prénom</h5>
                                                     {{ form_widget(edit_form.nom,{ 'attr': {'placeholder': 'prenom','class':'with-border'} }) }}
 
 
@@ -127,10 +127,10 @@
 
                                             <div class="col-xl-6">
                                                 <div class="submit-field">
-                                                    <h5>Last Name</h5>
-                                                    {{ form_widget(edit_form.prenom,{ 'attr': {'placeholder': 'prenom','class':'with-border'} }) }}
+                                                    <h5>Nom</h5>
+                                                    {{ form_widget(edit_form.prenom,{ 'attr': {'placeholder': 'nom','class':'with-border'} }) }}
 
-                                                    <input type="text" class="with-border" value="Smith">
+
                                                 </div>
                                             </div>
 
@@ -160,7 +160,7 @@
 
                             <!-- Headline -->
                             <div class="headline">
-                                <h3><i class="icon-material-outline-face"></i> My Profile</h3>
+                                <h3><i class="icon-material-outline-face"></i> Mon Profile</h3>
                             </div>
 
                             <!--Skills update-->
@@ -179,7 +179,7 @@
 
                                             <div class="col-xl-6">
                                                 <div class="submit-field">
-                                                    <h5>Nationality</h5>
+                                                    <h5>Nationalité</h5>
                                                     <select class="selectpicker with-border" data-size="7" title="Select Job Type" data-live-search="true">
                                                         <option value="AR">Argentina</option>
                                                         <option value="AM">Armenia</option>
@@ -287,7 +287,7 @@
 
                         <!-- Headline -->
                         <div class="headline">
-                            <h3><i class="icon-material-outline-lock"></i> Password & Security</h3>
+                            <h3><i class="icon-material-outline-lock"></i> Mot De Passe & Sécurité</h3>
                         </div>
                         <!--Password update-->
 
@@ -295,21 +295,21 @@
                             <div class="row">
                                 <div class="col-xl-4">
                                     <div class="submit-field">
-                                        <h5>Current Password</h5>
+                                        <h5>Mot De Passe Actuel</h5>
                                         <input type="password" name="oldpass" class="with-border">
                                     </div>
                                 </div>
 
                                 <div class="col-xl-4">
                                     <div class="submit-field">
-                                        <h5>New Password</h5>
+                                        <h5>Nouveau Mot De Passe</h5>
                                         <input type="password" name="newpass" class="with-border">
                                     </div>
                                 </div>
 
                                 <div class="col-xl-4">
                                     <div class="submit-field">
-                                        <h5>Repeat New Password</h5>
+                                        <h5>Répété Le Nouveau Mot De Passe</h5>
                                         <input type="password" name="newpass1" class="with-border">
                                     </div>
                                 </div>
@@ -321,7 +321,7 @@
 
                     <!-- Button -->
                     <div class="col-xl-12">
-                        <a href="#" class="button ripple-effect big margin-top-30">Save Changes</a>
+                        <a href="#" class="button ripple-effect big margin-top-30">Sauvegarder les modifications</a>
                     </div>
 
                 </</div>   {{ form_end(edit_form) }}
