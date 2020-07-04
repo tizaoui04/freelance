@@ -2,30 +2,30 @@
 /* #2a41e8 (42,65,232)
 ---------------------------------------------------------------------- */
 .numbered.color ol > li::before {
-     border:1px solid #2a41e8;
-     color:#2a41e8;
+     border:1px solid #1ab9cb;
+     color:#1ab9cb;
 }
  .numbered.color.filled ol > li::before {
-     border:1px solid #2a41e8;
-     background-color:#2a41e8;
+     border:1px solid #1ab9cb;
+     background-color:#1ab9cb;
 }
  .radio input[type="radio"]:checked + label .radio-label {
-     background-color:#2a41e8;
-     border-color:#2a41e8;
+     background-color:#1ab9cb;
+     border-color:#1ab9cb;
 }
  .checkbox input:checked + label span.checkbox-icon {
-     background-color:#2a41e8;
-     border-color:#2a41e8;
+     background-color:#1ab9cb;
+     border-color:#1ab9cb;
 }
  .slider-handle {
-     border:2px solid #2a41e8;
+     border:2px solid #1ab9cb;
 }
  .infoBox-close:hover {
      color:#fff;
-     background-color:#2a41e8;
+     background-color:#1ab9cb;
 }
  .message-bubble.me .message-text:before {
-     border-left:6px solid #2a41e8;
+     border-left:6px solid #1ab9cb;
 }
  a,
  .header-widget .log-in-button:hover i,
@@ -81,7 +81,7 @@
  .help-icon,
  .header-widget .log-in-button:hover,
  .header-widget .log-in-button:hover i {
-     color:#2a41e8;
+     color:#1ab9cb;
 }
 #backtotop a,
  .header-notifications-trigger span,
@@ -148,7 +148,7 @@
  .messages-inbox ul li:before,
  .message-by h5 i,
  .message-bubble.me .message-text {
-     background-color:#2a41e8;
+     background-color:#1ab9cb;
 }
  .transparent-header #navigation > ul li:hover ul li:hover a:after,
  .transparent-header #navigation > ul li:hover a:after,
@@ -165,18 +165,18 @@
  .slick-prev:hover,
  .slick-next:hover,
  .bootstrap-select.btn-group .bs-actionsbox div button:hover {
-     background:#2a41e8;
+     background:#1ab9cb;
 }
  .uploadButton .uploadButton-button,
  .pricing-plan .button {
-     color:#2a41e8;
-     border:1px solid #2a41e8;
+     color:#1ab9cb;
+     border:1px solid #1ab9cb;
 }
  .payment-tab-trigger > input:checked ~ label::before,
  .dashboard-nav ul li.active-submenu,
  .dashboard-nav ul li.active,
  .dashboard-nav ul li:hover {
-     border-color:#2a41e8;
+     border-color:#1ab9cb;
 }
 
  #navigation ul ul.dropdown-nav ul.dropdown-nav li:hover a:after,
@@ -355,6 +355,6 @@
 }
 
  #navigation ul ul.dropdown-nav ul.dropdown-nav li:hover a:after,
- #navigation ul ul.dropdown-nav li:hover a:after {
-     background-color:#2a41e8;
+ #navigation ul ul.dropdown-nav li :hover a:after {
+     background-color:#1ab9cb;
  }
