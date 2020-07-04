@@ -1,39 +1,53 @@
-{% extends 'base.html.twig' %}
+{% extends 'back.html.twig' %}
 
 {% block body %}
-    <h1>Categories list</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Libelle</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for categorie in categories %}
-            <tr>
-                <td><a href="{{ path('categorie_show', { 'id': categorie.id }) }}">{{ categorie.id }}</a></td>
-                <td>{{ categorie.libelle }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('categorie_show', { 'id': categorie.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('categorie_edit', { 'id': categorie.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('categorie_new') }}">Create a new categorie</a>
-        </li>
-    </ul>
+    <div class="row">
+
+        <br>
+        <div class="col-xl-6 col-md-6">
+
+            <div class="section-headline margin-bottom-30">
+
+                <table class="basic-table">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Libelle</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for categorie in categories %}
+                        <tr>
+                            <td><a href="{{ path('categorie_show', { 'id': categorie.id }) }}">{{ categorie.id }}</a></td>
+                            <td>{{ categorie.libelle }}</td>
+                            <td>
+                                <ul>
+
+                                    <li>
+                                        <a href="{{ path('categorie_edit', { 'id': categorie.id }) }}">edit</a>
+                                    </li>
+                                </ul>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+
+
+        <div class="pull-right margin-top-5 col-xl-6 col-md-6">
+            <a class="button ripple-effect" href="{{ path('categorie_new') }}">Create a new categorie</a>
+
+        </div>
+
+
+    </div>
+
+
 {% endblock %}
