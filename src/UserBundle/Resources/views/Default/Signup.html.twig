@@ -10,11 +10,11 @@
                 <!-- Welcome Text -->
                 <div class="welcome-text">
                     <h3 style="font-size: 26px;">crée votre compte !</h3>
-                    <span>Vous avez déjà un compte? <a href="pages-login.html">S'identifier!</a></span>
+                    <span>Vous avez déjà un compte? <a href="{{ path('user_login') }}">S'identifier!</a></span>
                 </div>
 
                 <!-- Form -->
-                <form method="post" id="register-account-form" action="{{ path('signin') }}">
+                <form method="post" id="register-account-form" action="{{ path('signup') }}">
 
                     <!-- Account Type -->
                     <div class="account-type">
@@ -43,7 +43,7 @@
                     </div>
                     <div class="input-with-icon-left">
                         <i class="icon-material-outline-date-range"></i>
-                        <input type="date" class="input-text with-border" name="date" id="lastname-register" placeholder="Date" required/>
+                        <input type="date" class="input-text with-border" name="date" id="date-register" placeholder="Date" required/>
                     </div>
 
                     <div class="input-with-icon-left">

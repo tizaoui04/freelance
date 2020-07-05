@@ -1,11 +1,12 @@
 <?php
 
-namespace AppBundle\Controller;
+namespace ProjetBundle\Controller;
 
-use AppBundle\Entity\projet;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use AppBundle\Entity\Projet;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Projet controller.
@@ -24,9 +25,9 @@ class projetController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $projets = $em->getRepository('AppBundle:projet')->findAll();
+        $projets = $em->getRepository(Projet::class)->findAll();
 
-        return $this->render('projet/index.html.twig', array(
+        return $this->render('@Projet/projet/index.html.twig', array(
             'projets' => $projets,
         ));
     }
@@ -38,9 +39,9 @@ class projetController extends Controller
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
-    {
+    {$user = $this->container->get('security.token_storage')->getToken()->getUser();
         $projet = new Projet();
-        $form = $this->createForm('AppBundle\Form\projetType', $projet);
+        $form = $this->createForm('ProjetBundle\Form\projetType', $projet);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -51,7 +52,7 @@ class projetController extends Controller
             return $this->redirectToRoute('projet_show', array('id' => $projet->getId()));
         }
 
-        return $this->render('projet/new.html.twig', array(
+        return $this->render('@Projet/projet/new.html.twig', array(
             'projet' => $projet,
             'form' => $form->createView(),
         ));
@@ -67,7 +68,7 @@ class projetController extends Controller
     {
         $deleteForm = $this->createDeleteForm($projet);
 
-        return $this->render('projet/show.html.twig', array(
+        return $this->render('@Projet/projet/show.html.twig', array(
             'projet' => $projet,
             'delete_form' => $deleteForm->createView(),
         ));
@@ -82,7 +83,7 @@ class projetController extends Controller
     public function editAction(Request $request, projet $projet)
     {
         $deleteForm = $this->createDeleteForm($projet);
-        $editForm = $this->createForm('AppBundle\Form\projetType', $projet);
+        $editForm = $this->createForm('ProjetBundle\Form\projetType', $projet);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
@@ -91,7 +92,7 @@ class projetController extends Controller
             return $this->redirectToRoute('projet_edit', array('id' => $projet->getId()));
         }
 
-        return $this->render('projet/edit.html.twig', array(
+        return $this->render('@Projet/projet/edit.html.twig', array(
             'projet' => $projet,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),

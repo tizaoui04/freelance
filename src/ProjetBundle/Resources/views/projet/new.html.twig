@@ -1,10 +1,64 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Projet creation</h1>
+    <div class="container">
+<div class="dashboard-content-container" data-simplebar>
+    <div class="dashboard-content-inner" >
+
+        <!-- Dashboard Headline -->
+        <div class="dashboard-headline">
+
+    <h3>Projet creation</h3><br>
+
+            <nav id="breadcrumbs" class="dark">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Dashboard</a></li>
+                    <li>Post a Job</li>
+                </ul>
+            </nav>
+        </div>
+
 
     {{ form_start(form) }}
-        {{ form_widget(form) }}
+        <div class="col">
+            <div class="row">
+
+                <div class="col-xl-6">
+                    <div class="submit-field">
+            Titre {{ form_widget(form.titre) }}
+                    </div>
+                </div>
+
+
+                <div class="col-xl-6">
+                    <div class="submit-field">
+                        Categorie {{ form_widget(form.dateprojet) }}
+                    </div>
+                </div>
+
+                <div class="col-xl-6">
+                    <div class="submit-field">
+                Description {{ form_widget(form.description) }}
+                    </div>
+                </div>
+                        <div class="col-xl-6">
+                            <div class="submit-field">
+                Budget {{ form_widget(form.budget) }}
+                            </div>
+                        </div>
+                <div class="col-xl-6">
+                    <div class="submit-field">
+                        client {{ form_widget(form.client) }}
+                    </div>
+                </div>
+                    <div class="col-xl-6">
+                        <div class="submit-field">
+                            Categorie {{ form_widget(form.Categorie) }}
+                        </div>
+                </div>
+            </div>
+        </div>
         <input type="submit" value="Create" />
     {{ form_end(form) }}
 
@@ -13,4 +67,7 @@
             <a href="{{ path('projet_index') }}">Back to the list</a>
         </li>
     </ul>
+    </div>
+    </div>
+    </div>
 {% endblock %}

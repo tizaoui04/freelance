@@ -26,7 +26,7 @@ class DefaultController extends Controller
     public function indexAction()
     {
 
-        return $this->render('@User/Default/signin.html.twig');
+        return $this->render('@User/Default/login.html.twig');
     }
 
 
@@ -37,7 +37,7 @@ class DefaultController extends Controller
      */
     public function signup(Request $request){
         if($request->isMethod("GET")){
-            return $this->render('@User/Default/signup.html.twig');
+            return $this->render('@User/Default/Signup.html.twig');
         }
         $validator=Validation::createValidator();
         $type=$request->get("account-type-radio");
@@ -45,7 +45,7 @@ class DefaultController extends Controller
         $firstpass=$request->get('password');
         $secondpass=$request->get("passtwo");
         if(strcmp($firstpass,$secondpass)!=0){
-            return $this->render('@User/Default/signup.html.twig',array("msg"=>"verifier les mot de passe"));
+            return $this->render('@User/Default/Signup.html.twig',array("msg"=>"verifier les mot de passe"));
         }
         if(strcmp($type,"freelancer")==0){
             $freelancer=new Freelancer();
@@ -60,7 +60,7 @@ class DefaultController extends Controller
             $freelancer->setDomaine("");
             $errors = $validator->validate($freelancer);
             if(count($errors)>0){
-                return $this->render('@User/Default/signup.html.twig',array("msg"=>"verifier les donnes saisie"));
+                return $this->render('@User/Default/Signup.html.twig',array("msg"=>"verifier les donnes saisie"));
             }else{
                 $token = sha1(uniqid());
                 $freelancer->setConfirmationToken($token);
@@ -99,7 +99,7 @@ class DefaultController extends Controller
 
             $errors = $validator->validate($client);
             if(count($errors)>0){
-                return $this->render('@User/Default/signup.html.twig',array("msg"=>"verifier les donnes saisie"));
+                return $this->render('@User/Default/Signup.html.twig',array("msg"=>"verifier les donnes saisie"));
             }else{
 
                 $token = sha1(uniqid());
@@ -160,7 +160,7 @@ class DefaultController extends Controller
      */
     public function emailError(Request $request,$msg)
     {
-        $this->render('@User/email/err.html.twi',['msg' => $msg]);
+        $this->render('@User/email/err.html.twig',['msg' => $msg]);
     }
 
     /**

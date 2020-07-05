@@ -5,7 +5,8 @@ namespace ProjetBundle\Controller;
 use AppBundle\Entity\Categorie;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Request;
 use ProjetBundle\Form\CategorieType;
 /**
  * Categorie controller.
@@ -60,7 +61,7 @@ class CategorieController extends Controller
     /**
      * Finds and displays a categorie entity.
      *
-     * @Route("/{id}", name="categorie_show")
+     * @Route("/{id}", name="")
      * @Method("GET")
      */
     public function showAction(Categorie $categorie)

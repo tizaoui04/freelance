@@ -1,9 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Projets list</h1>
+<div class="row">
 
-    <table>
+<div class="container">
+
+    <div class="col-xl-6 col-md-6">
+        <h3>Projets list</h3><br>
+        <div class="section-headline margin-bottom-30">
+    <table class="basic-table">
         <thead>
             <tr>
                 <th>Id</th>
@@ -36,10 +41,13 @@
         {% endfor %}
         </tbody>
     </table>
+        </div>
+    </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('projet_new') }}">Create a new projet</a>
-        </li>
-    </ul>
+
+            <div class="pull-right margin-top-5 col-xl-6 col-md-6">
+            <a  class="button ripple-effect" href="{{ path('projet_new') }}">Create a new projet</a>
+            </div>
+</div>
+</div>
 {% endblock %}

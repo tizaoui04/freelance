@@ -1,5 +1,5 @@
 app_projet:
-    resource: "@AppBundle/Controller/projetController.php"
+    resource: "@ProjetBundle/Controller/projetController.php"
     type:     annotation
 
 projet:
