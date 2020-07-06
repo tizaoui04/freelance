@@ -8,13 +8,13 @@
         <!-- Dashboard Headline -->
         <div class="dashboard-headline">
 
-    <h3>Projet creation</h3><br>
+    <h3>Creation Projet </h3><br>
 
             <nav id="breadcrumbs" class="dark">
                 <ul>
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#">Dashboard</a></li>
-                    <li>Post a Job</li>
+                    <li><a href="/">Acceuil</a></li>
+                    <li><a href="#">Projet</a></li>
+                    <li>Creation Projet</li>
                 </ul>
             </nav>
         </div>
@@ -26,40 +26,42 @@
 
                 <div class="col-xl-6">
                     <div class="submit-field">
-            Titre {{ form_widget(form.titre) }}
+                        <h5>Titre</h5>
+             {{ form_widget(form.titre) }}
                     </div>
                 </div>
 
 
                 <div class="col-xl-6">
                     <div class="submit-field">
-                        Categorie {{ form_widget(form.dateprojet) }}
+                        <h5>Categorie</h5>
+                         {{ form_widget(form.Categorie) }}
                     </div>
                 </div>
 
+
                 <div class="col-xl-6">
                     <div class="submit-field">
-                Description {{ form_widget(form.description) }}
+                        <h5>Budget</h5>
+                        {{ form_widget(form.budget) }}
                     </div>
                 </div>
-                        <div class="col-xl-6">
-                            <div class="submit-field">
-                Budget {{ form_widget(form.budget) }}
-                            </div>
+
+
+                <div class="col-xl-12">
+                    <div class="submit-field">
+                        <h5>Description</h5>
+
+                            {{ form_widget(form.description,{ 'attr': {'placeholder': 'description de projet'} }) }}
                         </div>
-                <div class="col-xl-6">
-                    <div class="submit-field">
-                        client {{ form_widget(form.client) }}
                     </div>
-                </div>
-                    <div class="col-xl-6">
-                        <div class="submit-field">
-                            Categorie {{ form_widget(form.Categorie) }}
-                        </div>
-                </div>
+
+
+
+            <input type="submit" value="Create" />
+
             </div>
         </div>
-        <input type="submit" value="Create" />
     {{ form_end(form) }}
 
     <ul>

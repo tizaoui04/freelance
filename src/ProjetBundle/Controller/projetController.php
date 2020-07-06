@@ -2,6 +2,7 @@
 
 namespace ProjetBundle\Controller;
 
+use AppBundle\Entity\Jardin;
 use AppBundle\Entity\Projet;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -39,12 +40,20 @@ class projetController extends Controller
      * @Method({"GET", "POST"})
      */
     public function newAction(Request $request)
-    {$user = $this->container->get('security.token_storage')->getToken()->getUser();
+    {
         $projet = new Projet();
         $form = $this->createForm('ProjetBundle\Form\projetType', $projet);
+
+
         $form->handleRequest($request);
 
+
         if ($form->isSubmitted() && $form->isValid()) {
+            $user = $this->container->get('security.token_storage')->getToken()->getUser();
+
+            $projet->setClient($user);
+            $projet->setDateprojet(new \DateTime());
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($projet);
             $em->flush();

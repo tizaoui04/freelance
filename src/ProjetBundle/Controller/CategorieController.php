@@ -61,16 +61,17 @@ class CategorieController extends Controller
     /**
      * Finds and displays a categorie entity.
      *
-     * @Route("/{id}", name="")
+     * @Route("/{id}", name="categorie_show")
      * @Method("GET")
      */
     public function showAction(Categorie $categorie)
     {
-        $deleteForm = $this->createDeleteForm($categorie);
+
 
         return $this->render('@projet/categorie/show.html.twig', array(
             'categorie' => $categorie,
-            'delete_form' => $deleteForm->createView(),
+
+
         ));
     }
 
@@ -102,19 +103,16 @@ class CategorieController extends Controller
     /**
      * Deletes a categorie entity.
      *
-     * @Route("/{id}", name="categorie_delete")
+     * @Route("delete/{id}", name="categorie_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Categorie $categorie)
     {
-        $form = $this->createDeleteForm($categorie);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($categorie);
             $em->flush();
-        }
+
 
         return $this->redirectToRoute('categorie_index');
     }

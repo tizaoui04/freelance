@@ -3,10 +3,12 @@
 namespace UserBundle\Controller;
 
 use AppBundle\Entity\Client;
+use AppBundle\Entity\Freelancer;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Form\ClientType;
+use UserBundle\Form\FreelancerType;
 
 /**
  * Client controller.
@@ -15,6 +17,30 @@ use UserBundle\Form\ClientType;
  */
 class ClientController extends Controller
 {
+
+    /**
+     * @Route("/update/{id}",name="update_profilec", requirements={"id":"\d+"})
+     * @Method({"GET","POST"})
+     */
+    public function updateprofile(Request $request, Client  $client){
+        $editForm = $this->createForm(ClientType::class, $client);
+        $editForm->remove("username")->remove("datenaiss");
+
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('update_profilec', array('id' => $client->getId()));
+        }
+
+        return $this->render('@User/client/profile.html.twig', array(
+            'client' => $client,
+            'edit_form' => $editForm->createView(),
+        ));
+
+    }
+
     /**
      * Lists all client entities.
      *
@@ -102,7 +128,7 @@ class ClientController extends Controller
     /**
      * Deletes a client entity.
      *
-     * @Route("/{id}", name="client_delete")
+     * @Route("delete/{id}", name="client_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Client $client)

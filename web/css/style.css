@@ -283,7 +283,7 @@ img { max-width: 100%; }
 }
 
 #logo img {
-	height: 80px;
+	height: 42px;
 	width: auto;
 	top: 50%;
 	position: relative;
@@ -2172,7 +2172,7 @@ em.mm-counter+a.mm-fullsubopen+span {
 	border-bottom: 1px solid #484848;
 }
 
-.footer-top-section .footer-logo img { max-height: 80px; }
+.footer-top-section .footer-logo img { max-height: 50px; }
 
 .footer-rows-container { 
 	display: block;

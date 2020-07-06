@@ -8,6 +8,7 @@ use AppBundle\Entity\Jardin;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -21,20 +22,16 @@ class projetType extends AbstractType
     {
         $builder->add('titre')
 
-            ->add('dateprojet', BirthdayType::class, [
-            'placeholder' => [
-                'year' => 'Year', 'month' => 'Month', 'day' => 'Day',
-            ]
-        ])
-            ->add('description')->add('budget')
-            ->add('client', EntityType::class,[
-                'class' => Client::class,
-                'choice_label' => 'nom',
 
-                'expanded' => false,
-                'multiple' => false,
 
+
+
+            ->add('description', TextareaType::class, [
+                'attr' => ['class' => 'description'],
             ])
+            ->add('budget')
+
+
             ->add('Categorie', EntityType::class, [
                 'class' => Categorie::class,
                 'choice_label' => 'libelle'
