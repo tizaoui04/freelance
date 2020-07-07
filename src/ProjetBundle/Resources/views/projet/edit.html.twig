@@ -1,21 +1,57 @@
 {% extends 'base.html.twig' %}
-
 {% block body %}
-    <h1>Projet edit</h1>
+<div class="container">
+    <div class="dashboard-content-container" data-simplebar>
+        <div class="dashboard-content-inner" >
 
-    {{ form_start(edit_form) }}
-        {{ form_widget(edit_form) }}
-        <input type="submit" value="Edit" />
-    {{ form_end(edit_form) }}
+            <!-- Dashboard Headline -->
+            <div class="dashboard-headline">
 
-    <ul>
-        <li>
-            <a href="{{ path('projet_index') }}">Back to the list</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+                <h3>Projet edit </h3><br>
+
+                <nav id="breadcrumbs" class="dark">
+                    <ul>
+                        <li><a href="/">Acceuil</a></li>
+                        <li><a href="#">Projet</a></li>
+                        <li>Creation Projet</li>
+                    </ul>
+                </nav>
+            </div>
+
+
+            {{ form_start(edit_form) }}
+
+                    {{ form_widget(edit_form) }}
+                    <input type="submit" value="Edit" />
+
+                    {{ form_end(edit_form) }}
+
+                    <ul>
+                        <li>
+                            <a href="{{ path('projet_index') }}">Back to the list</a>
+                        </li>
+                        <li>
+
+                            <a class="btn-primary" href="{{ path('projet_delete',{"id":projet.id}) }}">Delete</a>
+
+                        </li>
+                    </ul>
+
+
+
+
+
+
+
+        </div>
+    </div>
+</div>
+
+
+
+
+
 {% endblock %}
+  {% block footer %}
+
+  {% endblock %}

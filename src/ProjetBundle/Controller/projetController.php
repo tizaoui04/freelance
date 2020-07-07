@@ -91,39 +91,36 @@ class projetController extends Controller
      */
     public function editAction(Request $request, projet $projet)
     {
-        $deleteForm = $this->createDeleteForm($projet);
+
         $editForm = $this->createForm('ProjetBundle\Form\projetType', $projet);
         $editForm->handleRequest($request);
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('projet_edit', array('id' => $projet->getId()));
+            return $this->redirectToRoute('projet_index');
         }
 
         return $this->render('@Projet/projet/edit.html.twig', array(
             'projet' => $projet,
             'edit_form' => $editForm->createView(),
-            'delete_form' => $deleteForm->createView(),
+
         ));
     }
 
     /**
      * Deletes a projet entity.
      *
-     * @Route("/{id}", name="projet_delete")
-     * @Method("DELETE")
+     * @Route("delete/{id}", name="projet_delete")
+     *
      */
     public function deleteAction(Request $request, projet $projet)
     {
-        $form = $this->createDeleteForm($projet);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($projet);
             $em->flush();
-        }
+
 
         return $this->redirectToRoute('projet_index');
     }

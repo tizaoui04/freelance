@@ -1,95 +1,93 @@
 {% extends 'base.html.twig' %}
 
+
 {% block body %}
-<div class="row">
+<div class="dashboard-container">
 
-<div class="container">
+    <!-- Dashboard Sidebar
+    ================================================== -->
 
-    <div class="col-xl-12 col-md-12">
-        <h3 class="page-title">Projets list</h3><br>
+        {{ include('Csidebar.html.twig') }}
 
-        {% for projet in projets %}    <!-- Job Listing -->
-        <div class="content">
-            <a href="{{ path('projet_show', { 'id': projet.id }) }}">{{ projet.id }}>
-            <a class="dashboard-box-list">
-                <li>
-                    <!-- Job Listing -->
-                    <div class="job-listing">
+    <div class="dashboard-content-container" data-simplebar>
+        <div class="dashboard-content-inner" >
+    <!-- Dashboard Headline -->
+    <div class="dashboard-headline">
+        <h3>Gérer les travaux</h3>
 
-                        <!-- Job Listing Details -->
-                        <div class="job-listing-details">
+        <!-- Breadcrumbs -->
+        <nav id="breadcrumbs" class="dark">
+            <ul>
+                <li><a href="#">Acceuil</a></li>
+                <li><a href="#">Dashboard</a></li>
+                <li>Gérer les travaux</li>
+            </ul>
+        </nav>
+    </div>
+    <!-- Dashboard Sidebar / End -->
+    <div class="row">
 
-                            <!-- Logo -->
-                            <!-- 											<a href="#" class="job-listing-company-logo">
-                                                                            <img src="images/company-logo-05.png" alt="">
-                                                                        </a> -->
+        <!-- Dashboard Box -->
+        <div class="col-xl-12">
+            <div class="dashboard-box margin-top-0">
 
-                            <!-- Details -->
-                            <div class="job-listing-description">
-                                <h3 class="job-listing-title"><a href="#">{{ projet.titre }}</a></h3>
+                <!-- Headline -->
+                <div class="headline">
+                    <h3><i class="icon-material-outline-business-center"></i> Projets list</h3>
+                </div>
+                {% for projet in projets %}
+                <div class="content">
+                    <ul class="dashboard-box-list">
+                        <li>
+                            <!-- Job Listing -->
+                            <div class="job-listing">
 
-                                <!-- Job Listing Footer -->
-                                <div class="job-listing-footer">
-                                    <ul>
-                                        <li><i class="icon-material-outline-date-range"></i>{% if projet.dateprojet %}{{ projet.dateprojet|date('Y-m-d') }}{% endif %}</li>
+                                <!-- Job Listing Details -->
+                                <div class="job-listing-details">
 
-                                    </ul>
+                                    <!-- Logo -->
+                                    <!-- 											<a href="#" class="job-listing-company-logo">
+                                                                                    <img src="images/company-logo-05.png" alt="">
+                                                                                </a> -->
+
+                                    <!-- Details -->
+                                    <div class="job-listing-description">
+                                        <h3 class="job-listing-title"><a href="{{ path('projet_show', { 'id': projet.id }) }}">{{ projet.titre }}</a> <span class="dashboard-status-button green">Pending Approval</span></h3>
+
+                                        <!-- Job Listing Footer -->
+                                        <div class="job-listing-footer">
+                                            <ul>
+                                                <li><i class="icon-material-outline-date-range"></i> {{ projet.categorie.libelle }}</li>
+                                                <li><i class="icon-material-outline-date-range"></i> {% if projet.dateprojet %}{{ projet.dateprojet|date('Y-m-d') }}{% endif %}</li>
+
+                                            </ul>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <!-- Buttons -->
-                    <div class="buttons-to-right always-visible">
-                        <a href="dashboard-manage-candidates.html" class="button ripple-effect"><i class="icon-material-outline-supervisor-account"></i> Manage Candidates <span class="button-info">0</span></a>
-                        <a href="{{ path('projet_edit', { 'id': projet.id }) }}" class="button gray ripple-effect ico" title="Edit" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
-                        <a href="{{ path('projet_delete', { 'id': projet.id }) }}" class="button gray ripple-effect ico" title="Remove" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
-                    </div>
-                </li>
-
-        {% endfor %}
-
-
-        <div class="section-headline margin-bottom-30">
-    <table class="basic-table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Titre</th>
-                <th>Dateprojet</th>
-                <th>Description</th>
-                <th>Budget</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for projet in projets %}
-            <tr>
-                <td><a href="{{ path('projet_show', { 'id': projet.id }) }}">{{ projet.id }}</a></td>
-                <td></td>
-                <td>{% if projet.dateprojet %}{{ projet.dateprojet|date('Y-m-d') }}{% endif %}</td>
-                <td>{{ projet.description }}</td>
-                <td>{{ projet.budget }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('projet_show', { 'id': projet.id }) }}">show</a>
+                            <!-- Buttons -->
+                            <div class="buttons-to-right always-visible">
+                                <a href="dashboard-manage-candidates.html" class="button ripple-effect"><i class="icon-material-outline-supervisor-account"></i> Gérer les candidats<span class="button-info">0</span></a>
+                                <a href="{{ path('projet_edit', { 'id': projet.id }) }}" class="button gray ripple-effect ico" title="Edit" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
+                                <a href="{{ path('projet_delete', { 'id': projet.id }) }}"class="button gray ripple-effect ico" title="Remove" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
+                            </div>
                         </li>
-                        <li>
-                            <a href="{{ path('projet_edit', { 'id': projet.id }) }}">edit</a>
-                        </li>
+
+
+
                     </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
-            </a>
     </div>
-
-
+        </div>
     </div>
+    <!-- Row / End -->
 </div>
-</div>
+
+{% endblock %} {% block footer %}
+
 {% endblock %}
+

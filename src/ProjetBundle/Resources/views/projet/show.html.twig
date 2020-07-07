@@ -1,44 +1,115 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Projet</h1>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ projet.id }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ projet.titre }}</td>
-            </tr>
-            <tr>
-                <th>Dateprojet</th>
-                <td>{% if projet.dateprojet %}{{ projet.dateprojet|date('Y-m-d') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ projet.description }}</td>
-            </tr>
-            <tr>
-                <th>Budget</th>
-                <td>{{ projet.budget }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="single-page-header" data-background-image="images/67125bf1d2a954b04414afd87684a687.jpg">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="single-page-header-inner">
+                        <div class="left-side">
+                            <div class="header-image"><a href="#"><img src="images/work.png" alt=""></a></div>
+                            <div class="header-details">
+                                <h3>{{ projet.titre }}</h3>
+                                <h5>{{ projet.client.nom }} {{ projet.client.prenom }}</h5>
+                                <ul>
 
-    <ul>
-        <li>
-            <a href="{{ path('projet_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('projet_edit', { 'id': projet.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+                                    <li><div class="star-rating" data-rating="4.9"></div></li>
+                                    <li><img class="flag" src="images/flags/gb.svg" alt=""> {{ projet.client.adress }}</li>
+                                    <li><div class="verified-badge-with-title">Verified</div></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="right-side">
+                            <div class="salary-box">
+                                <div class="salary-type">Budget</div>
+                                <div class="salary-amount">{{ projet.budget }}DT</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+
+            <!-- Content -->
+            <div class="col-xl-8 col-lg-8 content-right-offset">
+
+                <div class="single-page-section">
+                    <h3 class="margin-bottom-25">Travaille Description</h3>
+                        <p>{{ projet.description }}</p>
+
+                </div>
+                <div class="single-page-section">
+
+
+                    <!-- Listings Container -->
+                    <div class="listings-container grid-layout">
+
+                        <ul>
+
+                            <li>
+
+                                <a href="{{ path('projet_index') }}" class="apply-now-button ">Retour à la liste</a>
+                            </li>
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Sidebar -->
+            <div class="col-xl-4 col-lg-4">
+                <div class="sidebar-container">
+
+                    <a href="{{ path('projet_edit', { 'id': projet.id }) }}" class="apply-now-button ">Edit<i class="icon-material-outline-arrow-right-alt"></i></a>
+
+                    <!-- Sidebar Widget -->
+                    <div class="sidebar-widget">
+                        <div class="job-overview">
+                            <div class="job-overview-headline">Résumé du travail</div>
+                            <div class="job-overview-inner">
+                                <ul>
+                                    <li>
+                                        <i class="icon-material-outline-location-on"></i>
+                                        <span>Adresse</span>
+                                        <h5>{{ projet.client.adress }}</h5>
+                                    </li>
+                                    <li>
+                                        <i class="icon-material-outline-business-center"></i>
+                                        <span>Type de travaille</span>
+                                        <h5>Freelance</h5>
+                                    </li>
+                                    <li>
+                                        <i class="icon-material-outline-local-atm"></i>
+                                        <span>Budget</span>
+                                        <h5>{{ projet.budget }}</h5>
+                                    </li>
+                                    <li>
+                                        <i class="icon-material-outline-access-time"></i>
+                                        <span>Date de Poste</span>
+                                        <h5>{% if projet.dateprojet %}{{ projet.dateprojet|date('Y-m-d') }}{% endif %}</h5>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+{% endblock %}
+{% block footer %}
+
 {% endblock %}
