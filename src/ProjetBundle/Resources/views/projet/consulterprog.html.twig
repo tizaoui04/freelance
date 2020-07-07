@@ -1,0 +1,127 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+<!-- Page Content
+================================================== -->
+<div class="container">
+    <div class="row margin-top-15">
+        <div class="col-xl-3 col-lg-4">
+            <div class="sidebar-container">
+
+                <!-- Location -->
+                <div class="sidebar-widget">
+
+
+                </div>
+
+                <!-- Category -->
+                <div class="sidebar-widget">
+                    <h3>Categorie</h3>
+                    <select class="selectpicker default" multiple data-selected-text-format="count" data-size="7" title="Tout Categories" >
+                        {% for categorie in categorie %}
+                        <option>{{categorie.libelle}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Keywords -->
+                <div class="sidebar-widget">
+                    <h3>Keywords</h3>
+                    <div class="keywords-container">
+                        <div class="keyword-input-container">
+                            <input type="text" class="keyword-input" placeholder="e.g. task title"/>
+                            <button class="keyword-input-button ripple-effect"><i class="icon-material-outline-add"></i></button>
+                        </div>
+                        <div class="keywords-list"><!-- keywords go here --></div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+
+                <!-- Budget -->
+                <div class="sidebar-widget">
+                    <h3>Fixed Price</h3>
+                    <div class="margin-top-55"></div>
+
+                    <!-- Range Slider -->
+                    <input class="range-slider" type="text" value="" data-slider-currency="$" data-slider-min="10" data-slider-max="2500" data-slider-step="25" data-slider-value="[50,2500]"/>
+                </div>
+
+
+
+
+
+                <div class="clearfix"></div>
+
+            </div>
+        </div>
+        <div class="col-xl-9 col-lg-8 content-left-offset">
+
+            <h3 class="page-title">Liste des projet</h3>
+
+
+            {% for projet in projets %}
+            <!-- Tasks Container -->
+            <div class="tasks-list-container margin-top-35">
+
+                <!-- Task -->
+                <a href="single-task-page.html" class="task-listing">
+
+                    <!-- Job Listing Details -->
+                    <div class="task-listing-details">
+
+                        <!-- Details -->
+                        <div class="task-listing-description">
+                            <h3 class="task-listing-title">{{ projet.titre }}</h3>
+                            <ul class="task-icons">
+                                <li><i class="icon-material-outline-location-on"></i> {{projet.client.adress}}</li>
+                                <li><i class="icon-material-outline-access-time"></i> {% if projet.dateprojet %}{{ projet.dateprojet|date('Y-m-d') }}{% endif %}</li>
+                            </ul>
+                            <p class="task-listing-text">{{ projet.description }}</p>
+                            <div class="task-tags">
+                                <span>{{projet.categorie.libelle}}</span>
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="task-listing-bid">
+                        <div class="task-listing-bid-inner">
+                            <div class="task-offers">
+                                <strong>{{projet.budget}} DT</strong>
+                                <span>Prix fixe</span>
+                            </div>
+                            <span class="button button-sliding-icon ripple-effect">Postuler<i class="icon-material-outline-arrow-right-alt"></i></span>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+
+                <!-- Pagination -->
+                <div class="clearfix"></div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <!-- Pagination -->
+                        <div class="pagination-container margin-top-30 margin-bottom-60">
+                            <nav class="pagination">
+                                <ul>
+                                    <li class="pagination-arrow"><a href="#" class="ripple-effect"><i class="icon-material-outline-keyboard-arrow-left"></i></a></li>
+                                    <li><a href="#" class="current-page ripple-effect">1</a></li>
+                                    <li><a href="#" class="ripple-effect">2</a></li>
+                                    <li><a href="#" class="ripple-effect">3</a></li>
+                                    <li><a href="#" class="ripple-effect">4</a></li>
+                                    <li class="pagination-arrow"><a href="#" class="ripple-effect"><i class="icon-material-outline-keyboard-arrow-right"></i></a></li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+                <!-- Pagination / End -->
+
+            </div>
+            <!-- Tasks Container / End -->
+
+        </div>
+    </div>
+</div>
+{% endblock %}

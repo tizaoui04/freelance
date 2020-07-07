@@ -16,6 +16,9 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class projetController extends Controller
 {
+
+
+
     /**
      * Lists all projet entities.
      *
@@ -66,6 +69,9 @@ class projetController extends Controller
             'form' => $form->createView(),
         ));
     }
+
+
+
 
     /**
      * Finds and displays a projet entity.
