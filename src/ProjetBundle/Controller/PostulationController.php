@@ -41,7 +41,7 @@ class PostulationController extends Controller
     public function newAction(Request $request)
     {
         $postulation = new Postulation();
-        $form = $this->createForm(PostulationType::class, $postulation);
+        $form = $this->createForm(\ProjetBundle\Form\PostulationType::class, $postulation);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -49,7 +49,7 @@ class PostulationController extends Controller
             $em->persist($postulation);
             $em->flush();
 
-            return $this->redirectToRoute('postulation_new', array('id' => $postulation->getId()));
+            return $this->redirectToRoute('postulation_index', array('id' => $postulation->getId()));
         }
 
         return $this->render('@Projet/postulation/new.html.twig', array(
