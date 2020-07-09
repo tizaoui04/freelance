@@ -8,64 +8,8 @@
     <!-- Dashboard Container -->
     <div class="dashboard-container">
 
-        <!-- Dashboard Sidebar
-        ================================================== -->
-        <div class="dashboard-sidebar">
-            <div class="dashboard-sidebar-inner" data-simplebar>
-                <div class="dashboard-nav-container">
 
-                    <!-- Responsive Navigation Trigger -->
-                    <a href="#" class="dashboard-responsive-nav-trigger">
-					<span class="hamburger hamburger--collapse" >
-						<span class="hamburger-box">
-							<span class="hamburger-inner"></span>
-						</span>
-					</span>
-                        <span class="trigger-title">Dashboard Navigation</span>
-                    </a>
-
-                    <!-- Navigation -->
-                    <div class="dashboard-nav">
-                        <div class="dashboard-nav-inner">
-
-                            <ul data-submenu-title="Debut">
-                                <li><a href="dashboard.html"><i class="icon-material-outline-dashboard"></i> Dashboard</a></li>
-                                <li><a href="dashboard-messages.html"><i class="icon-material-outline-question-answer"></i> Messages <span class="nav-tag">2</span></a></li>
-
-                                <li><a href="dashboard-reviews.html"><i class="icon-material-outline-rate-review"></i> Commentaires</a></li>
-                            </ul>
-
-                            <ul data-submenu-title="Organiser et Gérer">
-                                <li><a href="#"><i class="icon-material-outline-business-center"></i> Travaille</a>
-                                    <ul>
-                                        <li><a href="dashboard-manage-jobs.html">Gérer les travaux <span class="nav-tag">3</span></a></li>
-                                        <li><a href="dashboard-manage-candidates.html">Manage Candidates</a></li>
-                                        <li><a href="dashboard-post-a-job.html">Publier une offre</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#"><i class="icon-material-outline-assignment"></i>Tâches</a>
-                                    <ul>
-                                        <li><a href="dashboard-manage-tasks.html">Gérer les tâches <span class="nav-tag">2</span></a></li>
-                                        <li><a href="dashboard-manage-bidders.html">Postulation</a></li>
-                                        <li><a href="dashboard-my-active-bids.html">Mes enchères actives <span class="nav-tag">4</span></a></li>
-                                        <li><a href="dashboard-post-a-task.html">Publier une tâche</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-
-                            <ul data-submenu-title="Compte">
-                                <li class="active"><a href="dashboard-settings.html"><i class="icon-material-outline-settings"></i>Paramètres</a></li>
-                                <li><a href="index-logged-out.html"><i class="icon-material-outline-power-settings-new"></i>Se déconnecter</a></li>
-                            </ul>
-
-                        </div>
-                    </div>
-                    <!-- Navigation / End -->
-
-                </div>
-            </div>
-        </div>
-        <!-- Dashboard Sidebar / End -->
+        {{ include('Csidebar.html.twig') }}
 
 
         <!-- Dashboard Content
@@ -119,7 +63,7 @@
                                             <div class="col-xl-6">
                                                 <div class="submit-field">
                                                     <h5>Prénom</h5>
-                                                    {{ form_widget(edit_form.nom,{ 'attr': {'placeholder': 'prenom','class':'with-border'} }) }}
+                                                    {{ form_widget(edit_form.prenom,{ 'attr': {'placeholder': 'prenom','class':'with-border'} }) }}
 
 
                                                 </div>
@@ -128,7 +72,7 @@
                                             <div class="col-xl-6">
                                                 <div class="submit-field">
                                                     <h5>Nom</h5>
-                                                    {{ form_widget(edit_form.prenom,{ 'attr': {'placeholder': 'nom','class':'with-border'} }) }}
+                                                    {{ form_widget(edit_form.nom,{ 'attr': {'placeholder': 'nom','class':'with-border'} }) }}
 
 
                                                 </div>
@@ -144,7 +88,14 @@
 
                                                 </div>
                                             </div>
+                                            <div class="col-xl-6">
+                                                <div class="submit-field">
+                                                    <h5>Numero</h5>
+                                                    {{ form_widget(edit_form.numtel,{ 'attr': {'placeholder': 'Numéro','class':'with-border'} }) }}
 
+
+                                                </div>
+                                            </div>
 
                                         </div>
                                     </div>
@@ -172,106 +123,15 @@
                                         <div class="row">
                                             <div class="col-xl-6">
                                                 <div class="submit-field">
-                                                    <h5>Tagline</h5>
-                                                    <input type="text" class="with-border" value="iOS Expert + Node Dev">
+                                                    <h5>Domaine</h5>
+
+                                                        {{ form_widget(edit_form.domaine,{ 'attr': {'placeholder': 'Numéro','class':'bootstrap-select with-border dropup'} }) }}
+
+
                                                 </div>
                                             </div>
 
-                                            <div class="col-xl-6">
-                                                <div class="submit-field">
-                                                    <h5>Nationalité</h5>
-                                                    <select class="selectpicker with-border" data-size="7" title="Select Job Type" data-live-search="true">
-                                                        <option value="AR">Argentina</option>
-                                                        <option value="AM">Armenia</option>
-                                                        <option value="AW">Aruba</option>
-                                                        <option value="AU">Australia</option>
-                                                        <option value="AT">Austria</option>
-                                                        <option value="AZ">Azerbaijan</option>
-                                                        <option value="BS">Bahamas</option>
-                                                        <option value="BH">Bahrain</option>
-                                                        <option value="BD">Bangladesh</option>
-                                                        <option value="BB">Barbados</option>
-                                                        <option value="BY">Belarus</option>
-                                                        <option value="BE">Belgium</option>
-                                                        <option value="BZ">Belize</option>
-                                                        <option value="BJ">Benin</option>
-                                                        <option value="BM">Bermuda</option>
-                                                        <option value="BT">Bhutan</option>
-                                                        <option value="BG">Bulgaria</option>
-                                                        <option value="BF">Burkina Faso</option>
-                                                        <option value="BI">Burundi</option>
-                                                        <option value="KH">Cambodia</option>
-                                                        <option value="CM">Cameroon</option>
-                                                        <option value="CA">Canada</option>
-                                                        <option value="CV">Cape Verde</option>
-                                                        <option value="KY">Cayman Islands</option>
-                                                        <option value="CO">Colombia</option>
-                                                        <option value="KM">Comoros</option>
-                                                        <option value="CG">Congo</option>
-                                                        <option value="CK">Cook Islands</option>
-                                                        <option value="CR">Costa Rica</option>
-                                                        <option value="CI">Côte d'Ivoire</option>
-                                                        <option value="HR">Croatia</option>
-                                                        <option value="CU">Cuba</option>
-                                                        <option value="CW">Curaçao</option>
-                                                        <option value="CY">Cyprus</option>
-                                                        <option value="CZ">Czech Republic</option>
-                                                        <option value="DK">Denmark</option>
-                                                        <option value="DJ">Djibouti</option>
-                                                        <option value="DM">Dominica</option>
-                                                        <option value="DO">Dominican Republic</option>
-                                                        <option value="EC">Ecuador</option>
-                                                        <option value="EG">Egypt</option>
-                                                        <option value="GP">Guadeloupe</option>
-                                                        <option value="GU">Guam</option>
-                                                        <option value="GT">Guatemala</option>
-                                                        <option value="GG">Guernsey</option>
-                                                        <option value="GN">Guinea</option>
-                                                        <option value="GW">Guinea-Bissau</option>
-                                                        <option value="GY">Guyana</option>
-                                                        <option value="HT">Haiti</option>
-                                                        <option value="HN">Honduras</option>
-                                                        <option value="HK">Hong Kong</option>
-                                                        <option value="HU">Hungary</option>
-                                                        <option value="IS">Iceland</option>
-                                                        <option value="IN">India</option>
-                                                        <option value="ID">Indonesia</option>
-                                                        <option value="NO">Norway</option>
-                                                        <option value="OM">Oman</option>
-                                                        <option value="PK">Pakistan</option>
-                                                        <option value="PW">Palau</option>
-                                                        <option value="PA">Panama</option>
-                                                        <option value="PG">Papua New Guinea</option>
-                                                        <option value="PY">Paraguay</option>
-                                                        <option value="PE">Peru</option>
-                                                        <option value="PH">Philippines</option>
-                                                        <option value="PN">Pitcairn</option>
-                                                        <option value="PL">Poland</option>
-                                                        <option value="PT">Portugal</option>
-                                                        <option value="PR">Puerto Rico</option>
-                                                        <option value="QA">Qatar</option>
-                                                        <option value="RE">Réunion</option>
-                                                        <option value="RO">Romania</option>
-                                                        <option value="RU">Russian Federation</option>
-                                                        <option value="RW">Rwanda</option>
-                                                        <option value="SZ">Swaziland</option>
-                                                        <option value="SE">Sweden</option>
-                                                        <option value="CH">Switzerland</option>
-                                                        <option value="TR">Turkey</option>
-                                                        <option value="TM">Turkmenistan</option>
-                                                        <option value="TV">Tuvalu</option>
-                                                        <option value="UG">Uganda</option>
-                                                        <option value="UA">Ukraine</option>
-                                                        <option value="GB">United Kingdom</option>
-                                                        <option value="US" selected>United States</option>
-                                                        <option value="UY">Uruguay</option>
-                                                        <option value="UZ">Uzbekistan</option>
-                                                        <option value="YE">Yemen</option>
-                                                        <option value="ZM">Zambia</option>
-                                                        <option value="ZW">Zimbabwe</option>
-                                                    </select>
-                                                </div>
-                                            </div>
+
 
 
 
@@ -281,7 +141,7 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="col-xl-12">
                     <!-- Dashboard Box -->
                     <div id="test1" class="dashboard-box">
 
@@ -309,21 +169,30 @@
 
                                 <div class="col-xl-4">
                                     <div class="submit-field">
-                                        <h5>Répété Le Nouveau Mot De Passe</h5>
+                                        <h5>Répété Mot De Passe</h5>
                                         <input type="password" name="newpass1" class="with-border">
                                     </div>
                                 </div>
-
+                                {% if msg is defined and msg is not empty  %}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{msg}}
+                                    </div>
+                                {% endif %}
 
                             </div>
                         </div>
                     </div>
-
+                    </div>
                     <!-- Button -->
                     <div class="col-xl-12">
-                        <a href="#" class="button ripple-effect big margin-top-30">Sauvegarder les modifications</a>
+                        <button type="submit"  class="button ripple-effect big margin-top-30">Sauvegarder les modifications</button>
                     </div>
 
-                </</div>   {{ form_end(edit_form) }}
+                </div>
+                {{ form_end(edit_form) }}
+            </div></div></div>
                 <!-- Row / End -->
 {% endblock %}
+   {% block footer %}
+
+   {% endblock %}

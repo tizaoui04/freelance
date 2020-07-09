@@ -2,6 +2,7 @@
 
 namespace ProjetBundle\Controller;
 
+use AppBundle\Entity\Categorie;
 use AppBundle\Entity\Jardin;
 use AppBundle\Entity\Projet;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -16,6 +17,55 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class projetController extends Controller
 {
+
+
+    /**
+     * @Route("/search", name="search_project")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+
+    public function recherche(Request $request){
+        //this action is so important because it containe filter, pagination and sorting using knp paginator
+        $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+
+        // $dql="select a from AppBundle:Remarque a";
+
+        $filter=$request->get("filter");
+        $categorie=$request->get("categorie");
+        $price=$request->get("price");
+
+        $pricemin=10;
+        $pricemax=5000;
+
+        if($price){
+            $pricemin=explode(",",$price,2)[0];
+            $pricemax=explode(",",$price,2)[1];
+        }
+
+        $projects = $em->getRepository(Projet::class)->searproject($filter,$categorie,$pricemin,$pricemax);
+
+        $paginator  = $this->get('knp_paginator');
+
+
+        $rq = $paginator->paginate(
+            $projects,
+            $request->query->get('page',1) /*page number*/,
+            $request->query->get('limit',1) /*limit per page*/
+        );
+
+
+        $categories=$em->getRepository(Categorie::class)->findAll();
+        return $this->render('@Projet/projet/consulterprog.html.twig', array(
+            'projets' => $rq,
+            'categorie'=>$categories,
+        ));
+
+    }
+
+
+
+
 
 
 

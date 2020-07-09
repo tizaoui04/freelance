@@ -5,7 +5,9 @@ namespace UserBundle\Controller;
 use AppBundle\Entity\Freelancer;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\Form\Form;
+use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Form\FreelancerType;
 
 /**
@@ -17,21 +19,63 @@ class FreelancerController extends Controller
 {
 
 
-
-
     /**
      * @Route("/update/{id}",name="update_profile", requirements={"id":"\d+"})
      * @Method({"GET","POST"})
      */
-    public function updateprofile(Request $request, Freelancer $freelancer){
+    public function updateprofile(Request $request, Freelancer $freelancer)
+    {
         $editForm = $this->createForm(FreelancerType::class, $freelancer);
+        $editForm->remove("date")->remove("plainPassword")->remove("username");
         $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+        if ($editForm->isSubmitted()) {
 
-            return $this->redirectToRoute('update_profile', array('id' => $freelancer->getId()));
+
+            //get the passwords old one and the new one with its confirmation
+            $oldpass = $request->get("oldpass");
+            $newpass = $request->get("newpass");
+            $sedondpass = $request->get("newpass1");
+
+            if ($oldpass != null && $newpass != null && $sedondpass != null) {
+
+
+                //get the encoder which encode the password to verify the validity of the old pass
+                $encoder = $this->get('security.encoder_factory')->getEncoder($freelancer);
+                $salt = $freelancer->getSalt();
+
+                //verify if the neww passwords match if not return the page
+                if (strcmp($newpass, $sedondpass) != 0) {
+                    return $this->render('@User/freelancer/profile.html.twig', array(
+                        'freelancer' => $freelancer,
+                        'edit_form' => $editForm->createView(),
+                        "msg" => "les mots de passe ne correspondent pas",
+                    ));
+                }
+                //check if the old pass match the given one
+                if (!$encoder->isPasswordValid($freelancer->getPassword(), $oldpass, $salt)) {
+                    return $this->render('@User/freelancer/profile.html.twig', array(
+                        'freelancer' => $freelancer,
+                        'edit_form' => $editForm->createView(),
+                        "msg" => "Verifiez mot de passe actuel",
+                    ));
+                } else {
+                    $freelancer->setPlainPassword($newpass);
+                }
+
+
+            }
+
+
+            if ($editForm->isValid()) {
+
+
+                $this->getDoctrine()->getManager()->flush();
+
+                return $this->redirectToRoute('update_profile', array('id' => $freelancer->getId()));
+            }
         }
+
 
         return $this->render('@User/freelancer/profile.html.twig', array(
             'freelancer' => $freelancer,
@@ -39,66 +83,6 @@ class FreelancerController extends Controller
         ));
 
     }
-
-    /**
-     * @Route("/updatepass",name="update_pass")
-     */
-    public function updatepass(Request $request, Freelancer $freelancer)
-    {
-
-        $factory = $this->get('security.encoder_factory');
-
-        $encoder = $factory->getEncoder($freelancer);
-
-
-        if ($encoder->isPasswordValid($freelancer->getPassword(), $request->get("oldpass"), $freelancer->getSalt()) and
-            strcmp($request->get("newpass"), $request->get("newpass1")) == 0) {
-            $freelancer->setPlainPassword($request->get("newpass"));
-            $this->getDoctrine()->getManager()->flush();
-            return $this->render('@User/freelancer/profile.html.twig', array(
-                'edit_form' => $this->createForm(FreelancerType::class, $freelancer)->createView(),
-                "freelancer" => $freelancer, "passmsg" => "Mot de pass verifié"));
-
-        } else {
-            return $this->render('@User/freelancer/profile.html.twig', array(
-                'edit_form' => $this->createForm(FreelancerType::class, $freelancer)->createView(),
-                "freelancer" => $freelancer, "passmsg" => "Verifiez Mot de pass verifié"));
-
-
-        }
-    }
-
-
-    /**
-     * @Route("/updateskills",name="updateskills")
-     */
-    public function updateskills(Request $request,Freelancer $freelancer){
-
-
-        if($request->get("skills")){
-            $freelancer->setDomaine($request->get("skills"));
-            $this->getDoctrine()->getManager()->flush();
-            return $this->render('@User/freelancer/profile.html.twig', array(
-                'freelancer' => $freelancer,
-                'edit_form' => $this->createForm(FreelancerType::class, $freelancer)->createView(),
-                "skillsmsg"=>"domaine modifié"
-            ));
-        }
-        return $this->render('@User/freelancer/profile.html.twig', array(
-            'freelancer' => $freelancer,
-            'edit_form' => $this->createForm(FreelancerType::class, $freelancer)->createView(),
-        ));
-
-
-
-
-    }
-
-
-
-
-
-
 
 
     /**
@@ -213,14 +197,13 @@ class FreelancerController extends Controller
      *
      * @param Freelancer $freelancer The freelancer entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return Form The form
      */
     private function createDeleteForm(Freelancer $freelancer)
     {
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('freelancer_delete', array('id' => $freelancer->getId())))
             ->setMethod('DELETE')
-            ->getForm()
-        ;
+            ->getForm();
     }
 }

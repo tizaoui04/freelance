@@ -13,24 +13,25 @@
 
 
                 </div>
-
+                <form action="{{ path("search_project") }}" method="post">
                 <!-- Category -->
                 <div class="sidebar-widget">
                     <h3>Categorie</h3>
-                    <select class="selectpicker default" multiple data-selected-text-format="count" data-size="7" title="Tout Categories" >
+                    <select name="categorie" class="selectpicker default" multiple data-selected-text-format="count"  title="Tout Categories" >
                         {% for categorie in categorie %}
-                        <option>{{categorie.libelle}}</option>
+                        <option value="{{ categorie.id }}">{{categorie.libelle}}</option>
                         {% endfor %}
                     </select>
                 </div>
 
                 <!-- Keywords -->
                 <div class="sidebar-widget">
+
                     <h3>Keywords</h3>
                     <div class="keywords-container">
                         <div class="keyword-input-container">
-                            <input type="text" class="keyword-input" placeholder="e.g. task title"/>
-                            <button class="keyword-input-button ripple-effect"><i class="icon-material-outline-add"></i></button>
+                            <input type="text" class="keyword-input" placeholder="e.g. task title" name="filter"/>
+
                         </div>
                         <div class="keywords-list"><!-- keywords go here --></div>
                         <div class="clearfix"></div>
@@ -43,12 +44,13 @@
                     <div class="margin-top-55"></div>
 
                     <!-- Range Slider -->
-                    <input class="range-slider" type="text" value="" data-slider-currency="$" data-slider-min="10" data-slider-max="2500" data-slider-step="25" data-slider-value="[50,2500]"/>
+                    <input name="price" class="range-slider" type="text" value="" data-slider-currency="DT " data-slider-min="10" data-slider-max="5000" data-slider-step="20" data-slider-value="[10,5000]"/>
                 </div>
 
 
+                <button class="button button-sliding-icon ripple-effect">Chercher</button>
 
-
+                </form>
 
                 <div class="clearfix"></div>
 
@@ -101,17 +103,17 @@
                 <div class="clearfix"></div>
                 <div class="row">
                     <div class="col-md-12">
+                        <div class=" navigation" >
+
                         <!-- Pagination -->
                         <div class="pagination-container margin-top-30 margin-bottom-60">
                             <nav class="pagination">
-                                <ul>
-                                    <li class="pagination-arrow"><a href="#" class="ripple-effect"><i class="icon-material-outline-keyboard-arrow-left"></i></a></li>
-                                    <li><a href="#" class="current-page ripple-effect">1</a></li>
-                                    <li><a href="#" class="ripple-effect">2</a></li>
-                                    <li><a href="#" class="ripple-effect">3</a></li>
-                                    <li><a href="#" class="ripple-effect">4</a></li>
-                                    <li class="pagination-arrow"><a href="#" class="ripple-effect"><i class="icon-material-outline-keyboard-arrow-right"></i></a></li>
-                                </ul>
+                                {{ knp_pagination_render(projets, null, {}, {
+                                    'position': 'centered',
+                                    'size': 'small',
+                                    'rounded': true,
+                                })  }}
+
                             </nav>
                         </div>
                     </div>

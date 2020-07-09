@@ -24,14 +24,57 @@ class ClientController extends Controller
      */
     public function updateprofile(Request $request, Client  $client){
         $editForm = $this->createForm(ClientType::class, $client);
-        $editForm->remove("username")->remove("datenaiss");
+        $editForm->remove("username")->remove("datenaiss")->remove("plainPassword");
 
         $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
+        if ($editForm->isSubmitted()) {
+
+
+            //get the passwords old one and the new one with its confirmation
+            $oldpass = $request->get("oldpass");
+            $newpass = $request->get("newpass");
+            $sedondpass = $request->get("newpass1");
+
+            if ($oldpass != null && $newpass != null && $sedondpass != null) {
+
+
+                //get the encoder which encode the password to verify the validity of the old pass
+                $encoder = $this->get('security.encoder_factory')->getEncoder($client);
+                $salt = $client->getSalt();
+
+                //verify if the neww passwords match if not return the page
+                if (strcmp($newpass, $sedondpass) != 0) {
+                    return $this->render('@User/client/profile.html.twig', array(
+                        'freelancer' => $client,
+                        'edit_form' => $editForm->createView(),
+                        "msg" => "les mots de passe ne correspondent pas",
+                    ));
+                }
+                //check if the old pass match the given one
+                if (!$encoder->isPasswordValid($client->getPassword(), $oldpass, $salt)) {
+                    return $this->render('@User/client/profile.html.twig', array(
+                        'freelancer' => $client,
+                        'edit_form' => $editForm->createView(),
+                        "msg" => "Verifiez mot de passe actuel",
+                    ));
+                } else {
+                    $client->setPlainPassword($newpass);
+                }
+
+
+            }
+            if($request->get("datenaiss")){
+                $client->setDatenaiss($request->get("datenaiss"));
+            }
+
+
+
+            if ($editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('update_profilec', array('id' => $client->getId()));
+        }
         }
 
         return $this->render('@User/client/profile.html.twig', array(

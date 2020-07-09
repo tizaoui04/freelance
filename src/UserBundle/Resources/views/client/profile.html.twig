@@ -147,7 +147,7 @@
                             </div>
                         </div>
                     </div>
-
+                    <div class="col-xl-12">
                     <!-- Dashboard Box -->
                     <div id="test1" class="dashboard-box">
 
@@ -162,30 +162,32 @@
                                 <div class="col-xl-4">
                                     <div class="submit-field">
                                         <h5>Mot De Passe Actuel</h5>
-                                        <input type="password" name="oldpass" class="with-border" placeholder="Mot de passe actuel">
+                                        <input type="password" name="oldpass" class="with-border">
                                     </div>
                                 </div>
 
                                 <div class="col-xl-4">
                                     <div class="submit-field">
                                         <h5>Nouveau Mot De Passe</h5>
-                                        {{ form_widget(edit_form.plainPassword.first,{ 'attr': {'placeholder': 'Nouveau Mot de passe','class':'with-border'} }) }}
-
+                                        <input type="password" name="newpass" class="with-border">
                                     </div>
                                 </div>
 
                                 <div class="col-xl-4">
                                     <div class="submit-field">
                                         <h5>Répété Mot De Passe</h5>
-                                         {{ form_widget(edit_form.plainPassword.second,{ 'attr': {'placeholder': 'Confirmez','class':'with-border'} }) }}
-
+                                        <input type="password" name="newpass1" class="with-border">
                                     </div>
                                 </div>
-
+                                {% if msg is defined and msg is not empty  %}
+                                    <div class="alert alert-danger" role="alert">
+                                        {{msg}}
+                                    </div>
+                                {% endif %}
 
                             </div>
                         </div>
-                    </div>
+                    </div></div>
 
                     <!-- Button -->
                     <div class="col-xl-12">
@@ -194,6 +196,10 @@
 
                 </div>   {{ form_end(edit_form) }}
                 <!-- Row / End -->
+
+
+</div></div></div>
+
                 <script>
                     jQuery(document).ready(function() {
                         $('.js-datepicker').datepicker({
