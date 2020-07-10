@@ -3,6 +3,7 @@
 namespace ProjetBundle\Controller;
 
 use AppBundle\Entity\Postulation;
+use AppBundle\Entity\Projet;
 use AppBundle\Form\PostulationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -35,13 +36,17 @@ class PostulationController extends Controller
     /**
      * Creates a new postulation entity.
      *
-     * @Route("/new", name="postulation_new")
+     * @Route("/new/{id}", name="postulation_new")
      * @Method({"GET", "POST"})
      */
-    public function newAction(Request $request)
+    public function newAction(Request $request,Projet $projet)
     {
+
         $postulation = new Postulation();
+        $postulation->setProject($projet);
+        $postulation->setFreelance($user = $this->get('security.token_storage')->getToken()->getUser());
         $form = $this->createForm(\ProjetBundle\Form\PostulationType::class, $postulation);
+        $form->remove("freelance")->remove("accepte")->remove("project");
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -54,6 +59,7 @@ class PostulationController extends Controller
 
         return $this->render('@Projet/postulation/new.html.twig', array(
             'postulation' => $postulation,
+            "projet"=>$projet,
             'form' => $form->createView(),
         ));
     }

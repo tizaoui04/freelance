@@ -2,13 +2,13 @@
 
 {% block body %}
 
-    <div class="single-page-header" data-background-image="images/67125bf1d2a954b04414afd87684a687.jpg">
+    <div class="single-page-header" data-background-image="{{ asset('images/67125bf1d2a954b04414afd87684a687.jpg') }}">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="single-page-header-inner">
                         <div class="left-side">
-                            <div class="header-image"><img src="images/{{ asset('images/work.png') }}" ></div>
+                            <div class="header-image"><img src="{{ asset('images/work.png') }}" ></div>
                             <div class="header-details">
                                 <h3>{{ projet.titre }}</h3>
                                 <h5>{{ projet.client.nom }} {{ projet.client.prenom }}</h5>

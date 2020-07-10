@@ -13,18 +13,28 @@ class ProjetRepository extends \Doctrine\ORM\EntityRepository
     public function searproject($filter,$categorie,$pricemin,$pricemax){
 
 
-        $qb=$this->createQueryBuilder('b')->select("a")->from("AppBundle:Projet","a");
+        $qb=$this->createQueryBuilder("b")->select("a")->from("AppBundle:Projet","a");
 
         if($filter){
-            $qb=$qb->where('(a.titre like :filter or a.description like :filter)')
-                ->setParameter('filter', '%' .$filter. '%');;
+            $qb=$qb->where('a.titre like :filter or a.description like :filter')
+                ->setParameter('filter', '%' .$filter. '%');
         }
         if($categorie){
-            $qb=$qb->where("a.categorie.id=:cat")->setParameter("cat",$categorie);
+            $qb=$qb->andWhere("a.categorie.id=:cat")->setParameter("cat",$categorie);
         }
         if($pricemin){
-            $qb=$qb->where("a.budget Between :min AND :max")->setParameter("min",$pricemin)->setParameter("max",$pricemax);
+            $qb=$qb->andWhere("a.budget Between :min AND :max")->setParameter("min",$pricemin)->setParameter("max",$pricemax);
         }
         return $query=$qb->getQuery()->execute();
+    }
+
+    public function myproject($id){
+
+            $q=$this->getEntityManager()->createQuery("select a from AppBundle:Projet a
+         where a.client=:client ")
+                ->setParameter('client',$id);
+            return $query=$q->getResult();
+
+
     }
 }

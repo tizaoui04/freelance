@@ -31,9 +31,20 @@ class projetController extends Controller
 
         // $dql="select a from AppBundle:Remarque a";
 
-        $filter=$request->get("filter");
-        $categorie=$request->get("categorie");
-        $price=$request->get("price");
+        $filter="";
+           if( $request->get("filter")){
+               $filter= $request->get("filter");
+           }
+           $categorie=null;
+        if($request->get("categorie")){
+            $filter= $request->get("filter");
+        };
+        $price=null;
+        if( $request->get("price")){
+            $price=$request->get("price");
+        };
+        ;
+
 
         $pricemin=10;
         $pricemax=5000;
@@ -51,7 +62,7 @@ class projetController extends Controller
         $rq = $paginator->paginate(
             $projects,
             $request->query->get('page',1) /*page number*/,
-            $request->query->get('limit',1) /*limit per page*/
+            $request->query->get('limit',10) /*limit per page*/
         );
 
 
@@ -72,14 +83,16 @@ class projetController extends Controller
     /**
      * Lists all projet entities.
      *
-     * @Route("/", name="projet_index")
+     * @Route("/myprojects", name="projet_index")
      * @Method("GET")
      */
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
 
-        $projets = $em->getRepository(Projet::class)->findAll();
+
+        $projets = $em->getRepository(Projet::class)->myproject($user->getId());
 
         return $this->render('@Projet/projet/index.html.twig', array(
             'projets' => $projets,

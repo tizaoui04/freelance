@@ -27,7 +27,7 @@
                 <!-- Keywords -->
                 <div class="sidebar-widget">
 
-                    <h3>Keywords</h3>
+                    <h3>Mot Cle</h3>
                     <div class="keywords-container">
                         <div class="keyword-input-container">
                             <input type="text" class="keyword-input" placeholder="e.g. task title" name="filter"/>
@@ -40,7 +40,7 @@
 
                 <!-- Budget -->
                 <div class="sidebar-widget">
-                    <h3>Fixed Price</h3>
+                    <h3>Prix Fixe</h3>
                     <div class="margin-top-55"></div>
 
                     <!-- Range Slider -->
@@ -60,13 +60,13 @@
 
             <h3 class="page-title">Liste des projet</h3>
 
-
+            <div class="tasks-list-container margin-top-35">
             {% for projet in projets %}
             <!-- Tasks Container -->
-            <div class="tasks-list-container margin-top-35">
+
 
                 <!-- Task -->
-                <a href="single-task-page.html" class="task-listing">
+                <a href="{{ path("postulation_new",{"id":projet.id}) }}" class="task-listing">
 
                     <!-- Job Listing Details -->
                     <div class="task-listing-details">
@@ -93,12 +93,12 @@
                                 <strong>{{projet.budget}} DT</strong>
                                 <span>Prix fixe</span>
                             </div>
-                            <span class="button button-sliding-icon ripple-effect">Postuler<i class="icon-material-outline-arrow-right-alt"></i></span>
+                            <span href="{{ path('postulation_new',{"id":projet.id}) }}" class="button button-sliding-icon ripple-effect">Postuler<i class="icon-material-outline-arrow-right-alt"></i></span>
                         </div>
                     </div>
                 </a>
                 {% endfor %}
-
+            </div>
                 <!-- Pagination -->
                 <div class="clearfix"></div>
                 <div class="row">
@@ -125,5 +125,6 @@
 
         </div>
     </div>
-</div>
+    </div>
+
 {% endblock %}
