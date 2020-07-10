@@ -31,6 +31,7 @@
             </div>
         </div>
     </div>
+    {{ form_start(form) }}
     <div class="container">
         <div class="row">
 
@@ -45,55 +46,34 @@
                 <div class="single-page-section">
 
 
-                    <!-- Listings Container -->
-                    <div class="listings-container grid-layout">
 
-                        <ul>
-
-                            <li>
-
-                                <a href="{{ path('projet_index') }}" class="apply-now-button ">Retour à la liste</a>
-                            </li>
-
-                        </ul>
-                    </div>
                 </div>
             </div>
 
 
-            <!-- Sidebar -->
+
+
+
+
+
+
             <div class="col-xl-4 col-lg-4">
                 <div class="sidebar-container">
 
-                    <a href="{{ path('projet_edit', { 'id': projet.id }) }}" class="apply-now-button ">Edit<i class="icon-material-outline-arrow-right-alt"></i></a>
 
+                    <div class="countdown green margin-bottom-35">{% if projet.dateprojet %}{{ projet.dateprojet|date('Y-m-d') }}{% endif %}</div>
                     <!-- Sidebar Widget -->
                     <div class="sidebar-widget">
                         <div class="job-overview">
-                            <div class="job-overview-headline">Résumé du travail</div>
+                            <div class="job-overview-headline">Postuler sur ce travail!</div>
                             <div class="job-overview-inner">
-                                <ul>
-                                    <li>
-                                        <i class="icon-material-outline-location-on"></i>
-                                        <span>Adresse</span>
-                                        <h5>{{ projet.client.adress }}</h5>
-                                    </li>
-                                    <li>
-                                        <i class="icon-material-outline-business-center"></i>
-                                        <span>Type de travaille</span>
-                                        <h5>Freelance</h5>
-                                    </li>
-                                    <li>
-                                        <i class="icon-material-outline-local-atm"></i>
-                                        <span>Budget</span>
-                                        <h5>{{ projet.budget }}</h5>
-                                    </li>
-                                    <li>
-                                        <i class="icon-material-outline-access-time"></i>
-                                        <span>Date de Poste</span>
-                                        <h5>{% if projet.dateprojet %}{{ projet.dateprojet|date('Y-m-d') }}{% endif %}</h5>
-                                    </li>
-                                </ul>
+
+                                <span class="bidding-detail"><strong>Lettre </strong>de motivation</span>
+
+                                <!-- Price Slider -->
+                                {{ form_widget(form.lettre) }}
+                                <input type="submit" value="Postuler" />
+
                             </div>
                         </div>
                     </div>
@@ -104,20 +84,11 @@
             </div>
 
         </div>
+
+
     </div>
 
-
-
-    <h1>Postulation creation</h1>
-
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
     {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('postulation_index') }}">Back to the list</a>
-        </li>
-    </ul>
+
 {% endblock %}

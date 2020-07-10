@@ -3,6 +3,7 @@
 namespace ProjetBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,7 +14,10 @@ class PostulationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('lettre')->add('accepte')->add('project')->add('freelance');
+        $builder ->add('lettre', TextareaType::class, [
+            'attr' => ['class' => 'lettre'],
+        ])
+            ->add('accepte')->add('project')->add('freelance');
     }/**
      * {@inheritdoc}
      */

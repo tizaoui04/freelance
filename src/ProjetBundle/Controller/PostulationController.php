@@ -51,6 +51,7 @@ class PostulationController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
+            $postulation->setAccepte("en_attente");
             $em->persist($postulation);
             $em->flush();
 
