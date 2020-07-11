@@ -19,10 +19,10 @@ class PostulationController extends Controller
     /**
      * Lists all postulation entities.
      *
-     * @Route("/", name="postulation_index")
+     * @Route("/{id}", name="postulation_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request,Projet $projet)
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -55,7 +55,7 @@ class PostulationController extends Controller
             $em->persist($postulation);
             $em->flush();
 
-            return $this->redirectToRoute('postulation_index', array('id' => $postulation->getId()));
+            return $this->redirectToRoute('homepage');
         }
 
         return $this->render('@Projet/postulation/new.html.twig', array(

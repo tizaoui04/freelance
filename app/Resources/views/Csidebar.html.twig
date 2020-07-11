@@ -24,25 +24,17 @@
                         <li><a href="dashboard.html"><i class="icon-material-outline-dashboard"></i> Dashboard</a></li>
                         <li><a href="dashboard-messages.html"><i class="icon-material-outline-question-answer"></i> Messages <span class="nav-tag">2</span></a></li>
 
-                        <li><a href="dashboard-reviews.html"><i class="icon-material-outline-rate-review"></i> Commentaires</a></li>
                     </ul>
 
                     <ul data-submenu-title="Organiser et Gérer">
                         <li><a href="#"><i class="icon-material-outline-business-center"></i> Travaille</a>
                             <ul>
-                                <li><a href="dashboard-manage-jobs.html">Gérer les travaux <span class="nav-tag">3</span></a></li>
-                                <li><a href="dashboard-manage-candidates.html">Manage Candidates</a></li>
-                                <li><a href="dashboard-post-a-job.html">Publier une offre</a></li>
+                                <li><a href="{{ path('projet_index') }}">Gérer les travaux <span class="nav-tag">3</span></a></li>
+
+                               <li><a href="{{ path('projet_new') }}">Publier une offre</a></li>
                             </ul>
                         </li>
-                        <li><a href="#"><i class="icon-material-outline-assignment"></i>Tâches</a>
-                            <ul>
-                                <li><a href="dashboard-manage-tasks.html">Gérer les tâches <span class="nav-tag">2</span></a></li>
-                                <li><a href="dashboard-manage-bidders.html">Postulation</a></li>
-                                <li><a href="dashboard-my-active-bids.html">Mes enchères actives <span class="nav-tag">4</span></a></li>
-                                <li><a href="dashboard-post-a-task.html">Publier une tâche</a></li>
-                            </ul>
-                        </li>
+
                     </ul>
 
                     <ul data-submenu-title="Compte">

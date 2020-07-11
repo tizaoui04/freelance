@@ -1,3 +1,8 @@
+contact:
+    resource: "@ContactBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 app_postulation:
     resource: "@ProjetBundle/Controller/PostulationController.php"
     type:     annotation
