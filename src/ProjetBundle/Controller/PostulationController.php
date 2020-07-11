@@ -26,7 +26,7 @@ class PostulationController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $postulations = $em->getRepository(Postulation::class)->findAll();
+        $postulations = $em->getRepository(Postulation::class)->projectBidders($projet->getId());
 
         return $this->render('@Projet/postulation/index.html.twig', array(
             'postulations' => $postulations,
@@ -65,19 +65,44 @@ class PostulationController extends Controller
         ));
     }
 
+
+    /**
+     *
+     * @Route("/myposts/",name="myposts")
+     */
+
+    public function mypost(){
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $postulations=$this->getDoctrine()->getManager()
+            ->getRepository(Postulation::class)->Mybids($user->getId());
+
+
+
+        return $this->render('@Projet/postulation/show.html.twig', array(
+            'postulations' => $postulations,
+
+        ));
+    }
+
+
+
     /**
      * Finds and displays a postulation entity.
      *
-     * @Route("/{id}", name="postulation_show")
+     * @Route("/mespost", name="mes_postulations")
      * @Method("GET")
      */
-    public function showAction(Postulation $postulation)
+    public function showAction()
     {
-        $deleteForm = $this->createDeleteForm($postulation);
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+        $postulations=$this->getDoctrine()->getManager()
+            ->getRepository(Postulation::class)->Mybids($user->getId());
+
+
 
         return $this->render('@Projet/postulation/show.html.twig', array(
-            'postulation' => $postulation,
-            'delete_form' => $deleteForm->createView(),
+            'postulations' => $postulations,
+
         ));
     }
 

@@ -1,37 +1,111 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Postulations list</h1>
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Lettre</th>
-                <th>Accepte</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for postulation in postulations %}
-            <tr>
-                <td><a href="{{ path('postulation_show', { 'id': postulation.id }) }}">{{ postulation.id }}</a></td>
-                <td>{{ postulation.lettre }}</td>
-                <td>{{ postulation.accepte }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('postulation_show', { 'id': postulation.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('postulation_edit', { 'id': postulation.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+
+
+
+
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+
+        {{ include('Csidebar.html.twig') }}
+
+
+        <!-- Dashboard Content
+        ================================================== -->
+        <div class="dashboard-content-container" data-simplebar>
+            <div class="dashboard-content-inner" >
+
+                <!-- Dashboard Headline -->
+                <div class="dashboard-headline">
+
+                    <h3>{{postulations|first.project.titre|capitalize}}</h3>
+
+                    <!-- Breadcrumbs -->
+                    <nav id="breadcrumbs" class="dark">
+                        <ul>
+                            <li><a href="#">Acceuil</a></li>
+                            <li><a href="#">Dashboard</a></li>
+                            <li>Gérer les candidats</li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <!-- Row -->
+                <div class="row">
+
+                    <!-- Dashboard Box -->
+                    <div class="col-xl-12">
+                        <div class="dashboard-box margin-top-0">
+
+                            <!-- Headline -->
+                            <div class="headline">
+                                <h3><i class="icon-material-outline-supervisor-account"></i>Liste Des Freelancers</h3>
+                            </div>
+                            {% for postulation in postulations %}
+                            <div class="content">
+                                <ul class="dashboard-box-list">
+                                    <li>
+                                        <!-- Overview -->
+                                        <div class="freelancer-overview manage-candidates">
+                                            <div class="freelancer-overview-inner">
+
+                                                <!-- Avatar -->
+                                                <div class="freelancer-avatar">
+                                                    <div class="verified-badge"></div>
+                                                    <a href="#"><img src="images/user-avatar-big-03.jpg" alt=""></a>
+                                                </div>
+
+                                                <!-- Name -->
+                                                <div class="freelancer-name">
+                                                    <h4><a href="#">{{ postulation.freelance.nom}}{{ postulation.freelance.prenom}} <img class="flag" src="images/flags/au.svg" alt="" title="Australia" data-tippy-placement="top"></a></h4>
+
+                                                    <!-- Details -->
+                                                    <span class="freelancer-detail-item"><a href="#"><i class="icon-feather-mail"></i>{{ postulation.freelance.email}}</a></span>
+                                                    <span class="freelancer-detail-item"><i class="icon-feather-phone"></i> {{ postulation.freelance.numtel}}</span>
+
+                                                    <!-- Rating -->
+                                                    <div class="freelancer-rating">
+                                                        <div class="star-rating" data-rating="5.0"></div>
+                                                    </div>
+
+                                                    <!-- Buttons -->
+                                                    <div class="buttons-to-right always-visible margin-top-25 margin-bottom-5">
+                                                        <a href="#" class="button ripple-effect"><i class="icon-material-outline-check"></i>Accepter</a>
+                                                        <a href="#small-dialog" class="popup-with-zoom-anim button dark ripple-effect"><i class="icon-material-outline-highlight-off"></i> Refuser</a>
+                                                        <a href="#small-dialog" class="popup-with-zoom-anim button dark ripple-effect"><i class="icon-feather-message-square"></i> Envoyer un message</a>
+                                                        <a href="#" class="button gray ripple-effect ico" title="Supprimer Candidate" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+
+
+
+                                </ul>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Row / End -->
+
+
+
+            </div>
+        </div>
+        <!-- Dashboard Content / End -->
+
+    </div>
+    <!-- Dashboard Container / End -->
+
+
 
 
 {% endblock %}
+ {% block footer %}
+
+ {% endblock %}

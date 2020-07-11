@@ -10,4 +10,22 @@ namespace AppBundle\Repository;
  */
 class PostulationRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function projectBidders($id){
+
+        $q=$this->getEntityManager()->createQuery("select a from AppBundle:Postulation a
+         where a.project=:project ")
+            ->setParameter('project',$id);
+        return $query=$q->getResult();
+
+
+    }
+    public function Mybids($id){
+
+        $q=$this->getEntityManager()->createQuery("select a from AppBundle:Postulation a
+         where a.freelance=:fr ")
+            ->setParameter('fr',$id);
+        return $query=$q->getResult();
+
+
+    }
 }

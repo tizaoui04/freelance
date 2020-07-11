@@ -1,36 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Postulation</h1>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ postulation.id }}</td>
-            </tr>
-            <tr>
-                <th>Lettre</th>
-                <td>{{ postulation.lettre }}</td>
-            </tr>
-            <tr>
-                <th>Accepte</th>
-                <td>{{ postulation.accepte }}</td>
-            </tr>
-        </tbody>
-    </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('postulation_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('postulation_edit', { 'id': postulation.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+<div class="dashboard-container">
+    {{ include('Fsidebar.html.twig') }}
+</div>
 {% endblock %}
