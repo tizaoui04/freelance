@@ -10,4 +10,27 @@ namespace AppBundle\Repository;
  */
 class messageRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function getfinbox($id)
+    {
+
+        $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Message m 
+         LEFT JOIN m.sender p where m.date in(select MAX(l.date) from AppBundle:Message l where l.sender=p AND m.receiver=l.receiver Group by l.sender) AND  m.receiver=:id   ORDER BY m.date DESC 
+            ")->setParameter('id',$id);
+
+        return $query=$q->getResult();
+
+
+    }
+    public function getmine($rec,$id)
+    {
+        //for parent
+        $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Message m 
+         LEFT JOIN m.receiver p where (m.sender=:id AND  m.receiver=:rec) OR (m.sender=:rec AND  m.receiver=:id) ")->setParameter('id',$id)->setParameter('rec',$rec);
+
+        return $query=$q->getResult();
+
+
+    }
+
 }

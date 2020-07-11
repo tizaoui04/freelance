@@ -55,6 +55,7 @@ class User extends BaseUser
      */
     public function getSenderMessages()
     {
+
         return $this->senderMessages;
     }
 
@@ -97,6 +98,8 @@ class User extends BaseUser
     {
         $this->reclamations = $reclamations;
     }
+
+
 
 }
 
