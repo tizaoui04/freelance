@@ -73,7 +73,7 @@
                             <!-- Messages -->
                             <div class="header-notifications user-menu">
                                 <div class="header-notifications-trigger">
-                                    <a href="#"><div class="user-avatar status-online"><img src="images/user-avatar-small-01.jpg" alt=""></div></a>
+                                    <a href="#"><div class="user-avatar status-online"><img src="{{ app.user.image ? asset(vich_uploader_asset(freelancer,'imageFile'))  : asset('images/user-avatar-small-01.jpg') }} " alt=""></div></a>
                                 </div>
 
                                 <!-- Dropdown -->
@@ -84,7 +84,7 @@
 
                                         <!-- User Name / Avatar -->
                                         <div class="user-details">
-                                            <div class="user-avatar status-online"><img src="images/user-avatar-small-01.jpg" alt=""></div>
+                                            <div class="user-avatar status-online"><img src="{{ app.user.image ? asset(vich_uploader_asset(freelancer,'imageFile'))  : asset('images/user-avatar-small-01.jpg') }} " alt=""></div>
                                             <div class="user-name">
                                                 {{app.user.username}} <span>
                                                     {% if is_granted('ROLE_FREELANCER') %}

@@ -3,7 +3,12 @@
 "use strict";
 
 $(document).ready(function(){
-	
+
+
+	$("#appbundle_freelancer_imageFile_file").addClass('file-upload');
+
+
+
 	/*--------------------------------------------------*/
 	/*  Mobile Menu - mmenu.js
 	/*--------------------------------------------------*/

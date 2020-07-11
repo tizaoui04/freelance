@@ -5,6 +5,7 @@ namespace UserBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -26,7 +27,7 @@ class FreelancerType extends AbstractType
                 'choices'=>[
                     'Designe'=>'UI/UX Designe',
                     'Developpement'=>'Developpement'],])
-
+            ->add('imageFile',FileType::class)
             ->add('username')->add('email');
     }/**
      * {@inheritdoc}

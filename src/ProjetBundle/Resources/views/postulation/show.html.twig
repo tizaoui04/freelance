@@ -3,7 +3,97 @@
 {% block body %}
 
 
-<div class="dashboard-container">
-    {{ include('Fsidebar.html.twig') }}
-</div>
+
+
+
+
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+
+        {{ include('Fsidebar.html.twig') }}
+
+
+
+        <!-- Dashboard Content
+        ================================================== -->
+        <div class="dashboard-content-container" data-simplebar>
+            <div class="dashboard-content-inner" >
+
+                <!-- Dashboard Headline -->
+                <div class="dashboard-headline">
+                    <h3>My Active Bids</h3>
+
+                    <!-- Breadcrumbs -->
+                    <nav id="breadcrumbs" class="dark">
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Dashboard</a></li>
+                            <li>Mes postulation</li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <!-- Row -->
+                <div class="row">
+
+                    <!-- Dashboard Box -->
+                    <div class="col-xl-12">
+                        <div class="dashboard-box margin-top-0">
+
+                            <!-- Headline -->
+                            <div class="headline">
+                                <h3><i class="icon-material-outline-gavel"></i> Postulation List</h3>
+                            </div>
+                            {% for postulation in postulations %}
+                                <div class="content">
+                                    <ul class="dashboard-box-list">
+                                        <li>
+                                            <!-- Job Listing -->
+                                            <div class="job-listing width-adjustment">
+
+                                                <!-- Job Listing Details -->
+                                                <div class="job-listing-details">
+
+                                                    <!-- Details -->
+                                                    <div class="job-listing-description">
+                                                        <h3 class="job-listing-title">{{ postulation.project.titre }}</h3>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Task Details -->
+                                            <ul class="dashboard-task-info">
+                                                <li><strong>{{postulation.project.budget}} DT</strong><span>Budget</span></li>
+                                                <li><strong>{{postulation.project.categorie.libelle}}</strong><span>Categorie</span></li>
+                                            </ul>
+
+                                            <!-- Buttons -->
+                                            <div class="buttons-to-right always-visible">
+                                                <a href="#small-dialog" class="popup-with-zoom-anim button dark ripple-effect ico" title="Modifier postulation" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
+                                                <a href="#" class="button red ripple-effect ico" title="Supprimer postulation" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
+                                            </div>
+                                        </li>
+
+
+                                    </ul>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Row / End -->
+
+
+
+            </div>
+        </div>
+        <!-- Dashboard Content / End -->
+
+    </div>
+    <!-- Dashboard Container / End -->
+
+
+
+
 {% endblock %}

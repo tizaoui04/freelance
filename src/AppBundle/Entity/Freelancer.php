@@ -3,12 +3,15 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Freelancer
  *
  * @ORM\Table(name="freelancer")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\FreelancerRepository")
+ * @Vich\Uploadable
  */
 class Freelancer extends User
 
@@ -67,6 +70,65 @@ class Freelancer extends User
 
      */
     private $postulations;
+
+
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @var string
+     */
+    private $image;
+
+    /**
+     * @Vich\UploadableField(mapping="user_logo", fileNameProperty="image")
+     * @var File
+     */
+    private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime")
+     * @var \DateTime
+     */
+    private $updatedAt;
+
+    public function setImageFile(File $image = null)
+    {
+        $this->imageFile = $image;
+
+        // VERY IMPORTANT:
+        // It is required that at least one field changes if you are using Doctrine,
+        // otherwise the event listeners won't be called and the file is lost
+        if ($image) {
+            // if 'updatedAt' is not defined in your entity, use another property
+            $this->updatedAt = new \DateTime('now');
+        }
+    }
+
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
+
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    public function getUpdateAt()
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdateAt(\DateTimeImmutable $updateAt)
+    {
+        $this->updatedAt = $updateAt;
+        return $this;
+    }
 
     /**
      * Get id
