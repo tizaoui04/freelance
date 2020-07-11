@@ -9,7 +9,7 @@
 <div class="dashboard-container">
 
 
-    {{ include('Csidebar.html.twig') }}
+    {{ include('Fsidebar.html.twig') }}
 {% set clid=0 %}
     <!-- Dashboard Content
 	================================================== -->
@@ -46,7 +46,7 @@
                         <ul>
                             {% for inb in inbox %}
                             <li>
-                                <a href="{{ path('fmesslist',{"id":inb.sender.id}) }}">
+                                <a href="{{ path('messlist',{"id":inb.sender.id}) }}">
                                     <div class="message-avatar"><i class="status-icon status-online"></i><img src="images/user-avatar-small-03.jpg" alt="" /></div>
 
                                     <div class="message-by">
@@ -99,7 +99,7 @@
 
                                     <div class="message-bubble me">
                                         <div class="message-bubble-inner">
-                                            <div class="message-avatar"><img src="images/user-avatar-small-01.jpg" alt="" /></div>
+                                            <div class="message-avatar"><img src="{{ app.user.image ? asset(vich_uploader_asset(app.user,'imageFile'))  : asset('images/user-avatar-small-01.jpg') }}" alt="" /></div>
                                             <div class="message-text"><p>{{msg.contenu}}</p></div>
                                         </div>
                                         <div class="clearfix"></div>
@@ -108,7 +108,7 @@
                                         {% set clid=msg.sender.id %}
                                         <div class="message-bubble">
                                             <div class="message-bubble-inner">
-                                                <div class="message-avatar"><img src="images/user-avatar-small-02.jpg" alt="" /></div>
+                                                <div class="message-avatar"><img src="{{ msg.sender.image ? asset(vich_uploader_asset(msg.sender.image,'imageFile'))  : asset('images/user-avatar-small-01.jpg') }}" alt="" /></div>
                                                 <div class="message-text"><p>{{msg.contenu}}</p></div>
                                             </div>
                                             <div class="clearfix"></div>

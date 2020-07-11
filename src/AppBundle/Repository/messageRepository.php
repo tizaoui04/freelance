@@ -11,7 +11,7 @@ namespace AppBundle\Repository;
 class messageRepository extends \Doctrine\ORM\EntityRepository
 {
 
-    public function getfinbox($id)
+    public function getinbox($id)
     {
 
         $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Message m 

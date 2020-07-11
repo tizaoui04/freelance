@@ -1,0 +1,185 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+
+
+    <!-- Dashboard Container -->
+    <div class="dashboard-container">
+
+
+        {{ include('Csidebar.html.twig') }}
+        {% set clid=0 %}
+        <!-- Dashboard Content
+        ================================================== -->
+        <div class="dashboard-content-container" data-simplebar>
+            <div class="dashboard-content-inner" >
+
+                <!-- Dashboard Headline -->
+                <div class="dashboard-headline">
+                    <h3>Messages</h3>
+
+                    <!-- Breadcrumbs -->
+                    <nav id="breadcrumbs" class="dark">
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Dashboard</a></li>
+                            <li>Messages</li>
+                        </ul>
+                    </nav>
+                </div>
+
+                <div class="messages-container margin-top-0">
+
+                    <div class="messages-container-inner">
+
+                        <!-- Messages -->
+                        <div class="messages-inbox">
+                            <div class="messages-headline">
+                                <div class="input-with-icon">
+                                    <input id="autocomplete-input" type="text" placeholder="Search">
+                                    <i class="icon-material-outline-search"></i>
+                                </div>
+                            </div>
+
+                            <ul>
+                                {% for inb in inbox %}
+                                    <li>
+                                        <a href="{{ path('messlist',{"id":inb.sender.id}) }}">
+                                            <div class="message-avatar"><i class="status-icon status-online"></i>
+                                                <img src="{{ inb.sender.image ? asset(vich_uploader_asset(inb.sender,'imageFile'))  : asset('images/user-avatar-small-01.jpg') }}" alt="" /></div>
+
+                                            <div class="message-by">
+                                                <div class="message-by-headline">
+                                                    <h5>{{ inb.sender.nom ~ ' ' ~ inb.sender.prenom }}</h5>
+                                                    <span>{{inb.date|date('d-m-y')}}</span>
+                                                </div>
+                                                <p>{{inb.contenu}}</p>
+                                            </div>
+                                        </a>
+                                    </li>
+
+                                {% endfor %}
+
+
+
+                            </ul>
+                        </div>
+                        <!-- Messages / End -->
+
+
+                        <!-- Message Content -->
+                        <div class="message-content">
+
+                            <div class="messages-headline">
+                                <h4>{% if messages is defined %}{{messages|first.sender.nom ~ ' ' ~ messages|first.sender.prenom}}{% endif %}</h4>
+                                <a href="#" class="message-action"><i class="icon-feather-trash-2"></i> Delete Conversation</a>
+                            </div>
+
+                            <!-- Message Content Inner -->
+                            <div class="message-content-inner">
+                                {% if messages is defined %}
+                                    {% set dd=messages|first.date %}
+                                    <!-- Time Sign -->
+                                    <div class="message-time-sign">
+                                        <span>{{messages|first.date|date("d F, y")}}</span>
+                                    </div>
+
+                                    {% for msg in messages %}
+
+                                        {% if(date(dd|date('y-m-d'))<date(msg.date|date('y-m-d'))) %}
+                                            <div class="message-time-sign">
+                                                <span>{{msg.date|date("d F, y")}}</span>
+                                            </div>
+                                            {% set dd=msg.date %}
+                                        {% endif %}
+
+
+                                        {% if(msg.sender==app.user) %}
+
+                                            <div class="message-bubble me">
+                                                <div class="message-bubble-inner">
+                                                    <div class="message-avatar"><img src="{{ app.user.image ? asset(vich_uploader_asset(app.user,'imageFile'))  : asset('images/user-avatar-small-01.jpg') }}" alt="" /></div>
+                                                    <div class="message-text"><p>{{msg.contenu}}</p></div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        {% else %}
+                                            {% set clid=msg.sender.id %}
+                                            <div class="message-bubble">
+                                                <div class="message-bubble-inner">
+                                                    <div class="message-avatar"><img src="{{ msg.sender.image ? asset(vich_uploader_asset(msg.sender,'imageFile'))  : asset('images/user-avatar-small-01.jpg') }}" alt="" /></div>
+                                                    <div class="message-text"><p>{{msg.contenu}}</p></div>
+                                                </div>
+                                                <div class="clearfix"></div>
+                                            </div>
+                                        {% endif %}
+
+                                    {% endfor %}
+
+
+                                {% endif %}
+                            </div>
+                            <!-- Message Content Inner / End -->
+
+                            <!-- Reply Area -->
+                            <form action="{{ path('sendmsg') }}">
+                                <div class="message-reply">
+                                    <input type="hidden" name="to" value="{{ clid }}">
+                                    <textarea cols="1" rows="1" placeholder="Your Message" data-autoresize name="mstxt"></textarea>
+                                    <button type="submit" class="button ripple-effect">Send</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Message Content -->
+
+
+                    </div>
+                </div>
+                <!-- Messages Container / End -->
+
+
+
+
+                <!-- Footer -->
+                <div class="dashboard-footer-spacer"></div>
+                <div class="small-footer margin-top-15">
+                    <div class="small-footer-copyrights">
+                        © 2018 <strong>Hireo</strong>. All Rights Reserved.
+                    </div>
+                    <ul class="footer-social-links">
+                        <li>
+                            <a href="#" title="Facebook" data-tippy-placement="top">
+                                <i class="icon-brand-facebook-f"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" title="Twitter" data-tippy-placement="top">
+                                <i class="icon-brand-twitter"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" title="Google Plus" data-tippy-placement="top">
+                                <i class="icon-brand-google-plus-g"></i>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" title="LinkedIn" data-tippy-placement="top">
+                                <i class="icon-brand-linkedin-in"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="clearfix"></div>
+                </div>
+                <!-- Footer / End -->
+
+            </div>
+        </div>
+        <!-- Dashboard Content / End -->
+    </div>
+{% endblock %}
+   {% block footer %}
+
+   {% endblock %}

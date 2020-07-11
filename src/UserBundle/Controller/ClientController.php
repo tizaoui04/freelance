@@ -65,12 +65,13 @@ class ClientController extends Controller
 
             }
             if($request->get("datenaiss")){
-                $client->setDatenaiss($request->get("datenaiss"));
+                $client->setDatenaiss(new \DateTime($request->get("datenaiss")));
             }
 
 
 
             if ($editForm->isValid()) {
+                $client->setUpdateAt(new \DateTime());
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('update_profilec', array('id' => $client->getId()));

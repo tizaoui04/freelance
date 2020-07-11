@@ -25,23 +25,29 @@ class MessageController extends Controller
     /**
      * Lists all message entities.
      *
-     * @Route("/fmess/", name="fmesslist_noid")
-     * @Route("/fmess/{id}", name="fmesslist")
+     * @Route("/mess/", name="messlist_noid")
+     * @Route("/mess/{id}", name="messlist")
      *
      */
-    public function fmesslist(Request $request){
+    public function messlist(Request $request){
         //we defined 2 route for this methode if it s with params then he will get the message for the selected user if not he will get inbox list only
+        //this method work for both user client and freelancer so we have to just make a test on the role to return the desired template
         $user = $this->get('security.token_storage')->getToken()->getUser();
         //know we have the user let s get his inbox
 
         $em=$this->getDoctrine()->getManager();
 
-        $inbox=$em->getRepository(Message::class)->getfinbox($user->getId());
+        $inbox=$em->getRepository(Message::class)->getinbox($user->getId());
 
         if($request->get("id")){
             $mess=$em->getRepository(Message::class)->getmine($user->getId(),$request->get("id"));
 
-            return $this->render("@Contact/message/Fmesstemp.html.twig",array("inbox"=>$inbox,"messages"=>$mess));
+            if($this->container->get('security.authorization_checker')->isGranted("ROLE_FREELANCER")){
+                return $this->render("@Contact/message/Fmesstemp.html.twig",array("inbox"=>$inbox,"messages"=>$mess));
+            }else if($this->container->get('security.authorization_checker')->isGranted("ROLE_CLIENT")){
+                return $this->render("@Contact/message/Cmesstemp.html.twig",array("inbox"=>$inbox,"messages"=>$mess));
+            }
+
 
 
         }
@@ -49,6 +55,10 @@ class MessageController extends Controller
 
         return $this->render("@Contact/message/Fmesstemp.html.twig",array("inbox"=>$inbox));
     }
+
+
+
+
 
 
 
@@ -92,7 +102,7 @@ class MessageController extends Controller
             $message->setSender($this->get('security.token_storage')->getToken()->getUser());
             $em->persist($message);
             $em->flush();
-            return $this->redirectToRoute("fmesslist",array("id"=>$request->get("to")));
+            return $this->redirectToRoute("messlist",array("id"=>$request->get("to")));
 
 
         }

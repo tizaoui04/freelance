@@ -13,7 +13,7 @@
 
                     <ul data-submenu-title="Debut">
                         <li><a href="dashboard.html"><i class="icon-material-outline-dashboard"></i> Dashboard</a></li>
-                        <li><a href="dashboard-messages.html"><i class="icon-material-outline-question-answer"></i> Messages <span class="nav-tag">2</span></a></li>
+                        <li><a href="{{path("messlist_noid")}}"><i class="icon-material-outline-question-answer"></i> Messages <span class="nav-tag">2</span></a></li>
 
                     </ul>
 
@@ -29,7 +29,7 @@
                     </ul>
 
                     <ul data-submenu-title="Compte">
-                        <li class="active"><a href="dashboard-settings.html"><i class="icon-material-outline-settings"></i>Paramètres</a></li>
+                        <li class="active"><a href="{{path('update_profilec',{'id':app.user.id}) }}"><i class="icon-material-outline-settings"></i>Paramètres</a></li>
                         <li><a href="{{ path('fos_user_security_logout') }}"><i class="icon-material-outline-power-settings-new"></i>Se déconnecter</a></li>
                     </ul>
 
