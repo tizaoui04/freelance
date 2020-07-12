@@ -42,7 +42,7 @@ class Message
     private $sender;
 
     /**
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="receiver")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="receiver", fetch="EAGER")
      * @ORM\JoinColumn(name="receiver_id", referencedColumnName="id")
      */
     private $receiver;

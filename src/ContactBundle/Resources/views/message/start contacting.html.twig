@@ -9,7 +9,12 @@
     <div class="dashboard-container">
 
 
+        {% if is_granted('ROLE_FREELANCER') %}
+            {{ include('Fsidebar.html.twig') }}
+        {% elseif is_granted('ROLE_CLIENT') %}
         {{ include('Csidebar.html.twig') }}
+        {% endif %}
+
         {% set clid=0 %}
         <!-- Dashboard Content
         ================================================== -->
@@ -73,13 +78,13 @@
                         <div class="message-content">
 
                             <div class="messages-headline">
-                                <h4>{% if messages is defined and messages is not null and messages is not empty %}{{messages|first.sender.nom ~ ' ' ~ messages|first.sender.prenom}}{% endif %}</h4>
-                                <a href="#" class="message-action"><i class="icon-feather-trash-2"></i> Delete Conversation</a>
+                                <h4>{% if messages is defined %}{{messages|first.sender.nom ~ ' ' ~ messages|first.sender.prenom}}{% endif %}</h4>
+                                <a href="#" class="message-action"><i class="icon-material-outline-email"></i> Envoyez un message à {{ receiver.nom ~" "~receiver.prenom }}</a>
                             </div>
 
                             <!-- Message Content Inner -->
                             <div class="message-content-inner">
-                                {% if  messages is defined and messages is not null and messages is not empty %}
+                                {% if messages is defined %}
                                     {% set dd=messages|first.date %}
                                     <!-- Time Sign -->
                                     <div class="message-time-sign">
@@ -118,19 +123,18 @@
 
                                     {% endfor %}
 
-                                {% else %}
-                                    <div class="message-time-sign">
-                                        <span>Commencez la conversation, Ecrivez un message</span>
-                                    </div>
-
+                                    {% else %}
+                                        <div class="message-time-sign">
+                                            <span>Commencez la conversation, Ecrivez un message</span>
+                                        </div>
                                 {% endif %}
                             </div>
                             <!-- Message Content Inner / End -->
 
                             <!-- Reply Area -->
-                            <form action="{{ path('sendmsg') }}">
+                            <form action="{{ path('startmsg') }}" method="post">
                                 <div class="message-reply">
-                                    <input type="hidden" name="to" value="{{ clid }}">
+                                    <input type="hidden" name="id" value="{{ receiver.id }}">
                                     <textarea cols="1" rows="1" placeholder="Your Message" data-autoresize name="mstxt"></textarea>
                                     <button type="submit" class="button ripple-effect">Send</button>
                                 </div>

@@ -74,7 +74,7 @@ class Freelancer extends User
 
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255,nullable=true)
      * @var string
      */
     private $image;
@@ -86,7 +86,7 @@ class Freelancer extends User
     private $imageFile;
 
     /**
-     * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"})
+     * @ORM\Column(type="datetime", options={"default": "CURRENT_TIMESTAMP"},nullable=true)
      * @var \DateTime
      */
     private $updatedAt;

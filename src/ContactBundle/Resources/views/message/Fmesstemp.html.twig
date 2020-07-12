@@ -10,7 +10,7 @@
 
 
     {{ include('Fsidebar.html.twig') }}
-{% set clid=0 %}
+
     <!-- Dashboard Content
 	================================================== -->
     <div class="dashboard-content-container" data-simplebar>
@@ -47,7 +47,7 @@
                             {% for inb in inbox %}
                             <li>
                                 <a href="{{ path('messlist',{"id":inb.sender.id}) }}">
-                                    <div class="message-avatar"><i class="status-icon status-online"></i><img src="images/user-avatar-small-03.jpg" alt="" /></div>
+                                    <div class="message-avatar"><i class="status-icon status-online"></i><img src="{{ app.user.image ? asset(vich_uploader_asset(app.user,'imageFile'))  : asset('images/user-avatar-small-01.jpg') }}" alt="" /></div>
 
                                     <div class="message-by">
                                         <div class="message-by-headline">
@@ -72,15 +72,20 @@
                     <div class="message-content">
 
                         <div class="messages-headline">
-                            <h4>{% if messages is defined %}{{messages|first.sender.nom ~ ' ' ~ messages|first.sender.prenom}}{% endif %}</h4>
-                            <a href="#" class="message-action"><i class="icon-feather-trash-2"></i> Delete Conversation</a>
-                        </div>
+                           {%  if messages is defined and messages is not null and messages is not empty %} <h4>{{messages|first.sender.nom ~ ' ' ~ messages|first.sender.prenom}}
+
+                                </h4>
+                               {% elseif receiver is defined %}
+                            <a href="#" class="message-action"><i class="icon-material-outline-email"></i> Envoyez un message à {{ receiver.nom ~" "~receiver.prenom }}</a>
+                            {% endif %}</div>
 
                         <!-- Message Content Inner -->
                         <div class="message-content-inner">
-                            {% if messages is defined %}
+                            {% if   messages is defined and messages is not null and messages is not empty %}
                                 {% set dd=messages|first.date %}
                             <!-- Time Sign -->
+
+
                             <div class="message-time-sign">
                                 <span>{{messages|first.date|date("d F, y")}}</span>
                             </div>
@@ -117,15 +122,27 @@
 
                                 {% endfor %}
 
+                                {% elseif receiver is defined %}
+                                    <div class="message-time-sign">
+                                        <span>Commencez la conversation, Ecrivez un message</span>
+                                    </div>
 
                             {% endif %}
+
                         </div>
                         <!-- Message Content Inner / End -->
+
+                        {% if receiver is defined %}
+                        {% set recid=receiver.id %}
+                        {% else %}
+                        {% set recid=0 %}
+                        {% endif %}
+
 
                         <!-- Reply Area -->
                         <form action="{{ path('sendmsg') }}">
                         <div class="message-reply">
-                            <input type="hidden" name="to" value="{{ clid }}">
+                            <input type="hidden" name="to" value="{{ recid}}">
                             <textarea cols="1" rows="1" placeholder="Your Message" data-autoresize name="mstxt"></textarea>
                             <button type="submit" class="button ripple-effect">Send</button>
                         </div>

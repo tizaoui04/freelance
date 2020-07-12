@@ -39,13 +39,15 @@ class MessageController extends Controller
 
         $inbox=$em->getRepository(Message::class)->getinbox($user->getId());
 
-        if($request->get("id")){
-            $mess=$em->getRepository(Message::class)->getmine($user->getId(),$request->get("id"));
+        if($request->get("id")|| $request->query->get("id")){
+            $id=$request->get("id")?$request->get("id"):$request->query->get("id");
+            $mess=$em->getRepository(Message::class)->getmine($user->getId(),$id);
+            $receiver=$em->getRepository(User::class)->find($id);
 
             if($this->container->get('security.authorization_checker')->isGranted("ROLE_FREELANCER")){
-                return $this->render("@Contact/message/Fmesstemp.html.twig",array("inbox"=>$inbox,"messages"=>$mess));
+                return $this->render("@Contact/message/Fmesstemp.html.twig",array("inbox"=>$inbox,"messages"=>$mess,"receiver"=>$receiver));
             }else if($this->container->get('security.authorization_checker')->isGranted("ROLE_CLIENT")){
-                return $this->render("@Contact/message/Cmesstemp.html.twig",array("inbox"=>$inbox,"messages"=>$mess));
+                return $this->render("@Contact/message/Cmesstemp.html.twig",array("inbox"=>$inbox,"messages"=>$mess,"receiver"=>$receiver));
             }
 
 
@@ -56,32 +58,6 @@ class MessageController extends Controller
         return $this->render("@Contact/message/Fmesstemp.html.twig",array("inbox"=>$inbox));
     }
 
-
-
-
-
-
-
-
-
-
-
-    /**
-     * Lists all message entities.
-     *
-     * @Route("/", name="message_index")
-     * @Method("GET")
-     */
-    public function indexAction()
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $messages = $em->getRepository('AppBundle:Message')->findAll();
-
-        return $this->render('@Contact/message/index.html.twig', array(
-            'messages' => $messages,
-        ));
-    }
     /**
      * Creates a new message entity.
      *
@@ -107,12 +83,75 @@ class MessageController extends Controller
 
         }
         if($request->get("to")){
-            return $this->redirectToRoute("fmesslist",array("id"=>$request->get("to")));
+            return $this->redirectToRoute("messlist",array("id"=>$request->get("to")));
         }
 
 
 
-        return $this->redirectToRoute("fmesslist");
+        return $this->redirectToRoute("messlist");
+    }
+
+    /**
+     * @Route("/startmsg",name="startmsg")
+     */
+    public function sendnewmsg(Request $request){
+        //so this methode is for a client or a freelancer to start contacting each others we will only need to get the id for the receiver from the request and ofc the message and get the authenticated user
+        $em=$this->getDoctrine()->getManager();
+        $user = $this->get('security.token_storage')->getToken()->getUser();
+       if($request->isMethod("Get")){
+           $inbox=$em->getRepository(Message::class)->getinbox($user->getId());
+           $receiver=$em->getRepository(User::class)->find($request->get("id"));
+           return $this->render("@Contact/message/start contacting.html.twig",array("receiver"=>$receiver,"inbox"=>$inbox));
+       }else{
+           if($request->get("mstxt")){
+           $em=$this->getDoctrine()->getManager();
+           $receiver=$em->getRepository(User::class)->find($request->get("id"));
+           $message=new Message();
+           $message->setReceiver($receiver);
+
+           $message->setSender($user);
+           $message->setContenu($request->get("mstxt"));
+           $message->setDate(new \DateTime());
+           $em->persist($message);
+           $em->flush();
+           return $this->redirectToRoute("messlist",array("id"=>$receiver->getId()));
+
+
+
+           }
+           if($request->get("to")){
+               return $this->redirectToRoute("messlist",array("id"=>$request->get("to")));
+           }
+       }
+
+        return $this->redirectToRoute("messlist");
+
+
+
+    }
+
+
+
+
+
+
+
+
+    /**
+     * Lists all message entities.
+     *
+     * @Route("/", name="message_index")
+     * @Method("GET")
+     */
+    public function indexAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $messages = $em->getRepository('AppBundle:Message')->findAll();
+
+        return $this->render('@Contact/message/index.html.twig', array(
+            'messages' => $messages,
+        ));
     }
 
     /**
