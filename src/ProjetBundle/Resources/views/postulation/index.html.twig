@@ -53,13 +53,15 @@
 
                                                 <!-- Avatar -->
                                                 <div class="freelancer-avatar">
-                                                    <div class="verified-badge"></div>
-                                                    <a href="#"><img src="images/user-avatar-big-03.jpg" alt=""></a>
+
+                                                    <a href="#"> <img src="{{ app.user.image ? asset(vich_uploader_asset(app.user,'imageFile'))  : asset('images/user-avatar-small-01.jpg') }} " alt=""></a>
                                                 </div>
 
                                                 <!-- Name -->
                                                 <div class="freelancer-name">
                                                     <h4><a href="#">{{ postulation.freelance.nom}}{{ postulation.freelance.prenom}} <img class="flag" src="images/flags/au.svg" alt="" title="Australia" data-tippy-placement="top"></a></h4>
+
+                                                    <h4><a href="#">{{ postulation.lettre}} <img class="flag" src="images/flags/au.svg" alt="" title="Australia" data-tippy-placement="top"></a></h4>
 
                                                     <!-- Details -->
                                                     <span class="freelancer-detail-item"><a href="#"><i class="icon-feather-mail"></i>{{ postulation.freelance.email}}</a></span>
@@ -74,7 +76,7 @@
                                                     <div class="buttons-to-right always-visible margin-top-25 margin-bottom-5">
                                                         <a href="#" class="button ripple-effect"><i class="icon-material-outline-check"></i>Accepter</a>
                                                         <a href="#small-dialog" class="popup-with-zoom-anim button dark ripple-effect"><i class="icon-material-outline-highlight-off"></i> Refuser</a>
-                                                        <a href="#small-dialog" class="popup-with-zoom-anim button dark ripple-effect"><i class="icon-feather-message-square"></i> Envoyer un message</a>
+                                                        <a href="" data-id="{{ postulation.freelance.id }}" data-name="{{ postulation.freelance.nom ~" "~ postulation.freelance.prenom }}" class="popup-with-zoom-anim button dark ripple-effect"><i class="icon-feather-message-square"></i> Envoyer un message</a>
                                                         <a href="#" class="button gray ripple-effect ico" title="Supprimer Candidate" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
                                                     </div>
                                                 </div>
@@ -103,7 +105,54 @@
     <!-- Dashboard Container / End -->
 
 
+    <!-- Send Direct Message Popup
+    ================================================== -->
+    <div id="small-dialog-2" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
 
+        <!--Tabs -->
+        <div class="sign-in-form">
+
+            <ul class="popup-tabs-nav">
+                <li><a href="#tab2">Send Message</a></li>
+            </ul>
+
+            <div class="popup-tabs-container">
+
+                <!-- Tab -->
+                <div class="popup-tab-content" id="tab2">
+
+                    <!-- Welcome Text -->
+                    <div class="welcome-text" id="welcom">
+                        <h3>Direct Message <span id="username" ></span></h3>
+                    </div>
+
+                    <!-- Form -->
+                    <form method="post" id="send-pm">
+                        <input class="userid" type="hidden">
+                        <textarea name="textarea" cols="10" placeholder="Message" class="with-border" required></textarea>
+                    </form>
+
+                    <!-- Button -->
+                    <button class="button full-width button-sliding-icon ripple-effect" type="submit" form="send-pm">Send <i class="icon-material-outline-arrow-right-alt"></i></button>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Send Direct Message Popup / End -->
+
+    <script>
+        $(document).on("click", ".popup-with-zoom-anim", function () {
+            var userid = $(this).data('id');
+            var username=$(this).data("name");
+            $("#send-pm .userid").val( userid );
+            $("#welcome .username").text(username);
+            // As pointed out in comments,
+            // it is unnecessary to have to manually call the modal.
+             $('#small-dialog-2').dialog('show');
+        });
+    </script>
 
 {% endblock %}
  {% block footer %}
