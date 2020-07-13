@@ -48,7 +48,7 @@
 
                             </li>
 
-                            <li><a href="{{path("projet_index")}}">Pour les employeurs</a>
+                            <li><a href="{{path("freelancer_index")}}">Pour les employeurs</a>
 
                             </li>
 
@@ -66,10 +66,10 @@
                 <!-- Right Side Content / End -->
                 <div class="right-side">
 
-                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+
                         <!-- User Menu -->
                         <div class="header-widget">
-
+                            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
                             <!-- Messages -->
                             <div class="header-notifications user-menu">
                                 <div class="header-notifications-trigger">
@@ -155,7 +155,7 @@
                 <!-- Right Side Content / End -->
 
             </div>
-        </div>
+            </div></div>
     </header>
         <!-- Header / End -->
 

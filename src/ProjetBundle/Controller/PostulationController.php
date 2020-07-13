@@ -85,6 +85,43 @@ class PostulationController extends Controller
     }
 
 
+    /**
+     * @Route("/delmypost", name="delmypost")
+     */
+    public function deletemybid(Request $request){
+        if($request->get("postid")){
+            $em=$this->getDoctrine()->getManager();
+            $post=$em->getRepository(Postulation::class)->find($request->get("postid"));
+            $em->remove($post);
+            $em->flush();
+
+
+        }
+        return $this->redirectToRoute("myposts");
+
+    }
+
+    /**
+     * @Route("/accept",name="acceptpost")
+     */
+    public function acceptpost(Request $request){
+        if($request->get("id")){
+            $em=$this->getDoctrine()->getManager();
+            $post=$em->getRepository(Postulation::class)->find($request->get("id"));
+            $post->setAccept("ACCEPTED");
+            $em->flush();
+
+            $message = (new \Swift_Message("Postulation accepté"))
+                ->setFrom('marwene04@gmail.com')
+                ->setTo($post->getFreelancer()->getEmail())
+                ->setSubject("Postulation accepté")
+                ->setBody("Félicitation votre postulation sur le projet ".$post->getProject()->getTitre()." a été accepté veuillez contacter le client pour disccuter les detailles ");
+            $this->get('mailer')->send($message);
+        }
+        return $this->redirectToRoute("postulation_index");
+
+
+    }
 
     /**
      * Finds and displays a postulation entity.

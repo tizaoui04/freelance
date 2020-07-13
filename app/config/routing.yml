@@ -1,3 +1,11 @@
+app_reclamation:
+    resource: "@ContactBundle/Controller/ReclamationController.php"
+    type:     annotation
+
+app_note:
+    resource: "@ContactBundle/Controller/NoteController.php"
+    type:     annotation
+
 app_message:
     resource: "@ContactBundle/Controller/MessageController.php"
     type:     annotation

@@ -69,7 +69,7 @@
 
 
                     <!-- Message Content -->
-                    <div class="message-content">
+                    <div class="message-content ">
 
                         <div class="messages-headline">
                            {%  if messages is defined and messages is not null and messages is not empty %} <h4>{{messages|first.sender.nom ~ ' ' ~ messages|first.sender.prenom}}
@@ -80,7 +80,7 @@
                             {% endif %}</div>
 
                         <!-- Message Content Inner -->
-                        <div class="message-content-inner">
+                        <div   class="message-content-inner ">
                             {% if   messages is defined and messages is not null and messages is not empty %}
                                 {% set dd=messages|first.date %}
                             <!-- Time Sign -->

@@ -10,4 +10,9 @@ namespace AppBundle\Repository;
  */
 class FreelancerRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function freelancercount(){
+        $q=$this->getEntityManager()->createQuery("select COUNT(a) from AppBundle:Freelancer a ");
+
+        return $query=$q->execute();
+    }
 }

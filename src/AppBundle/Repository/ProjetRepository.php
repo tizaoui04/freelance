@@ -37,4 +37,10 @@ class ProjetRepository extends \Doctrine\ORM\EntityRepository
 
 
     }
+
+    public function projetcount(){
+        $q=$this->getEntityManager()->createQuery("select COUNT(a) from AppBundle:Projet a ");
+
+        return $query=$q->getResult();
+    }
 }

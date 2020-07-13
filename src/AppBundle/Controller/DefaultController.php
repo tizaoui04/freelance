@@ -5,6 +5,8 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Admin;
 use AppBundle\Entity\Client;
 use AppBundle\Entity\Freelancer;
+use AppBundle\Entity\Postulation;
+use AppBundle\Entity\Projet;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -17,7 +19,15 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         // replace this example code with whatever you need
-        return $this->render('default/index.html.twig' );
+        //let s get project count , freelancers count and post
+
+        $em=$this->getDoctrine()->getManager();
+        $fcount=$em->getRepository(Freelancer::class)->freelancercount()[0];
+        $pcount=$em->getRepository(Projet::class)->projetcount()[0];
+        $postcount=$em->getRepository(Postulation::class)->postcount()[0];
+
+
+        return $this->render('default/index.html.twig',array("fcount"=>$fcount,"pcount"=>$pcount,"postcount"=>$postcount) );
     }
     /**
      * @Route("/persist", name="homepage")

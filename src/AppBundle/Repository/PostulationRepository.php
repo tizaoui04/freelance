@@ -28,4 +28,10 @@ class PostulationRepository extends \Doctrine\ORM\EntityRepository
 
 
     }
+
+    public function postcount(){
+        $q=$this->getEntityManager()->createQuery("select COUNT(a) from AppBundle:Postulation a where a.accepte like '%ACCEPTED%'");
+
+        return $query=$q->getResult();
+    }
 }

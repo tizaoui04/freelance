@@ -91,14 +91,24 @@ class FreelancerController extends Controller
      * @Route("/", name="freelancer_index")
      * @Method("GET")
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
 
         $freelancers = $em->getRepository(Freelancer::class)->findAll();
 
+        $paginator  = $this->get('knp_paginator');
+
+
+        $rq = $paginator->paginate(
+            $freelancers,
+            $request->query->get('page',1) /*page number*/,
+            $request->query->get('limit',5) /*limit per page*/
+        );
+
+
         return $this->render('@User/freelancer/index.html.twig', array(
-            'freelancers' => $freelancers,
+            'freelancers' => $rq,
         ));
     }
 

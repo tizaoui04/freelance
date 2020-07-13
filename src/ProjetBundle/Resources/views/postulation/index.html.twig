@@ -74,7 +74,7 @@
 
                                                     <!-- Buttons -->
                                                     <div class="buttons-to-right always-visible margin-top-25 margin-bottom-5">
-                                                        <a href="#" class="button ripple-effect"><i class="icon-material-outline-check"></i>Accepter</a>
+                                                        <a href="{{ path('acceptpost',{"id":postulation.id}) }}" class="button ripple-effect"><i class="icon-material-outline-check"></i>Accepter</a>
                                                         <a href="#small-dialog"  class="popup-with-zoom-anim  button dark ripple-effect"><i class="icon-material-outline-highlight-off"></i> Refuser</a>
 
 
@@ -164,6 +164,7 @@
             var proj=$(this).data('proj');
             document.getElementById("userid").value = id;
             document.getElementById("projid").value = proj;
+            document.getElementById("username").textContent = name;
             // As pointed out in comments,
             // it is unnecessary to have to manually call the modal.
             // $('#addBookDialog').modal('show');

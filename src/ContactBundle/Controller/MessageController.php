@@ -83,6 +83,9 @@ class MessageController extends Controller
             if($request->get("clmodal")){
                 return $this->redirectToRoute("postulation_index",array("id"=>$request->get("projid")));
             }
+            if($request->get("frmodal")){
+                return $this->redirectToRoute("myposts");
+            }
             return $this->redirectToRoute("messlist",array("id"=>$request->get("to")));
 
 

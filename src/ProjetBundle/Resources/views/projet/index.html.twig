@@ -64,7 +64,7 @@
 
                             <!-- Buttons -->
                             <div class="buttons-to-right always-visible">
-                                <a href="{{ path('postulation_index', { 'id': projet.id }) }}" class="button ripple-effect"><i class="icon-material-outline-supervisor-account"></i> Gérer les candidats<span class="button-info">0</span></a>
+                                <a href="{{ path('postulation_index', { 'id': projet.id }) }}" class="button ripple-effect"><i class="icon-material-outline-supervisor-account"></i> Gérer les candidats<span class="button-info">{{projet.postuler|length}}</span></a>
                                 <a href="{{ path('projet_edit', { 'id': projet.id }) }}" class="button gray ripple-effect ico" title="Edit" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
                                 <a href="{{ path('projet_delete', { 'id': projet.id }) }}" class="button gray ripple-effect ico" title="Remove" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
                             </div>
