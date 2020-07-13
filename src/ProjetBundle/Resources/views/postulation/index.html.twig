@@ -75,8 +75,14 @@
                                                     <!-- Buttons -->
                                                     <div class="buttons-to-right always-visible margin-top-25 margin-bottom-5">
                                                         <a href="#" class="button ripple-effect"><i class="icon-material-outline-check"></i>Accepter</a>
-                                                        <a href="#small-dialog" class="popup-with-zoom-anim button dark ripple-effect"><i class="icon-material-outline-highlight-off"></i> Refuser</a>
-                                                        <a href="" data-id="{{ postulation.freelance.id }}" data-name="{{ postulation.freelance.nom ~" "~ postulation.freelance.prenom }}" class="popup-with-zoom-anim button dark ripple-effect"><i class="icon-feather-message-square"></i> Envoyer un message</a>
+                                                        <a href="#small-dialog"  class="popup-with-zoom-anim  button dark ripple-effect"><i class="icon-material-outline-highlight-off"></i> Refuser</a>
+
+
+                                                           <a href="#small-dialog-2" data-id="{{ postulation.freelance.id }}" data-name="{{ postulation.freelance.nom ~" "~ postulation.freelance.prenom}}"
+                                                              data-proj="{{ postulation.project.id }}"
+                                                              class="popup-with-zoom-anim msgmodal button dark ripple-effect"><i class="icon-feather-mail"></i> Envoyer un message</a>
+
+
                                                         <a href="#" class="button gray ripple-effect ico" title="Supprimer Candidate" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
                                                     </div>
                                                 </div>
@@ -123,13 +129,15 @@
 
                     <!-- Welcome Text -->
                     <div class="welcome-text" id="welcom">
-                        <h3>Direct Message <span id="username" ></span></h3>
+                        <h3>Envoyez un Message à <span id="username" ></span></h3>
                     </div>
 
                     <!-- Form -->
-                    <form method="post" id="send-pm">
-                        <input class="userid" type="hidden">
-                        <textarea name="textarea" cols="10" placeholder="Message" class="with-border" required></textarea>
+                    <form method="post" action="{{ path('sendmsg') }}" id="send-pm">
+                        <input name="clmodal" value="from modal" type="hidden">
+                        <input name="to" id="userid" type="hidden" value="">
+                        <input name="projid" id="projid" type="hidden" value="">
+                        <textarea   cols="10" name="mstxt" placeholder="Message" class="with-border" required></textarea>
                     </form>
 
                     <!-- Button -->
@@ -141,16 +149,24 @@
         </div>
     </div>
     <!-- Send Direct Message Popup / End -->
-
+    <script
+            src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+            crossorigin="anonymous"></script>
     <script>
-        $(document).on("click", ".popup-with-zoom-anim", function () {
-            var userid = $(this).data('id');
-            var username=$(this).data("name");
-            $("#send-pm .userid").val( userid );
-            $("#welcome .username").text(username);
+        $(".msgmodal").on("click" , function () {
+           console.log("no prob");
+
+
+            var id = $(this).data('id');
+            console.log(id);
+            var name=$(this).data('name');
+            var proj=$(this).data('proj');
+            document.getElementById("userid").value = id;
+            document.getElementById("projid").value = proj;
             // As pointed out in comments,
             // it is unnecessary to have to manually call the modal.
-             $('#small-dialog-2').dialog('show');
+            // $('#addBookDialog').modal('show');
         });
     </script>
 

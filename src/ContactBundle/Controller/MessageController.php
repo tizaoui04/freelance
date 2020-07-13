@@ -44,6 +44,8 @@ class MessageController extends Controller
             $mess=$em->getRepository(Message::class)->getmine($user->getId(),$id);
             $receiver=$em->getRepository(User::class)->find($id);
 
+
+
             if($this->container->get('security.authorization_checker')->isGranted("ROLE_FREELANCER")){
                 return $this->render("@Contact/message/Fmesstemp.html.twig",array("inbox"=>$inbox,"messages"=>$mess,"receiver"=>$receiver));
             }else if($this->container->get('security.authorization_checker')->isGranted("ROLE_CLIENT")){
@@ -78,6 +80,9 @@ class MessageController extends Controller
             $message->setSender($this->get('security.token_storage')->getToken()->getUser());
             $em->persist($message);
             $em->flush();
+            if($request->get("clmodal")){
+                return $this->redirectToRoute("postulation_index",array("id"=>$request->get("projid")));
+            }
             return $this->redirectToRoute("messlist",array("id"=>$request->get("to")));
 
 
@@ -90,6 +95,11 @@ class MessageController extends Controller
 
         return $this->redirectToRoute("messlist");
     }
+
+
+
+
+
 
     /**
      * @Route("/startmsg",name="startmsg")
