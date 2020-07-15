@@ -17,10 +17,11 @@ class messageRepository extends EntityRepository
     {
 
 
-        $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Message m 
-         LEFT JOIN m.sender p where m.date in(select MAX(l.date) from AppBundle:Message l where l.sender=p AND m.receiver=l.receiver Group by l.sender) AND  m.receiver=:id   ORDER BY m.date DESC 
+        $q=$this->getEntityManager()->createQuery("SELECT m from AppBundle:Message m
+         LEFT JOIN m.sender p where m.date in(select MAX(l.date) from AppBundle:Message l where l.sender=p AND m.receiver=l.receiver Group by l.sender) AND  m.receiver=:id   ORDER BY m.date DESC
             ")->setParameter('id',$id);
 
+//        $q=$this->getEntityManager()->createQuery("select m from AppBundle:Message m  group by m.sender , m.receiver having m.sender =:id or m.receiver =:id order by m.date")->setParameter('id',$id);
         return $query=$q->getResult();
 
 

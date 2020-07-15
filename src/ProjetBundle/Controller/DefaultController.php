@@ -3,6 +3,8 @@
 namespace ProjetBundle\Controller;
 
 use AppBundle\Entity\Categorie;
+use AppBundle\Entity\Paiement;
+use AppBundle\Entity\Postulation;
 use AppBundle\Entity\Projet;
 use AppBundle\Repository\categorieRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -31,5 +33,41 @@ class DefaultController extends Controller
             'projets' => $projets,
             'categorie' => $categorie,
         ));
+    }
+
+
+    /**
+     * Finds and displays a projet entity.
+     *
+     * @Route("/payment/{id}", name="payment_project")
+     * @Method("GET")
+     */
+    public function paymentAction(Postulation $postulation)
+    {
+        return $this->render('@Projet/payment/payment.html.twig',['postulation' => $postulation]);
+
+    }
+
+
+    /**
+     * Finds and displays a projet entity.
+     *
+     * @Route("/payment/{id}/{montan}", name="payment_confirm")
+     * @Method("GET")
+     */
+    public function paymentConfirmAction($id,$montan)
+    {
+        $postulation = $this->getDoctrine()->getRepository('AppBundle:Postulation')->find($id);
+        $em = $this->getDoctrine()->getManager();
+        $pay = new Paiement();
+
+        $pay->setMontant($montan);
+        $pay->setPostulation($postulation);
+
+        $em->persist($pay);
+        $em->flush();
+
+        return $this->redirectToRoute('postulation_index', ['id' => $postulation->getProject()->getId()]);
+
     }
 }

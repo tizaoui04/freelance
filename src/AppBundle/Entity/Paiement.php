@@ -116,5 +116,10 @@ class Paiement
     {
         return $this->datepaiment;
     }
+
+    public function __construct()
+    {
+        $this->datepaiment = new \DateTimeImmutable();
+    }
 }
 

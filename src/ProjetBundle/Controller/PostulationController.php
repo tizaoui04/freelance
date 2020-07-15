@@ -102,23 +102,24 @@ class PostulationController extends Controller
     }
 
     /**
-     * @Route("/accept",name="acceptpost")
+     * @Route("/acceptpost/{id}",name="acceptpost")
      */
-    public function acceptpost(Request $request){
-        if($request->get("id")){
+    public function acceptpost(Request $request,Postulation $post){
+        $d=$request->get("id");
+        if($d){
             $em=$this->getDoctrine()->getManager();
-            $post=$em->getRepository(Postulation::class)->find($request->get("id"));
-            $post->setAccept("ACCEPTED");
+           // $post=$em->getRepository(Postulation::class)->find($request->get("id"));
+            $post->setAccepte("ACCEPTED");
             $em->flush();
 
             $message = (new \Swift_Message("Postulation accepté"))
                 ->setFrom('marwene04@gmail.com')
-                ->setTo($post->getFreelancer()->getEmail())
+                ->setTo($post->getFreelance()->getEmail())
                 ->setSubject("Postulation accepté")
                 ->setBody("Félicitation votre postulation sur le projet ".$post->getProject()->getTitre()." a été accepté veuillez contacter le client pour disccuter les detailles ");
             $this->get('mailer')->send($message);
         }
-        return $this->redirectToRoute("postulation_index");
+        return $this->redirectToRoute("postulation_index",array("id"=>$post->getproject()->getId()));
 
 
     }

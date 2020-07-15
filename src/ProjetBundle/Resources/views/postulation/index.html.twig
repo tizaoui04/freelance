@@ -73,9 +73,14 @@
                                                     </div>
 
                                                     <!-- Buttons -->
+
                                                     <div class="buttons-to-right always-visible margin-top-25 margin-bottom-5">
-                                                        <a href="{{ path('acceptpost',{"id":postulation.id}) }}" class="button ripple-effect"><i class="icon-material-outline-check"></i>Accepter</a>
-                                                        <a href="#small-dialog"  class="popup-with-zoom-anim  button dark ripple-effect"><i class="icon-material-outline-highlight-off"></i> Refuser</a>
+                                                        {% if postulation.accepte == 'ACCEPTED' %}
+                                                            <a href="{{ path('payment_project',{"id":postulation.id}) }}" class="button ripple-effect"><i class="icon-material-outline-check"></i>Payer</a>
+                                                        {% else %}
+                                                            <a href="{{ path('acceptpost',{"id":postulation.id}) }}" class="button ripple-effect"><i class="icon-material-outline-check"></i>Accepter</a>
+                                                            <a href="#small-dialog"  class="popup-with-zoom-anim  button dark ripple-effect"><i class="icon-material-outline-highlight-off"></i> Refuser</a>
+                                                        {% endif %}
 
 
                                                            <a href="#small-dialog-2" data-id="{{ postulation.freelance.id }}" data-name="{{ postulation.freelance.nom ~" "~ postulation.freelance.prenom}}"

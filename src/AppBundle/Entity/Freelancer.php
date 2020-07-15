@@ -71,7 +71,12 @@ class Freelancer extends User
      */
     private $postulations;
 
-
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="aboutme", type="string", length=255)
+     */
+    private $aboutme;
 
     /**
      * @ORM\Column(type="string", length=255,nullable=true)
@@ -290,6 +295,22 @@ class Freelancer extends User
     public function setPostulations($postulations)
     {
         $this->postulations = $postulations;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAboutme()
+    {
+        return $this->aboutme;
+    }
+
+    /**
+     * @param string $aboutme
+     */
+    public function setAboutme($aboutme)
+    {
+        $this->aboutme = $aboutme;
     }
 
 

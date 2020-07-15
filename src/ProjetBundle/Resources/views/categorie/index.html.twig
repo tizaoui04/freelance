@@ -13,7 +13,6 @@
                 <table class="basic-table">
                     <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Libelle</th>
                         <th>Actions</th>
                     </tr>
@@ -21,13 +20,14 @@
                     <tbody>
                     {% for categorie in categories %}
                         <tr>
-                            <td><a href="{{ path('categorie_show', { 'id': categorie.id }) }}">{{ categorie.id }}</a></td>
                             <td>{{ categorie.libelle }}</td>
                             <td>
                                 <ul>
 
-                                    <li>
-                                        <a href="{{ path('categorie_edit', { 'id': categorie.id }) }}">edit</a>
+                                    <li style="list-style: none">
+                                        <a href="{{ path('categorie_edit', { 'id': categorie.id }) }}"  ><i class="icon-feather-edit"></i></a>
+                                        <a href="{{ path('categorie_delete', { 'id': categorie.id }) }}"  ><i class="icon-material-outline-delete"></i></a>
+
                                     </li>
                                 </ul>
                             </td>

@@ -1,48 +1,138 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Freelancer</h1>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ freelancer.id }}</td>
-            </tr>
-            <tr>
-                <th>Nom</th>
-                <td>{{ freelancer.nom }}</td>
-            </tr>
-            <tr>
-                <th>Prenom</th>
-                <td>{{ freelancer.prenom }}</td>
-            </tr>
-            <tr>
-                <th>Numtel</th>
-                <td>{{ freelancer.numtel }}</td>
-            </tr>
-            <tr>
-                <th>Date</th>
-                <td>{% if freelancer.date %}{{ freelancer.date|date('Y-m-d') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Domaine</th>
-                <td>{{ freelancer.domaine }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <!-- Titlebar
+ ================================================== -->
+    <div class="single-page-header freelancer-header" data-background-image="{{ asset('images/67125bf1d2a954b04414afd87684a687.jpg') }}">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="single-page-header-inner">
+                        <div class="left-side">
+                            <div class="header-image"><img src="{{ freelancer.image ? asset(vich_uploader_asset(freelancer,'imageFile'))  : asset('images/user-avatar-small-01.jpg') }} " alt=""></div>
 
-    <ul>
-        <li>
-            <a href="{{ path('freelancer_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('freelancer_edit', { 'id': freelancer.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+                            <div class="header-details">
+                                <h3>{{freelancer.prenom}} {{ freelancer.nom }}<span>{{freelancer.domaine}}</span></h3>
+                                <ul>
+                                    <li><div class="star-rating" data-rating="5.0"></div></li>
+
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Page Content
+    ================================================== -->
+    <div class="container">
+        <div class="row">
+
+            <!-- Content -->
+            <div class="col-xl-8 col-lg-8 content-right-offset">
+
+                <!-- Page Content -->
+                <div class="single-page-section">
+                    <h3 class="margin-bottom-25">A propos de moi</h3>
+                    <p>{{ freelancer.aboutme }}</p>
+
+                </div>
+
+
+
+
+            </div>
+
+
+            <!-- Sidebar -->
+            <div class="col-xl-4 col-lg-4">
+                <div class="sidebar-container">
+
+                    <!-- Profile Overview -->
+                    <div class="profile-overview">
+                        <div class="overview-item"><span>Tel </span><strong>{{ freelancer.numtel }}</strong></div>
+                        <div class="overview-item"><span>Domaine</span><strong>{{ freelancer.domaine}}</strong></div>
+
+                    </div>
+
+                    <!-- Button -->
+                    <a href="#small-dialog" class="apply-now-button popup-with-zoom-anim margin-bottom-50">Accepter </a>
+
+                    <!-- Freelancer Indicators -->
+                    <a href="#small-dialog-2" class="apply-now-button popup-with-zoom-anim margin-bottom-50"> Envoyer un message</a>
+
+
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- Send Direct Message Popup
+ ================================================== -->
+    <div id="small-dialog-2" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
+
+        <!--Tabs -->
+        <div class="sign-in-form">
+
+            <ul class="popup-tabs-nav">
+                <li><a href="#tab2">Send Message</a></li>
+            </ul>
+
+            <div class="popup-tabs-container">
+
+                <!-- Tab -->
+                <div class="popup-tab-content" id="tab2">
+
+                    <!-- Welcome Text -->
+                    <div class="welcome-text" id="welcom">
+                        <h3>Envoyez un Message à <span id="username" ></span></h3>
+                    </div>
+
+                    <!-- Form -->
+                    <form method="post" action="{{ path('sendmsg') }}" id="send-pm">
+                        <input name="frmodal" value="from modal" type="hidden">
+                        <input name="to" id="userid" type="hidden" value="">
+                        <input name="projid" id="projid" type="hidden" value="">
+                        <textarea   cols="10" name="mstxt" placeholder="Message" class="with-border" required></textarea>
+                    </form>
+
+                    <!-- Button -->
+                    <button class="button full-width button-sliding-icon ripple-effect" type="submit" form="send-pm">Send <i class="icon-material-outline-arrow-right-alt"></i></button>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Send Direct Message Popup / End -->
+    <script
+            src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+            crossorigin="anonymous"></script>
+    <script>
+        $(".msgmodal").on("click" , function () {
+            console.log("no prob");
+
+
+            var id = $(this).data('id');
+            console.log(id);
+            var name=$(this).data('name');
+            var proj=$(this).data('proj');
+            document.getElementById("userid").value = id;
+            document.getElementById("projid").value = proj;
+            document.getElementById("username").textContent = name;
+            // As pointed out in comments,
+            // it is unnecessary to have to manually call the modal.
+            // $('#addBookDialog').modal('show');
+        });
+    </script>
+{% endblock %}
+{% block footer %}
+
 {% endblock %}

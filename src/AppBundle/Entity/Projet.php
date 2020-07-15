@@ -62,7 +62,7 @@ class Projet
 
     /**
      * @ORM\ManyToOne(targetEntity="Categorie", inversedBy="projects")
-     * @ORM\JoinColumn(name="id_categorie", referencedColumnName="id")
+     * @ORM\JoinColumn(name="id_categorie", referencedColumnName="id", onDelete="cascade")
      */
     private $categorie;
 
@@ -71,6 +71,7 @@ class Projet
      */
     public function getCategorie()
     {
+
         return $this->categorie;
     }
 
