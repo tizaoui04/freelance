@@ -31,6 +31,26 @@ class ReclamationController extends Controller
         ));
     }
 
+
+    /**
+     * Lists all reclamation entities.
+     *
+     * @Route("/myreclams", name="myreclams")
+     * @Method("GET")
+     */
+    public function myreclams()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $reclamations = $em->getRepository('AppBundle:Reclamation')->findBy(array("sender"=>$this->get('security.token_storage')->getToken()->getUser()));
+
+        return $this->render('@Contact/reclamation/myreclams.html.twig', array(
+            'reclamations' => $reclamations,
+        ));
+    }
+
+
+
     /**
      * Creates a new reclamation entity.
      *
@@ -104,21 +124,18 @@ class ReclamationController extends Controller
     /**
      * Deletes a reclamation entity.
      *
-     * @Route("/{id}", name="reclamation_delete")
+     * @Route("/delete/{id}", name="reclamation_delete")
      * @Method("DELETE")
      */
     public function deleteAction(Request $request, Reclamation $reclamation)
     {
-        $form = $this->createDeleteForm($reclamation);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($reclamation);
             $em->flush();
-        }
 
-        return $this->redirectToRoute('reclamation_index');
+
+        return $this->redirectToRoute('myreclams');
     }
 
     /**

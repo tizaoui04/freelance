@@ -12,16 +12,25 @@
                     <div class="dashboard-nav-inner">
 
                         <ul data-submenu-title="Debut">
-                            <li><a href="dashboard.html"><i class="icon-material-outline-dashboard"></i> Dashboard</a></li>
+
                             <li><a href="{{path("messlist_noid")}}"><i class="icon-material-outline-question-answer"></i> Messages </a></li>
 
-                        </ul>
 
+
+
+                            <li><a href="#"><i class="icon-line-awesome-warning"></i> Reclamation</a>
+                                <ul>
+
+                                    <li><a href="{{ path("myreclams") }}">Mes Reclamation  <span class="nav-tag">{{ app.user.reclamations|length }}</span></a></li>
+                                    <li><a href="{{path("reclamation_new")}}">Envoyer une réclamation</a></li>
+                                </ul>
+                            </li>
+                        </ul>
                         <ul data-submenu-title="Organiser et Gérer">
                             <li><a href="#"><i class="icon-material-outline-assignment"></i> Tâches</a>
                                 <ul>
 
-                                    <li><a href="{{ path("myposts") }}">Mes postulation  <span class="nav-tag">4</span></a></li>
+                                    <li><a href="{{ path("myposts") }}">Mes postulation  <span class="nav-tag">{{ app.user.postulations|length }}</span></a></li>
                                     <li><a href="{{path("search_project")}}">Chercher du travaille</a></li>
                                 </ul>
                             </li>
@@ -29,7 +38,7 @@
                         </ul>
 
                         <ul data-submenu-title="Compte">
-                            <li class="active"><a href="dashboard-settings.html"><i class="icon-material-outline-settings"></i>Paramètres</a></li>
+                            <li class="active"><a href="{{ path("update_profile",{'id':app.user.id})  }}"><i class="icon-material-outline-settings"></i>Paramètres</a></li>
                             <li><a href="{{ path('fos_user_security_logout') }}"><i class="icon-material-outline-power-settings-new"></i>Se déconnecter</a></li>
                         </ul>
 

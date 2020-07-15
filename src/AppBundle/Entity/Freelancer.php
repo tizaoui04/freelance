@@ -74,7 +74,7 @@ class Freelancer extends User
     /**
      * @var string
      *
-     * @ORM\Column(name="aboutme", type="string", length=255)
+     * @ORM\Column(name="aboutme", type="string", length=255,nullable=true)
      */
     private $aboutme;
 

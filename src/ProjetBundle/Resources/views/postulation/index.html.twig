@@ -53,8 +53,11 @@
 
                                                 <!-- Avatar -->
                                                 <div class="freelancer-avatar">
+                                                    {% if postulation.accepte == 'ACCEPTED' %}
+                                                    <div class="verified-badge"></div>
 
-                                                    <a href="#"> <img src="{{ app.user.image ? asset(vich_uploader_asset(app.user,'imageFile'))  : asset('images/user-avatar-small-01.jpg') }} " alt=""></a>
+                                                    {% endif %}
+                                                    <a href="#"> <img src="{{ postulation.freelance.image ? asset(vich_uploader_asset(postulation.freelance,'imageFile'))  : asset('images/user-avatar-small-01.jpg') }} " alt=""></a>
                                                 </div>
 
                                                 <!-- Name -->
@@ -69,26 +72,66 @@
 
                                                     <!-- Rating -->
                                                     <div class="freelancer-rating">
-                                                        <div class="star-rating" data-rating="5.0"></div>
+                                                        {% set sumratings = 0 %}
+                                                        {% set total = postulation.freelance.notes|length %}
+                                                        {% for rating in postulation.freelance.notes %}
+                                                            {% set sumratings = sumratings + rating.note %}
+                                                        {% endfor %}
+                                                        {% if total==0 %}
+                                                        {% set total=1 %}
+                                                        {% endif %}
+
+                                                        <div class="star-rating" data-rating="{{  sumratings / total }}"></div>
                                                     </div>
 
                                                     <!-- Buttons -->
 
                                                     <div class="buttons-to-right always-visible margin-top-25 margin-bottom-5">
                                                         {% if postulation.accepte == 'ACCEPTED' %}
-                                                            <a href="{{ path('payment_project',{"id":postulation.id}) }}" class="button ripple-effect"><i class="icon-material-outline-check"></i>Payer</a>
-                                                        {% else %}
-                                                            <a href="{{ path('acceptpost',{"id":postulation.id}) }}" class="button ripple-effect"><i class="icon-material-outline-check"></i>Accepter</a>
-                                                            <a href="#small-dialog"  class="popup-with-zoom-anim  button dark ripple-effect"><i class="icon-material-outline-highlight-off"></i> Refuser</a>
-                                                        {% endif %}
 
 
-                                                           <a href="#small-dialog-2" data-id="{{ postulation.freelance.id }}" data-name="{{ postulation.freelance.nom ~" "~ postulation.freelance.prenom}}"
+                                                                {% if postulation.paiement is defined %}
+                                                                <a href="/" onclick="return false;" disabled class="button dark ripple-effect"><i class="icon-material-outline-check"></i>Payé</a>
+                                                                    <a href="#small-dialog-3" data-id="{{ postulation.freelance.id }}" data-name="{{ postulation.freelance.nom ~" "~ postulation.freelance.prenom}}"
+                                                                       data-proj="{{ postulation.project.titre}}" data-projid="{{ postulation.project.id}}"
+                                                                     class="popup-with-zoom-anim button reviewmodal ripple-effect "><i class="icon-material-outline-thumb-up"></i> Noter freelancer</a>
+
+
+
+
+                                                                {% else %}
+                                                                <a href="{{ path('payment_project',{"id":postulation.id}) }}" class="button ripple-effect"><i class="icon-material-outline-check"></i>Payer</a>
+                                                                {% endif %}
+
+
+                                                            <a href="#small-dialog-2" data-id="{{ postulation.freelance.id }}" data-name="{{ postulation.freelance.nom ~" "~ postulation.freelance.prenom}}"
+                                                                               data-proj="{{ postulation.project.id }}"
+                                                                               class="popup-with-zoom-anim msgmodal button dark ripple-effect"><i class="icon-feather-mail"></i> Envoyer un message</a>
+
+
+
+                                                        {% elseif  postulation.accepte == 'REFUSED' %}
+
+
+                                                            <a href="/" onclick="return false;" class="popup-with-zoom-anim  button dark ripple-effect"><i class="icon-material-outline-highlight-off"></i> Refusé</a>
+
+                                                            <a href="#small-dialog-2" data-id="{{ postulation.freelance.id }}" data-name="{{ postulation.freelance.nom ~" "~ postulation.freelance.prenom}}"
                                                               data-proj="{{ postulation.project.id }}"
                                                               class="popup-with-zoom-anim msgmodal button dark ripple-effect"><i class="icon-feather-mail"></i> Envoyer un message</a>
 
 
                                                         <a href="#" class="button gray ripple-effect ico" title="Supprimer Candidate" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
+                                                        {% else %}
+                                                            <a href="{{ path('acceptpost',{"id":postulation.id}) }}" class="button ripple-effect"><i class="icon-material-outline-check"></i>Accepter</a>
+                                                            <a href="{{ path('refusepost',{"id":postulation.id}) }}"  class="  button dark ripple-effect"><i class="icon-material-outline-highlight-off"></i> Refuser</a>
+
+                                                            <a href="#small-dialog-2" data-id="{{ postulation.freelance.id }}" data-name="{{ postulation.freelance.nom ~" "~ postulation.freelance.prenom}}"
+                                                               data-proj="{{ postulation.project.id }}"
+                                                               class="popup-with-zoom-anim msgmodal button dark ripple-effect"><i class="icon-feather-mail"></i> Envoyer un message</a>
+
+
+                                                            <a href="#" class="button gray ripple-effect ico" title="Supprimer Candidate" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
+                                                        {% endif %}
                                                     </div>
                                                 </div>
                                             </div>
@@ -154,6 +197,76 @@
         </div>
     </div>
     <!-- Send Direct Message Popup / End -->
+
+
+
+
+
+    <!-- Leave a Review for Freelancer Popup
+    ================================================== -->
+    <div id="small-dialog-3" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
+
+        <!--Tabs -->
+        <div class="sign-in-form">
+
+            <ul class="popup-tabs-nav">
+            </ul>
+
+            <div class="popup-tabs-container">
+
+                <!-- Tab -->
+                <div class="popup-tab-content" id="tab2">
+
+                    <!-- Welcome Text -->
+                    <div class="welcome-text">
+                        <h3>Laisser un commentaire</h3>
+                        <span>Notez <a href="#" id="nomfreelancer"> </a> pour le projet <a href="#" id="nomprojet"></a> </span>
+                    </div>
+
+                    <!-- Form -->
+                    <form method="post" action="{{ path('note_new') }}" id="leave-review-form">
+
+
+
+
+                        <input type="hidden" name="userid" id="freelancerid" value="">
+                        <input type="hidden" name="projid" id="projectid" value="">
+                        <div class="feedback-yes-no">
+                            <strong>Votre note</strong>
+
+                            <div class="leave-rating">
+
+
+
+
+                                <input type="radio" name="rating" id="rating-radio-5" value="5" required><label for="rating-radio-5" class="icon-material-outline-star"></label>
+                                <input type="radio" name="rating" id="rating-radio-4" value="4" required><label for="rating-radio-4" class="icon-material-outline-star"></label>
+                                <input type="radio" name="rating" id="rating-radio-3" value="3" required><label for="rating-radio-3" class="icon-material-outline-star"></label>
+                                <input type="radio" name="rating" id="rating-radio-2" value="2" required><label for="rating-radio-2" class="icon-material-outline-star"></label>
+                                <input type="radio" name="rating" id="rating-radio-1" value="1" required><label for="rating-radio-1" class="icon-material-outline-star"></label>
+                            </div>
+
+                            <div class="clearfix"></div>
+                        </div>
+
+                        <textarea class="with-border" placeholder="Comment" name="messagerating" id="message2" cols="7" required></textarea>
+
+                    </form>
+
+                    <!-- Button -->
+                    <button class="button full-width button-sliding-icon ripple-effect" type="submit" form="leave-review-form">Noter <i class="icon-material-outline-arrow-right-alt"></i></button>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- Leave a Review Popup / End -->
+
+
+
+
+
     <script
             src="https://code.jquery.com/jquery-3.5.1.js"
             integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
@@ -175,6 +288,29 @@
             // $('#addBookDialog').modal('show');
         });
     </script>
+
+    <script>
+        $(".reviewmodal").on("click" , function () {
+
+
+
+            var id = $(this).data('id');
+
+            var name=$(this).data('name');
+            var proj=$(this).data('proj');
+            var projid=$(this).data('projid');
+
+            document.getElementById("freelancerid").value = id;
+            document.getElementById("nomprojet").text = proj;
+            document.getElementById("nomfreelancer").text = name;
+            document.getElementById("projectid").value = projid;
+            // As pointed out in comments,
+            // it is unnecessary to have to manually call the modal.
+            // $('#addBookDialog').modal('show');
+        });
+    </script>
+
+
 
 {% endblock %}
  {% block footer %}

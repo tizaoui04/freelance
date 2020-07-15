@@ -1,16 +1,107 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Reclamation creation</h1>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
 
-    <ul>
-        <li>
-            <a href="{{ path('reclamation_index') }}">Back to the list</a>
-        </li>
-    </ul>
+
+
+<div class="dashboard-container">
+    {% if is_granted('ROLE_FREELANCER') %}
+    {{ include('Fsidebar.html.twig') }}
+    {% elseif is_granted('ROLE_CLIENT') %}
+    {{ include('Csidebar.html.twig') }}
+    {% endif %}
+    <!-- Dashboard Content
+    ================================================== -->
+    <div class="dashboard-content-container" data-simplebar>
+        <div class="dashboard-content-inner" >
+
+            <!-- Dashboard Headline -->
+            <div class="dashboard-headline">
+
+    <!-- Titlebar
+    ================================================== -->
+    <div id="titlebar" class="gradient">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+
+                    <h2>Réclamation</h2>
+
+                    <!-- Breadcrumbs -->
+                    <nav id="breadcrumbs" class="dark">
+                        <ul>
+                            <li><a href="#">Home</a></li>
+                            <li><a href="#">Pages</a></li>
+                            <li>Contact</li>
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Content
+    ================================================== -->
+            </div>
+
+    <!-- Container -->
+    <div class="container">
+        <div class="row">
+
+
+
+            <div class="col-xl-8 col-lg-8 offset-xl-2 offset-lg-2">
+
+                <section id="contact" class="margin-bottom-60">
+                    <h3 class="headline margin-top-15 margin-bottom-35">Vous avez un probléme? N'hésitez pas à nous contacter! </h3>
+
+                    {{ form_start(form) }}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="input-with-icon-left">
+                                    <input class="with-border" name="name" type="text" id="name" disabled placeholder="Your Name" value="{{ app.user.nom ~" "~ app.user.prenom }}" />
+                                    <i class="icon-material-outline-account-circle"></i>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="input-with-icon-left">
+                                    <input class="with-border" name="email" type="email" id="email" placeholder="Email Address" disabled value="{{ app.user.email }}" />
+                                    <i class="icon-material-outline-email"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-with-icon-left">
+                            {{ form_widget(form.title,{ 'attr': {'placeholder': 'Sujet','class':'with-border'} }) }}
+
+                            <i class="icon-material-outline-assignment"></i>
+                        </div>
+
+                        <div>
+                            {{ form_widget(form.contenu,{ 'attr': {'placeholder': 'Message','class':'with-border','cols': '40','rows':'5'} }) }}
+
+                        </div>
+
+                        <input type="submit" class="submit button margin-top-15" id="submit" value="Submit Message" />
+
+                   {{form_end(form)}}
+                </section>
+
+            </div>
+
+        </div>
+    </div>
+    <!-- Container / End -->
+
+        </div></div></div>
+
+
+
+
+{% endblock %}
+{% block footer %}
 {% endblock %}

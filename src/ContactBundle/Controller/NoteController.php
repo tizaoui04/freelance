@@ -2,6 +2,7 @@
 
 namespace ContactBundle\Controller;
 
+use AppBundle\Entity\Freelancer;
 use AppBundle\Entity\Note;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -40,21 +41,27 @@ class NoteController extends Controller
     public function newAction(Request $request)
     {
         $note = new Note();
-        $form = $this->createForm('AppBundle\Form\NoteType', $note);
-        $form->handleRequest($request);
+        $rate=$request->get("rating");
+        $projid=$request->get("projid");
+        $comment=$request->get("messagerating");
+        $userid=$request->get("userid");
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($rate && $projid && $comment && $userid) {
             $em = $this->getDoctrine()->getManager();
+            $note->setClient($this->get("security.token_storage")->getToken()->getUser());
+            $note->setCommentaire($comment);
+            $note->setDatenote(new \DateTime());
+            $note->setFreelancer($em->getRepository(Freelancer::class)->find($userid));
+            $note->setNote($rate);
+
             $em->persist($note);
             $em->flush();
 
-            return $this->redirectToRoute('note_show', array('id' => $note->getId()));
+            return $this->redirectToRoute('postulation_index', array('id' => $projid));
         }
+        return $this->redirectToRoute("homepage");
 
-        return $this->render('@Contact/note/new.html.twig', array(
-            'note' => $note,
-            'form' => $form->createView(),
-        ));
+
     }
 
     /**

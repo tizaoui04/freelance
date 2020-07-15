@@ -14,7 +14,13 @@
                     <ul data-submenu-title="Debut">
                         <li><a href="dashboard.html"><i class="icon-material-outline-dashboard"></i> Dashboard</a></li>
                         <li><a href="{{path("messlist_noid")}}"><i class="icon-material-outline-question-answer"></i> Messages </a></li>
+                        <li><a href="#"><i class="icon-line-awesome-warning"></i> Reclamation</a>
+                            <ul>
 
+                                <li><a href="{{ path("myreclams") }}">Mes Reclamation  <span class="nav-tag">{{ app.user.reclamations|length }}</span></a></li>
+                                <li><a href="{{path("reclamation_new")}}">Envoyer une réclamation</a></li>
+                            </ul>
+                        </li>
                     </ul>
 
                     <ul data-submenu-title="Organiser et Gérer">

@@ -123,6 +123,27 @@ class PostulationController extends Controller
 
 
     }
+    /**
+     * @Route("/refusepost/{id}",name="refusepost")
+     */
+    public function refusepost(Postulation $post){
+
+            $em=$this->getDoctrine()->getManager();
+            // $post=$em->getRepository(Postulation::class)->find($request->get("id"));
+            $post->setAccepte("REFUSED");
+            $em->flush();
+
+            $message = (new \Swift_Message("Postulation refusé"))
+                ->setFrom('marwene04@gmail.com')
+                ->setTo($post->getFreelance()->getEmail())
+                ->setSubject("Postulation refusé")
+                ->setBody("Malheuresement votre postulation sur le projet ".$post->getProject()->getTitre()." a été refusé. ");
+            $this->get('mailer')->send($message);
+
+        return $this->redirectToRoute("postulation_index",array("id"=>$post->getproject()->getId()));
+
+
+    }
 
     /**
      * Finds and displays a postulation entity.

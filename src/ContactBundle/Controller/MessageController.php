@@ -57,7 +57,12 @@ class MessageController extends Controller
         }
 
 
-        return $this->render("@Contact/message/Fmesstemp.html.twig",array("inbox"=>$inbox));
+
+        if($this->container->get('security.authorization_checker')->isGranted("ROLE_FREELANCER")){
+            return $this->render("@Contact/message/Fmesstemp.html.twig",array("inbox"=>$inbox));
+        }else if($this->container->get('security.authorization_checker')->isGranted("ROLE_CLIENT")){
+            return $this->render("@Contact/message/Cmesstemp.html.twig",array("inbox"=>$inbox));
+        }
     }
 
     /**

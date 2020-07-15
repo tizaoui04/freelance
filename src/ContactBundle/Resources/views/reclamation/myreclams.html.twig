@@ -1,0 +1,76 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+<div class="dashboard-container">
+    {% if is_granted('ROLE_FREELANCER') %}
+        {{ include('Fsidebar.html.twig') }}
+    {% elseif is_granted('ROLE_CLIENT') %}
+        {{ include('Csidebar.html.twig') }}
+    {% endif %}
+    <!-- Dashboard Content
+    ================================================== -->
+    <div class="dashboard-content-container" data-simplebar>
+        <div class="dashboard-content-inner" >
+
+            <!-- Dashboard Headline -->
+            <div class="dashboard-headline">
+
+                <!-- Titlebar
+                ================================================== -->
+                <div id="titlebar" class="gradient">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+
+                                <h2>Réclamation</h2>
+
+                                <!-- Breadcrumbs -->
+                                <nav id="breadcrumbs" class="dark">
+                                    <ul>
+                                        <li><a href="#">Home</a></li>
+                                        <li><a href="#">Pages</a></li>
+                                        <li>Contact</li>
+                                    </ul>
+                                </nav>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Content
+                ================================================== -->
+            </div>
+
+            <div class="dashboard-box margin-top-0">
+            <div class="content">
+
+    <ul class="dashboard-box-list">
+        {% for reclamation in reclamations %}
+            <li>
+                <div class="boxed-list-item">
+                    <!-- Content -->
+                    <div class="item-content">
+                        <h4>{{reclamation.title}}</h4>
+                        <div class="item-details margin-top-10">
+
+                            <div class="detail-item"><i class="icon-material-outline-date-range"></i> {{reclamation.date|date("d , F y")}}</div>
+                        </div>
+                        <div class="item-description">
+                            <p>{{reclamation.contenu}}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <a href="{{ path('reclamation_delete',{'id':reclamation.id}) }}" class="button gray ripple-effect margin-top-5 margin-bottom-10"><i class="icon-feather-trash-2"></i> Supprimer</a>
+            </li>
+        {% endfor %}
+            </ul>
+            </div>
+            </div></div></div></div>
+{% endblock %}
+{% block footer %}
+{% endblock %}

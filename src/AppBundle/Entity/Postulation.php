@@ -48,6 +48,31 @@ class Postulation
     private $freelance;
 
     /**
+     * @ORM\OneToOne(targetEntity="Paiement", inversedBy="postulation")
+
+     */
+    private $paiement;
+
+    /**
+     * @return mixed
+     */
+    public function getPaiement()
+    {
+        return $this->paiement;
+    }
+
+    /**
+     * @param mixed $paiement
+     */
+    public function setPaiement($paiement)
+    {
+        $this->paiement = $paiement;
+    }
+
+
+
+
+    /**
      * @return mixed
      */
     public function getFreelance()
