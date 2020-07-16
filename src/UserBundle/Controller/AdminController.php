@@ -3,11 +3,16 @@
 namespace UserBundle\Controller;
 
 use AppBundle\Entity\Admin;
+use AppBundle\Entity\Freelancer;
+use AppBundle\Entity\Projet;
+use AppBundle\Entity\Reclamation;
+use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use UserBundle\Form\AdminType;
+use UserBundle\Form\FreelancerType;
 
 /**
  * Admin controller.
@@ -16,6 +21,119 @@ use UserBundle\Form\AdminType;
  */
 class AdminController extends Controller
 {
+
+    /**
+     * @Route("/update/{id}",name="admin_profile", requirements={"id":"\d+"})
+     * @Method({"GET","POST"})
+     */
+    public function updateprofile(Request $request, Admin $admin)
+    {
+        $editForm = $this->createForm(AdminType::class, $admin);
+        $editForm->remove("date")->remove("plainPassword")->remove("username");
+        $editForm->handleRequest($request);
+
+        if ($editForm->isSubmitted()) {
+
+
+            //get the passwords old one and the new one with its confirmation
+            $oldpass = $request->get("oldpass");
+            $newpass = $request->get("newpass");
+            $sedondpass = $request->get("newpass1");
+
+            if ($oldpass != null && $newpass != null && $sedondpass != null) {
+
+
+                //get the encoder which encode the password to verify the validity of the old pass
+                $encoder = $this->get('security.encoder_factory')->getEncoder($admin);
+                $salt = $admin->getSalt();
+
+                //verify if the neww passwords match if not return the page
+                if (strcmp($newpass, $sedondpass) != 0) {
+                    return $this->render('@User/admin/profile.html.twig', array(
+                        'freelancer' => $admin,
+                        'edit_form' => $editForm->createView(),
+                        "msg" => "les mots de passe ne correspondent pas",
+                    ));
+                }
+                //check if the old pass match the given one
+                if (!$encoder->isPasswordValid($admin->getPassword(), $oldpass, $salt)) {
+                    return $this->render('@User/admin/profile.html.twig', array(
+                        'freelancer' => $admin,
+                        'edit_form' => $editForm->createView(),
+                        "msg" => "Verifiez mot de passe actuel",
+                    ));
+                } else {
+                    $admin->setPlainPassword($newpass);
+                }
+
+
+            }
+
+
+            if ($editForm->isValid()) {
+
+
+                $this->getDoctrine()->getManager()->flush();
+
+                return $this->redirectToRoute('admin_profile', array('id' => $admin->getId(),"msg"=>"Votre profile a été mise a jour"));
+            }
+        }
+
+
+        return $this->render('@User/admin/profile.html.twig', array(
+            'freelancer' => $admin,
+            'edit_form' => $editForm->createView(),
+            "msg"=>$request->get("msg"),
+        ));
+
+    }
+
+
+    /**
+     * @Route("/projects",name="project_management")
+     */
+    public function projects(){
+        $em=$this->getDoctrine()->getManager();
+        $projects=$em->getRepository(Projet::class)->findAll();
+        return $this->render("@User/admin/Projects.html.twig",array("projets"=>$projects));
+
+    }
+
+
+    /**
+     * @Route("/delproject/{id}",name="delproj")
+     */
+    public function deleteproject(Projet $projet){
+        $this->getDoctrine()->getManager()->remove($projet);
+
+        $this->getDoctrine()->getManager()->flush();
+        return $this->redirectToRoute("project_management");
+    }
+
+    /**
+     * @Route("/reclamations",name="reclamation_management")
+     */
+    public function reclamations(){
+        $em=$this->getDoctrine()->getManager();
+        $reclams=$em->getRepository(Reclamation::class)->findAll();
+        return $this->render("@User/admin/Reclamations.html.twig",array("reclamations"=>$reclams));
+
+    }
+
+    public function fixreclam(Reclamation $reclamation,Request $request){
+        $reclamation->setEtat(true);
+        $this->getDoctrine()->getManager()->flush();
+        $message = (new \Swift_Message("Reclamation traité"))
+            ->setFrom('marwene04@gmail.com')
+            ->setTo($reclamation->getSender()->getEmail())
+            ->setSubject("Reclamation ".$reclamation->getTitle()." traité")
+            ->setBody($request->get("message"));
+        $this->get('mailer')->send($message);
+        return $this->redirectToRoute("reclamation_management");
+    }
+
+
+
     /**
      * Lists all admin entities.
      *

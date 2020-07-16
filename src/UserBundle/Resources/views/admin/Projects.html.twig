@@ -1,0 +1,89 @@
+{% extends 'back.html.twig' %}
+
+
+{% block body %}
+    <div class="dashboard-container">
+
+        <!-- Dashboard Sidebar
+        ================================================== -->
+
+        {{ include('Asidebar.html.twig') }}
+
+        <div class="dashboard-content-container" data-simplebar>
+            <div class="dashboard-content-inner" >
+                <!-- Dashboard Headline -->
+                <div class="dashboard-headline">
+                    <h3>Gérer les travaux</h3>
+
+                    <!-- Breadcrumbs -->
+                    <nav id="breadcrumbs" class="dark">
+                        <ul>
+                            <li><a href="#">Acceuil</a></li>
+                            <li><a href="#">Dashboard</a></li>
+                            <li>Gérer les travaux</li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- Dashboard Sidebar / End -->
+                <div class="row">
+
+                    <!-- Dashboard Box -->
+                    <div class="col-xl-12">
+                        <div class="dashboard-box margin-top-0">
+
+                            <!-- Headline -->
+                            <div class="headline">
+                                <h3><i class="icon-material-outline-business-center"></i> Projets list</h3>
+                            </div>
+                            {% for projet in projets %}
+                            <div class="content">
+                                <ul class="dashboard-box-list">
+                                    <li>
+                                        <!-- Job Listing -->
+                                        <div class="job-listing">
+
+                                            <!-- Job Listing Details -->
+                                            <div class="job-listing-details">
+
+
+                                                <!-- Details -->
+                                                <div class="job-listing-description">
+                                                    <h3 class="job-listing-title"><a href="{{ path('projet_show', { 'id': projet.id }) }}"{{ projet.titre }}></a> </h3>
+
+                                                    <!-- Job Listing Footer -->
+                                                    <div class="job-listing-footer">
+                                                        <ul>
+                                                            <li><i class="icon-material-outline-date-range"></i> {{ projet.categorie.libelle }}</li>
+                                                            <li><i class="icon-material-outline-date-range"></i> {% if projet.dateprojet %}{{ projet.dateprojet|date('Y-m-d') }}{% endif %}</li>
+
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Buttons -->
+                                        <div class="buttons-to-right always-visible">
+
+
+                                            <a href="{{ path('projet_delete', { 'id': projet.id }) }}" class="button gray ripple-effect ico" title="Remove" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
+                                        </div>
+                                    </li>
+
+
+
+                                </ul>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Row / End -->
+    </div>
+
+{% endblock %} {% block footer %}
+
+{% endblock %}
+

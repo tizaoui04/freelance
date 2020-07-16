@@ -227,6 +227,8 @@ class DefaultController extends Controller
             }elseif($this->container->get('security.authorization_checker')->isGranted('ROLE_CLIENT')) {
                 // Everyone else goes to the `home` route
                 return $this->redirectToRoute("homepage");
+            }elseif ($this->container->get("security.authorization_checker")->isGranted("ROLE_ADMIN")){
+                return $this->redirectToRoute("admin_index");
             }
 
         }

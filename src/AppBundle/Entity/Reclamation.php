@@ -43,10 +43,33 @@ class Reclamation
     private $date;
 
     /**
+     * @var \boolean
+     *
+     * @ORM\Column(name="etat", type="boolean")
+     */
+    private $etat;
+
+    /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="reclamations")
      * @ORM\JoinColumn(name="sender_id", referencedColumnName="id")
      */
     private $sender;
+
+    /**
+     * @return bool
+     */
+    public function isEtat()
+    {
+        return $this->etat;
+    }
+
+    /**
+     * @param bool $etat
+     */
+    public function setEtat($etat)
+    {
+        $this->etat = $etat;
+    }
 
 
 

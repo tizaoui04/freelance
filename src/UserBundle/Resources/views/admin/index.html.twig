@@ -1,41 +1,29 @@
-{% extends 'base.html.twig' %}
+{% extends 'back.html.twig' %}
 
 {% block body %}
-    <h1>Admins list</h1>
+<div class="dashboard-container">
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nom</th>
-                <th>Prenom</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for admin in admins %}
-            <tr>
-                <td><a href="{{ path('admin_show', { 'id': admin.id }) }}">{{ admin.id }}</a></td>
-                <td>{{ admin.nom }}</td>
-                <td>{{ admin.prenom }}</td>
-                <td>
+
+    {{ include('Asidebar.html.twig') }}
+
+
+    <!-- Dashboard Content
+    ================================================== -->
+    <div class="dashboard-content-container" data-simplebar>
+        <div class="dashboard-content-inner" >
+
+            <!-- Dashboard Headline -->
+            <div class="dashboard-headline">
+                <h3>Parametre</h3>
+
+                <!-- Breadcrumbs -->
+                <nav id="breadcrumbs" class="dark">
                     <ul>
-                        <li>
-                            <a href="{{ path('admin_show', { 'id': admin.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('admin_edit', { 'id': admin.id }) }}">edit</a>
-                        </li>
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Dashboard</a></li>
+                        <li>Paramaetre</li>
                     </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('admin_new') }}">Create a new admin</a>
-        </li>
-    </ul>
+                </nav>
+            </div>
+        </div></div></div>
 {% endblock %}

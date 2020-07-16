@@ -67,6 +67,7 @@ class ReclamationController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $reclamation->setDate(new \DateTime());
             $reclamation->setSender($this->get('security.token_storage')->getToken()->getUser());
+            $reclamation->setEtat(false);
             $em = $this->getDoctrine()->getManager();
             $em->persist($reclamation);
             $em->flush();

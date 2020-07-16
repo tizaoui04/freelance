@@ -1,0 +1,49 @@
+
+{% block sidebar %}
+    <!-- Dashboard Sidebar
+        ================================================== -->
+    <div class="dashboard-sidebar">
+        <div class="dashboard-sidebar-inner" data-simplebar>
+            <div class="dashboard-nav-container">
+
+
+                <!-- Navigation -->
+                <div class="dashboard-nav">
+                    <div class="dashboard-nav-inner">
+
+                        <ul data-submenu-title="Debut">
+
+                            <li><a href="{{ path('admin_index') }}"><i class="icon-material-outline-question-answer"></i> Statistique </a></li>
+
+
+
+
+                            <li><a href="{{ path('reclamation_management') }}"><i class="icon-line-awesome-warning"></i> Reclamation</a>
+
+                            </li>
+                        </ul>
+                        <ul data-submenu-title="Organiser et Gérer">
+                            <li><a href="#"><i class="icon-material-outline-assignment"></i> Projets et Categories</a>
+                                <ul>
+
+                                    <li><a href="">Categories  </a></li>
+                                    <li><a href="{{ path('project_management') }}">Projets</a></li>
+                                </ul>
+                            </li>
+
+                        </ul>
+
+                        <ul data-submenu-title="Compte">
+                            <li class="active"><a href="{{ path('admin_profile',{"id":app.user.id}) }}"><i class="icon-material-outline-settings"></i>Profile</a></li>
+                            <li><a href="{{ path('fos_user_security_logout') }}"><i class="icon-material-outline-power-settings-new"></i>Se déconnecter</a></li>
+                        </ul>
+
+                    </div>
+                </div>
+                <!-- Navigation / End -->
+
+            </div>
+        </div>
+    </div>
+    <!-- Dashboard Sidebar / End -->
+{% endblock %}
