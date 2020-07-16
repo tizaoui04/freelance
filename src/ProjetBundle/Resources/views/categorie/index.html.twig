@@ -2,7 +2,28 @@
 
 {% block body %}
 
+<div class="dashboard-container">
 
+    <!-- Dashboard Sidebar
+    ================================================== -->
+
+    {{ include('Asidebar.html.twig') }}
+
+    <div class="dashboard-content-container" data-simplebar>
+        <div class="dashboard-content-inner" >
+            <!-- Dashboard Headline -->
+            <div class="dashboard-headline">
+                <h3>Gérer les travaux</h3>
+
+                <!-- Breadcrumbs -->
+                <nav id="breadcrumbs" class="dark">
+                    <ul>
+                        <li><a href="#">Acceuil</a></li>
+                        <li><a href="#">Dashboard</a></li>
+                        <li>Gérer les travaux</li>
+                    </ul>
+                </nav>
+            </div>
     <div class="row">
 
         <br>
@@ -49,7 +70,7 @@
 
     </div>
 
-
+        </div></div></div>
 {% endblock %}
 
 

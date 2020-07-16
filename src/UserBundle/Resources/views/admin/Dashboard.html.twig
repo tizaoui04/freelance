@@ -1,0 +1,292 @@
+{% extends 'back.html.twig' %}
+
+
+{% block body %}
+<div class="dashboard-container">
+
+    <!-- Dashboard Sidebar
+    ================================================== -->
+
+    {{ include('Asidebar.html.twig') }}
+
+    <div class="dashboard-content-container" data-simplebar>
+        <div class="dashboard-content-inner" >
+            <!-- Dashboard Headline -->
+            <div class="dashboard-headline">
+                <h3>Dashboard</h3>
+
+                <!-- Breadcrumbs -->
+                <nav id="breadcrumbs" class="dark">
+                    <ul>
+                        <li><a href="#">Acceuil</a></li>
+                        <li><a href="#">Dashboard</a></li>
+                        <li>Dashboard</li>
+                    </ul>
+                </nav>
+            </div>
+
+            <!-- Fun Facts Container -->
+            <div class="fun-facts-container">
+                <div class="fun-fact" data-fun-fact-color="#36bd78">
+                    <div class="fun-fact-text">
+                        <span>Projet créé</span>
+                        <h4>{{ postcount}}</h4>
+                    </div>
+                    <div class="fun-fact-icon"><i class="icon-material-outline-gavel"></i></div>
+                </div>
+                <div class="fun-fact" data-fun-fact-color="#b81b7f">
+                    <div class="fun-fact-text">
+                        <span>Postulation</span>
+                        <h4>{{ projcount }}</h4>
+                    </div>
+                    <div class="fun-fact-icon"><i class="icon-material-outline-business-center"></i></div>
+                </div>
+                <div class="fun-fact" data-fun-fact-color="#efa80f">
+                    <div class="fun-fact-text">
+                        <span>Utilisateur</span>
+                        <h4>{{users}}</h4>
+                    </div>
+                    <div class="fun-fact-icon"><i class="icon-feather-user-check"></i></div>
+                </div>
+
+                <!-- Last one has to be hidden below 1600px, sorry :( -->
+                <div class="fun-fact" data-fun-fact-color="#2a41e6">
+                    <div class="fun-fact-text">
+                        <span>Paiement effecuté</span>
+                        <h4>{{paiement}}</h4>
+                    </div>
+                    <div class="fun-fact-icon"><i class="icon-line-awesome-bitcoin"></i></div>
+                </div>
+            </div>
+
+            <!-- Row -->
+            <div class="row">
+
+                <div class="col-xl-8">
+                    <!-- Dashboard Box -->
+                    <div class="dashboard-box main-box-in-row">
+                        <div class="headline">
+                            <h3><i class="icon-feather-bar-chart-2"></i> Your Profile Views</h3>
+                            <div class="sort-by">
+                                <select class="selectpicker hide-tick">
+                                    <option>Last 6 Months</option>
+                                    <option>This Year</option>
+                                    <option>This Month</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="content">
+                            <!-- Chart -->
+                            <div class="chart">
+                                <canvas id="chart" width="100" height="45"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Dashboard Box / End -->
+                </div>
+                <div class="col-xl-4">
+
+                    <!-- Dashboard Box -->
+                    <!-- If you want adjust height of two boxes
+                         add to the lower box 'main-box-in-row'
+                         and 'child-box-in-row' to the higher box -->
+                    <div class="dashboard-box child-box-in-row">
+                        <div class="headline">
+                            <h3><i class="icon-material-outline-note-add"></i> Notes</h3>
+                        </div>
+
+                        <div class="content with-padding">
+                            <!-- Note -->
+                            <div class="dashboard-note">
+                                <p>Meeting with candidate at 3pm who applied for Bilingual Event Support Specialist</p>
+                                <div class="note-footer">
+                                    <span class="note-priority high">High Priority</span>
+                                    <div class="note-buttons">
+                                        <a href="#" title="Edit" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
+                                        <a href="#" title="Remove" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Note -->
+                            <div class="dashboard-note">
+                                <p>Extend premium plan for next month</p>
+                                <div class="note-footer">
+                                    <span class="note-priority low">Low Priority</span>
+                                    <div class="note-buttons">
+                                        <a href="#" title="Edit" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
+                                        <a href="#" title="Remove" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Note -->
+                            <div class="dashboard-note">
+                                <p>Send payment to David Peterson</p>
+                                <div class="note-footer">
+                                    <span class="note-priority medium">Medium Priority</span>
+                                    <div class="note-buttons">
+                                        <a href="#" title="Edit" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
+                                        <a href="#" title="Remove" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="add-note-button">
+                            <a href="#small-dialog" class="popup-with-zoom-anim button full-width button-sliding-icon">Add Note <i class="icon-material-outline-arrow-right-alt"></i></a>
+                        </div>
+                    </div>
+                    <!-- Dashboard Box / End -->
+                </div>
+            </div>
+            <!-- Row / End -->
+
+            <!-- Row -->
+            <div class="row">
+
+                <!-- Dashboard Box -->
+                <div class="col-xl-6">
+                    <div class="dashboard-box">
+                        <div class="headline">
+                            <h3><i class="icon-material-baseline-notifications-none"></i> Notifications</h3>
+                            <button class="mark-as-read ripple-effect-dark" data-tippy-placement="left" title="Mark all as read">
+                                <i class="icon-feather-check-square"></i>
+                            </button>
+                        </div>
+                        <div class="content">
+                            <ul class="dashboard-box-list">
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard Box -->
+                <div class="col-xl-6">
+                    <div class="dashboard-box">
+                        <div class="headline">
+                            <h3><i class="icon-material-outline-assignment"></i> Orders</h3>
+                        </div>
+                        <div class="content">
+                            <ul class="dashboard-box-list">
+
+                                {% for reclam in reclams %}
+                                    <li>
+                                        <div class="invoice-list-item">
+                                            <strong>{{ reclam.title }}</strong>
+                                            <ul>
+                                                <li>
+                                                    {% if reclam.etat==true %}
+                                                        <span class="paid">Traité</span>
+                                                    {% else %}<span class="unpaid">En attente</span>{% endif %}
+
+                                                    </li>
+                                                <li>Utilisateur:{{ reclam.sender.nom ~" "~ reclam.sender.prenom}} </li>
+                                                <li>Date: {{reclam.date|date("d/m/y")}}</li>
+                                            </ul>
+                                        </div>
+                                        <!-- Buttons -->
+                                        {% if reclam.etat==false %}
+                                        <div class="buttons-to-right">
+                                            <a href="#small-dialog-3" data-id="{{ reclam.id }}" data-name="{{ reclam.sender.nom ~" "~ reclam.sender.prenom}}"
+                                               data-content="{{ reclam.contenu}}" data-title="{{ reclam.title }}"
+                                               class="popup-with-zoom-anim button reclammodal ripple-effect "><i class="icon-material-outline-gavel"></i> Fixer</a>
+                                        </div>
+                                        {% endif %}
+                                    </li>
+                                {% endfor %}
+
+
+
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- Row / End -->
+
+        </div></div></div>
+
+    <!-- Leave a Review for Freelancer Popup
+================================================== -->
+    <div id="small-dialog-3" class="zoom-anim-dialog mfp-hide dialog-with-tabs">
+
+        <!--Tabs -->
+        <div class="sign-in-form">
+
+            <ul class="popup-tabs-nav">
+            </ul>
+            <div class="popup-tabs-container">
+
+                <!-- Tab -->
+                <div class="popup-tab-content" id="tab" style="">
+
+                    <!-- Welcome Text -->
+                    <div class="welcome-text">
+                        <h3>Reclamation</h3>
+                        <span>Reclamation de <a href="#" id="nomfreelancer"> </a> sur <a href="#" id="reclamtitle"></a> </span>
+
+                    </div>
+                    <div class="clearfix"></div>
+
+                    <p id="content"></p>
+
+                    <form action="{{ path('fixereclam') }}">
+                        <div class="input-group">
+                            <input type="hidden" name="id" id="reclamid" value="">
+                            <input type="hidden" name="return" value="dash">
+
+
+                            <textarea   cols="10" name="message" placeholder="Reponse" class="with-border" required></textarea>
+
+                        </div>
+                        <button class="margin-top-15 button full-width button-sliding-icon ripple-effect" type="submit" >Enovyer <i class="icon-material-outline-arrow-right-alt"></i></button>
+                    </form>
+
+                    <!-- Button -->
+
+
+                </div>
+
+            </div>
+
+
+
+
+
+        </div>
+    </div>
+    <!-- Leave a Review Popup / End -->
+    <script
+            src="https://code.jquery.com/jquery-3.5.1.js"
+            integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+            crossorigin="anonymous"></script>
+
+
+
+    <script>
+        $(".reclammodal").on("click" , function () {
+
+
+
+            var id = $(this).data('id');
+
+            var name=$(this).data('name');
+            var content=$(this).data('content');
+
+
+
+            document.getElementById("reclamid").value = id;
+            document.getElementById("content").textContent = content;
+            document.getElementById("nomfreelancer").text = name;
+            document.getElementById("reclamtitle").text = $(this).data('title');;
+
+
+            // As pointed out in comments,
+            // it is unnecessary to have to manually call the modal.
+            // $('#addBookDialog').modal('show');
+        });
+    </script>
+{% endblock %} {% block footer %}
+
+{% endblock %}

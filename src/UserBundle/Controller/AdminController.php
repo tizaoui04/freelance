@@ -22,6 +22,36 @@ use UserBundle\Form\FreelancerType;
 class AdminController extends Controller
 {
 
+
+    /**
+     * @Route("/paiement",name="paiement_history")
+     */
+    public function paiement(){
+        $paiment=$this->getDoctrine()->getManager();
+
+    }
+
+
+
+    /**
+     * Finds and displays a projet entity.
+     *
+     * @Route("/showproject/{id}", name="adminprojet_show")
+     * @Method("GET")
+     */
+    public function showprojectAction(projet $projet)
+    {
+
+
+        return $this->render('@User/admin/ShowProject.html.twig', array(
+            'projet' => $projet,
+
+        ));
+    }
+
+
+
+
     /**
      * @Route("/update/{id}",name="admin_profile", requirements={"id":"\d+"})
      * @Method({"GET","POST"})
@@ -120,15 +150,23 @@ class AdminController extends Controller
 
     }
 
-    public function fixreclam(Reclamation $reclamation,Request $request){
+    /**
+     * @Route("/fixereclam",name="fixereclam")
+     */
+    public function fixreclam(Request $request){
+        $em=$this->getDoctrine()->getManager();
+        $reclamation=$em->getRepository(Reclamation::class)->find($request->get("id"));
         $reclamation->setEtat(true);
-        $this->getDoctrine()->getManager()->flush();
+        $em->flush();
         $message = (new \Swift_Message("Reclamation traité"))
             ->setFrom('marwene04@gmail.com')
             ->setTo($reclamation->getSender()->getEmail())
             ->setSubject("Reclamation ".$reclamation->getTitle()." traité")
             ->setBody($request->get("message"));
         $this->get('mailer')->send($message);
+        if(strcmp($request->get("return"),"dash")==0){
+            return $this->redirectToRoute("admin_index");
+        }
         return $this->redirectToRoute("reclamation_management");
     }
 
@@ -144,10 +182,21 @@ class AdminController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $admins = $em->getRepository('AppBundle:Admin')->findAll();
-
-        return $this->render('@User/admin/index.html.twig', array(
-            'admins' => $admins,
+        $paiement = $em->getRepository('AppBundle:Paiement')->findAll();
+        $user = $em->getRepository('AppBundle:User')->findAll();
+        $proj = $em->getRepository('AppBundle:Projet')->findAll();
+        $post = $em->getRepository('AppBundle:Postulation')->findAll();
+        $reclams=$em->getRepository(Reclamation::class)->findAll();
+        $sum = array_reduce($paiement, function($carry, $item)
+        {
+            return $carry + $item->getMontant();
+        });
+        return $this->render('@User/admin/Dashboard.html.twig', array(
+            'postcount' => count($post),
+            'projcount' => count($proj),
+            'users' => count($user),
+            'paiement' => $sum,
+            'reclams' => $reclams,
         ));
     }
 
