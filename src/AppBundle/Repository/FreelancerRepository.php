@@ -15,4 +15,10 @@ class FreelancerRepository extends \Doctrine\ORM\EntityRepository
 
         return $query=$q->execute();
     }
+    public function bynote(){
+        $q=$this->getEntityManager()
+            ->createQuery("select a from AppBundle:Freelancer a  ")->setMaxResults(7);
+
+        return $query=$q->execute();
+    }
 }
