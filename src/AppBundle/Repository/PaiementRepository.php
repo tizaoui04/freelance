@@ -10,4 +10,15 @@ namespace AppBundle\Repository;
  */
 class PaiementRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function paiementstats()
+    {
+        //had to user native query to use monthname and month functions it does not exist in doctrine
+        $q = $this->getEntityManager()->getConnection()->prepare("SELECT  monthname (datepaiment)  as name, SUM(montant) as y  FROM   paiement p  GROUP BY MONTH (datepaiment) ");
+
+        $query = $q->execute();
+        return $q->fetchAll();
+
+
+    }
+
 }

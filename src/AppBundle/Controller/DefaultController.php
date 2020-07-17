@@ -3,16 +3,31 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Admin;
+use AppBundle\Entity\Categorie;
 use AppBundle\Entity\Client;
 use AppBundle\Entity\Freelancer;
+use AppBundle\Entity\Paiement;
 use AppBundle\Entity\Postulation;
 use AppBundle\Entity\Projet;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
 class DefaultController extends Controller
 {
+
+    /**
+     * @Route("/stats",name="stats")
+     */
+    public function stats(){
+        $em=$this->getDoctrine()->getManager();
+        $catstat=$em->getRepository(Categorie::class)->categorystats();
+        $projstat=$em->getRepository(Projet::class)->projectstats();
+        $paimstat=$em->getRepository(Paiement::class)->paiementstats();
+        return new JsonResponse(array_merge(array("catstat"=>$catstat),array("projstat"=>$projstat),array("paimstat"=>$paimstat)));
+    }
+
     /**
      * @Route("/", name="homepage")
      */

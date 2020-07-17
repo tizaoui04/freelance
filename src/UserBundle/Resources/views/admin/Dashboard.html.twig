@@ -2,6 +2,12 @@
 
 
 {% block body %}
+
+
+
+
+
+
 <div class="dashboard-container">
 
     <!-- Dashboard Sidebar
@@ -55,111 +61,31 @@
                         <span>Paiement effecuté</span>
                         <h4>{{paiement}}</h4>
                     </div>
-                    <div class="fun-fact-icon"><i class="icon-line-awesome-bitcoin"></i></div>
+                    <div class="fun-fact-icon"><i class="icon-line-awesome-dollar"></i></div>
                 </div>
             </div>
 
             <!-- Row -->
             <div class="row">
 
-                <div class="col-xl-8">
+                <div class="col-xl-6">
                     <!-- Dashboard Box -->
                     <div class="dashboard-box main-box-in-row">
                         <div class="headline">
-                            <h3><i class="icon-feather-bar-chart-2"></i> Your Profile Views</h3>
+                            <h3><i class="icon-feather-bar-chart-2"></i> Statistique des Categories</h3>
                             <div class="sort-by">
-                                <select class="selectpicker hide-tick">
-                                    <option>Last 6 Months</option>
-                                    <option>This Year</option>
-                                    <option>This Month</option>
-                                </select>
+
                             </div>
                         </div>
                         <div class="content">
                             <!-- Chart -->
                             <div class="chart">
-                                <canvas id="chart" width="100" height="45"></canvas>
+                                <div id="container"  ></div>
                             </div>
                         </div>
                     </div>
                     <!-- Dashboard Box / End -->
                 </div>
-                <div class="col-xl-4">
-
-                    <!-- Dashboard Box -->
-                    <!-- If you want adjust height of two boxes
-                         add to the lower box 'main-box-in-row'
-                         and 'child-box-in-row' to the higher box -->
-                    <div class="dashboard-box child-box-in-row">
-                        <div class="headline">
-                            <h3><i class="icon-material-outline-note-add"></i> Notes</h3>
-                        </div>
-
-                        <div class="content with-padding">
-                            <!-- Note -->
-                            <div class="dashboard-note">
-                                <p>Meeting with candidate at 3pm who applied for Bilingual Event Support Specialist</p>
-                                <div class="note-footer">
-                                    <span class="note-priority high">High Priority</span>
-                                    <div class="note-buttons">
-                                        <a href="#" title="Edit" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
-                                        <a href="#" title="Remove" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Note -->
-                            <div class="dashboard-note">
-                                <p>Extend premium plan for next month</p>
-                                <div class="note-footer">
-                                    <span class="note-priority low">Low Priority</span>
-                                    <div class="note-buttons">
-                                        <a href="#" title="Edit" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
-                                        <a href="#" title="Remove" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Note -->
-                            <div class="dashboard-note">
-                                <p>Send payment to David Peterson</p>
-                                <div class="note-footer">
-                                    <span class="note-priority medium">Medium Priority</span>
-                                    <div class="note-buttons">
-                                        <a href="#" title="Edit" data-tippy-placement="top"><i class="icon-feather-edit"></i></a>
-                                        <a href="#" title="Remove" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="add-note-button">
-                            <a href="#small-dialog" class="popup-with-zoom-anim button full-width button-sliding-icon">Add Note <i class="icon-material-outline-arrow-right-alt"></i></a>
-                        </div>
-                    </div>
-                    <!-- Dashboard Box / End -->
-                </div>
-            </div>
-            <!-- Row / End -->
-
-            <!-- Row -->
-            <div class="row">
-
-                <!-- Dashboard Box -->
-                <div class="col-xl-6">
-                    <div class="dashboard-box">
-                        <div class="headline">
-                            <h3><i class="icon-material-baseline-notifications-none"></i> Notifications</h3>
-                            <button class="mark-as-read ripple-effect-dark" data-tippy-placement="left" title="Mark all as read">
-                                <i class="icon-feather-check-square"></i>
-                            </button>
-                        </div>
-                        <div class="content">
-                            <ul class="dashboard-box-list">
-
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Dashboard Box -->
                 <div class="col-xl-6">
                     <div class="dashboard-box">
                         <div class="headline">
@@ -178,18 +104,18 @@
                                                         <span class="paid">Traité</span>
                                                     {% else %}<span class="unpaid">En attente</span>{% endif %}
 
-                                                    </li>
+                                                </li>
                                                 <li>Utilisateur:{{ reclam.sender.nom ~" "~ reclam.sender.prenom}} </li>
                                                 <li>Date: {{reclam.date|date("d/m/y")}}</li>
                                             </ul>
                                         </div>
                                         <!-- Buttons -->
                                         {% if reclam.etat==false %}
-                                        <div class="buttons-to-right">
-                                            <a href="#small-dialog-3" data-id="{{ reclam.id }}" data-name="{{ reclam.sender.nom ~" "~ reclam.sender.prenom}}"
-                                               data-content="{{ reclam.contenu}}" data-title="{{ reclam.title }}"
-                                               class="popup-with-zoom-anim button reclammodal ripple-effect "><i class="icon-material-outline-gavel"></i> Fixer</a>
-                                        </div>
+                                            <div class="buttons-to-right">
+                                                <a href="#small-dialog-3" data-id="{{ reclam.id }}" data-name="{{ reclam.sender.nom ~" "~ reclam.sender.prenom}}"
+                                                   data-content="{{ reclam.contenu}}" data-title="{{ reclam.title }}"
+                                                   class="popup-with-zoom-anim button reclammodal ripple-effect "><i class="icon-material-outline-gavel"></i> Fixer</a>
+                                            </div>
                                         {% endif %}
                                     </li>
                                 {% endfor %}
@@ -201,6 +127,52 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <!-- Row / End -->
+
+            <!-- Row -->
+            <div class="row">
+
+                <!-- Dashboard Box -->
+                <div class="col-xl-6">
+                    <!-- Dashboard Box -->
+                    <div class="dashboard-box main-box-in-row">
+                        <div class="headline">
+                            <h3><i class="icon-feather-bar-chart-2"></i> Statistique</h3>
+                            <div class="sort-by">
+
+                            </div>
+                        </div>
+                        <div class="content">
+                            <!-- Chart -->
+                            <div class="chart">
+                                <div id="container1" ></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Dashboard Box / End -->
+                </div>
+                <div class="col-xl-6">
+                    <!-- Dashboard Box -->
+                    <div class="dashboard-box main-box-in-row">
+                        <div class="headline">
+                            <h3><i class="icon-feather-bar-chart-2"></i> Statistique</h3>
+                            <div class="sort-by">
+
+                            </div>
+                        </div>
+                        <div class="content">
+                            <!-- Chart -->
+                            <div class="chart">
+                                <div id="container2"  ></div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Dashboard Box / End -->
+                </div>
+
+                <!-- Dashboard Box -->
+
 
             </div>
             <!-- Row / End -->
@@ -286,6 +258,192 @@
             // it is unnecessary to have to manually call the modal.
             // $('#addBookDialog').modal('show');
         });
+    </script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+
+
+
+
+
+
+    <script type="text/javascript">
+        $(document).ready(
+            function() {
+                $.ajax({
+
+                    type: 'GET',
+
+                    url: '/stats',
+                    success: function (result) {
+
+
+                        var catstat=result["catstat"]
+                        var projstat=result["projstat"]
+                        var paimstat=result["paimstat"]
+
+                        for (var i = 0; i < catstat.length; i++) {
+                            catstat[i].y=parseInt(catstat[i].y);
+                        }
+
+                        Highcharts.chart('container', {
+                            chart: {
+                                plotBackgroundColor: null,
+                                plotBorderWidth: null,
+                                plotShadow: false,
+                                type: 'pie'
+                            },
+                            title: {
+                                text: 'Nombre de projet par categorie'
+                            },
+                            tooltip: {
+                                pointFormat: '{series.name}: <b>{point.percentage:.1f}%<br>{point.y:.00f}</b>'
+                            },
+                            accessibility: {
+                                point: {
+                                    valueSuffix: '%'
+                                }
+                            },
+                            plotOptions: {
+                                pie: {
+                                    allowPointSelect: true,
+                                    cursor: 'pointer',
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: '<b>{point.name}</b>: {point.percentage:.1f}%<br>{point.y:.0f}'
+                                    }
+                                }
+                            },
+                            series: [{
+                                name: 'Pourcentage',
+                                colorByPoint: true,
+                                data: catstat
+
+                            }]
+                        });
+                        var thcat = [];
+                        var thvalues = [];
+                        for (var i = 0; i < paimstat.length; i++) {
+                            if (paimstat[i]["name"]) {
+                                thcat[i] = paimstat[i]["name"];
+                            }
+                            if (paimstat[i]["y"]) {
+                                thvalues[i] = parseInt(paimstat[i]["y"]);
+                            }
+                        }
+
+                        console.log(thvalues);
+
+                        Highcharts.chart('container1', {
+                            chart: {
+                                type: 'column'
+                            },
+                            title: {
+                                text: 'Somme des paiement par mois'
+                            },
+                            subtitle: {
+                                text: ''
+                            },
+                            xAxis: {
+                                categories: thcat,
+                                crosshair: true,
+                            },
+                            yAxis: {
+                                min: 0,
+                                title: {
+                                    text: 'Paiement'
+                                }
+                            },
+                            credits: {
+                                enabled: false
+                            },
+                            tooltip: {
+                                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                                    '<td style="padding:0"><b>{point.y} Dinars tunisien</b></td></tr>',
+                                footerFormat: '</table>',
+                                shared: true,
+                                useHTML: true
+                            },
+                            plotOptions: {
+                                column: {
+                                    pointPadding: 0.2,
+                                    borderWidth: 0
+                                }
+                            },
+                            series: [{
+                                name: 'Interventions',
+                                data: thvalues
+                            }]
+                        });
+
+                        var mncat = [];
+                        var mnvalues = [];
+                        for (var i = 0; i < projstat.length; i++) {
+                            if (projstat[i]["name"]) {
+                                mncat[i] = projstat[i]["name"];
+                            }
+                            if (projstat[i]["y"]) {
+                                mnvalues[i] = parseInt(projstat[i]["y"]);
+                            }
+                        }
+
+                        console.log(mnvalues)
+                        Highcharts.chart('container2', {
+                            chart: {
+                                type: 'bar'
+                            },
+                            title: {
+                                text: 'Nombre de produit de chaque mois'
+                            },
+                            subtitle: {
+                                text: ''
+                            },
+                            xAxis: {
+                                categories: mncat,
+                                crosshair: true,
+                            },
+                            yAxis: {
+                                min: 0,
+                                title: {
+                                    text: 'Nombre des produits'
+                                }
+                            }, credits: {
+                                enabled: false
+                            },
+                            tooltip: {
+                                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                                    '<td style="padding:0"><b>{point.y} Projets</b></td></tr>',
+                                footerFormat: '</table>',
+                                shared: true,
+                                useHTML: true
+                            },
+                            plotOptions: {
+                                column: {
+                                    pointPadding: 0.2,
+                                    borderWidth: 0
+                                }
+                            },
+                            series: [{
+                                name: 'Produit',
+                                data: mnvalues
+                            }]
+                        });
+
+
+
+
+
+
+
+
+
+                    }
+                });
+            })
     </script>
 {% endblock %} {% block footer %}
 

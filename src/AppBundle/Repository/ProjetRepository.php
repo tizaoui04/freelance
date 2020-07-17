@@ -10,6 +10,23 @@ namespace AppBundle\Repository;
  */
 class ProjetRepository extends \Doctrine\ORM\EntityRepository
 {
+
+
+
+    public function projectstats()
+    {
+        //had to user native query to use monthname and month functions it does not exist in doctrine
+        $q = $this->getEntityManager()->getConnection()->prepare("SELECT  monthname (dateprojet)  as name, COUNT(p.id) as y  FROM   Projet p  GROUP BY MONTH (dateprojet) ");
+
+         $query = $q->execute();
+        return $q->fetchAll();
+
+
+    }
+
+
+
+
     public function searproject($filter,$categorie,$pricemin,$pricemax){
 
 

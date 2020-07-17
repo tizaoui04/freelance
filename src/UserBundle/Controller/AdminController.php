@@ -186,7 +186,7 @@ class AdminController extends Controller
         $user = $em->getRepository('AppBundle:User')->findAll();
         $proj = $em->getRepository('AppBundle:Projet')->findAll();
         $post = $em->getRepository('AppBundle:Postulation')->findAll();
-        $reclams=$em->getRepository(Reclamation::class)->findAll();
+        $reclams=$em->getRepository(Reclamation::class)->findBy(array(), array("date"=>"DESC"), 5);
         $sum = array_reduce($paiement, function($carry, $item)
         {
             return $carry + $item->getMontant();
