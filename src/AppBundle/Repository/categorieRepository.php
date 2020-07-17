@@ -10,4 +10,13 @@ namespace AppBundle\Repository;
  */
 class categorieRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function categorystats()
+    {
+        //for parent
+        $q = $this->getEntityManager()->createQuery("select c.libelle as name , count(p.id) as y from AppBundle:Categorie c LEFT JOIN AppBundle:Projet p where  p.categorie=c GROUP BY  c.id  ");
+
+        return $query = $q->getResult();
+
+
+    }
 }
