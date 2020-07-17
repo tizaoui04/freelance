@@ -25,9 +25,12 @@ class DefaultController extends Controller
         $fcount=$em->getRepository(Freelancer::class)->freelancercount()[0];
         $pcount=$em->getRepository(Projet::class)->projetcount()[0];
         $postcount=$em->getRepository(Postulation::class)->postcount()[0];
+        $jobs=$em->getRepository(Projet::class)->findBy(array(), array("dateprojet"=>"DESC"), 5);
+        $freelancers=$em->getRepository(Freelancer::class)->bynote();
 
 
-        return $this->render('default/index.html.twig',array("fcount"=>$fcount,"pcount"=>$pcount,"postcount"=>$postcount) );
+        return $this->render('default/index.html.twig',
+            array("fcount"=>$fcount,"pcount"=>$pcount,"postcount"=>$postcount,"jobs"=>$jobs,"freelancers"=>$freelancers) );
     }
     /**
      * @Route("/persist", name="homepage")
