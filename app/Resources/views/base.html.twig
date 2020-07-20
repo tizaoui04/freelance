@@ -121,11 +121,11 @@
                                     <ul class="user-menu-small-nav">
                                         {% if is_granted("ROLE_FREELANCER") %}
                                         <li><a href="{{ path("update_profile",{'id':app.user.id})  }}">
-                                                <i class="icon-material-outline-settings"></i> Paramètre</a></li>
+                                                <i class="icon-material-outline-settings"></i> Profile</a></li>
 
                                         {% elseif is_granted("ROLE_CLIENT") %}
-                                            <a  class="button ripple-effect" href="{{ path('projet_new') }}">Create a new projet</a>
-                                            <li><a href="{{ path("update_profilec",{'id':app.user.id})  }}"><i class="icon-material-outline-settings"></i> Paramètre</a></li>
+                                            <a  class="button ripple-effect" href="{{ path('projet_new') }}">Ajouter un projet</a>
+                                            <li><a href="{{ path("update_profilec",{'id':app.user.id})  }}"><i class="icon-material-outline-settings"></i> Profile</a></li>
                                         {% else %}
 
                                         <li><a href=" "><i class="icon-material-outline-settings"></i> Settings</a></li>
