@@ -44,11 +44,10 @@
                         </div>
 
                         <ul>
-                            {% set datas = app.user.receiverMessages | merge(app.user.senderMessages)  %}
                             {% for inb in inbox %}
                             <li>
                                 <a href="{{ path('messlist',{"id":inb.sender.id}) }}">
-                                    <div class="message-avatar"><i class="status-icon status-online"></i><img src="{{ app.user.image ? asset(vich_uploader_asset(app.user,'imageFile'))  : asset('images/user-avatar-small-01.jpg') }}" alt="" /></div>
+                                    <div class="message-avatar"><i class="status-icon status-online"></i><img src="{{ inb.sender.image ? asset(vich_uploader_asset(inb.sender,'imageFile'))  : asset('images/user-avatar-small-01.jpg') }}" alt="" /></div>
 
                                     <div class="message-by">
                                         <div class="message-by-headline">
@@ -164,7 +163,7 @@
             <div class="dashboard-footer-spacer"></div>
             <div class="small-footer margin-top-15">
                 <div class="small-footer-copyrights">
-                    © 2018 <strong>TITAN</strong>. All Rights Reserved.
+                    © 2020 <strong>TITAN</strong>. All Rights Reserved.
                 </div>
                 <ul class="footer-social-links">
                     <li>

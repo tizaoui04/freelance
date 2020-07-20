@@ -91,6 +91,10 @@ class MessageController extends Controller
             if($request->get("frmodal")){
                 return $this->redirectToRoute("myposts");
             }
+            if($request->get("freelancershow")){
+                $id=$request->get("to");
+                return $this->redirectToRoute("freelancer_show",array("id"=>$id));
+            }
             return $this->redirectToRoute("messlist",array("id"=>$request->get("to")));
 
 

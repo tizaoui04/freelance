@@ -48,7 +48,7 @@ class Postulation
     private $freelance;
 
     /**
-     * @ORM\OneToOne(targetEntity="Paiement", inversedBy="postulation")
+     * @ORM\OneToOne(targetEntity="Paiement", inversedBy="postulation" , fetch="EAGER")
 
      */
     private $paiement;

@@ -39,7 +39,7 @@ class DefaultController extends Controller
     /**
      * Finds and displays a projet entity.
      *
-     * @Route("/payment/{id}", name="payment_project")
+     * @Route("/pay/{id}", name="payment_project")
      * @Method("GET")
      */
     public function paymentAction(Postulation $postulation)
@@ -55,9 +55,8 @@ class DefaultController extends Controller
      * @Route("/payment/{id}/{montan}", name="payment_confirm")
      * @Method("GET")
      */
-    public function paymentConfirmAction($id,$montan)
+    public function paymentConfirmAction(Postulation $postulation,$montan)
     {
-        $postulation = $this->getDoctrine()->getRepository('AppBundle:Postulation')->find($id);
         $em = $this->getDoctrine()->getManager();
         $pay = new Paiement();
 

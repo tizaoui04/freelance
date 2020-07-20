@@ -36,7 +36,7 @@ class Paiement
     private $datepaiment;
 
     /**
-     * @ORM\OneToOne(targetEntity="Postulation",cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="Postulation",cascade={"persist", "remove"} , mappedBy="paiement" , fetch="EAGER")
      * @ORM\JoinColumn(name="id_postulation", referencedColumnName="id",nullable=true)
      */
     private $postulation;

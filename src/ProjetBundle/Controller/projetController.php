@@ -4,6 +4,7 @@ namespace ProjetBundle\Controller;
 
 use AppBundle\Entity\Categorie;
 use AppBundle\Entity\Jardin;
+use AppBundle\Entity\Paiement;
 use AppBundle\Entity\Projet;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -17,7 +18,25 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class projetController extends Controller
 {
+    /**
+     * @Route("/paiement",name="paiement")
+     */
+    public function paiement(){
 
+        $user=$this->get("security.token_storage")->getToken()->getUser();
+
+        $em=$this->getDoctrine()->getManager()->getRepository(Paiement::class);
+        if($this->container->get('security.authorization_checker')->isGranted("ROLE_FREELANCER")){
+            $paiment=$em->paimentfreelance($user->getId());
+            return $this->render("@Projet/payment/fpaiment.html.twig",array("paiments"=>$paiment));
+
+        }else if ($this->container->get('security.authorization_checker')->isGranted("ROLE_CLIENT")){
+            $paiment=$em->paimentclient($user->getId());
+
+            return $this->render("@Projet/payment/cpaiment.html.twig",array("paiments"=>$paiment));
+
+        }
+    }
 
     /**
      * @Route("/search", name="search_project")
@@ -37,7 +56,7 @@ class projetController extends Controller
            }
            $categorie=null;
         if($request->get("categorie")){
-            $filter= $request->get("filter");
+            $categorie= $request->get("categorie");
         };
         $price=null;
         if( $request->get("price")){

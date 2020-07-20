@@ -2,6 +2,7 @@
 
 namespace ProjetBundle\Controller;
 
+use AppBundle\Entity\Paiement;
 use AppBundle\Entity\Postulation;
 use AppBundle\Entity\Projet;
 use AppBundle\Form\PostulationType;
@@ -28,6 +29,11 @@ class PostulationController extends Controller
 
         $postulations = $em->getRepository(Postulation::class)->projectBidders($projet->getId());
 
+        $prep=$em->getRepository(Paiement::class);
+        foreach ($postulations as $p){
+
+            $p->setPaiement($prep->findBy(array("postulation"=>$p)));
+        }
         return $this->render('@Projet/postulation/index.html.twig', array(
             'postulations' => $postulations,
         ));

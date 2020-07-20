@@ -4,6 +4,7 @@ namespace UserBundle\Controller;
 
 use AppBundle\Entity\Admin;
 use AppBundle\Entity\Freelancer;
+use AppBundle\Entity\Paiement;
 use AppBundle\Entity\Projet;
 use AppBundle\Entity\Reclamation;
 use AppBundle\Entity\User;
@@ -27,8 +28,9 @@ class AdminController extends Controller
      * @Route("/paiement",name="paiement_history")
      */
     public function paiement(){
-        $paiment=$this->getDoctrine()->getManager();
+        $paiment=$this->getDoctrine()->getManager()->getRepository(Paiement::class)->findBy(array(),array("datepaiment"=>"ASC"));
 
+        return $this->render("@User/admin/Paiement.html.twig",array("paiments"=>$paiment));
     }
 
 

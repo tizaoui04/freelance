@@ -69,10 +69,11 @@
                                             </div>
                                         </div>
                                     </div>
+                                    {% if reclamation.etat==false %}
                                     <a href="#small-dialog-3" data-id="{{ reclamation.id }}" data-name="{{ reclamation.sender.nom ~" "~ reclamation.sender.prenom}}"
                                        data-content="{{ reclamation.contenu}}" data-title="{{ reclamation.title }}"
                                        class="popup-with-zoom-anim button reclammodal ripple-effect "><i class="icon-material-outline-gavel"></i> Fixer</a>
-
+                                    {% endif %}
                                 </li>
                             {% endfor %}
                         </ul>

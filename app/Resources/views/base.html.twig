@@ -94,7 +94,14 @@
 
                                         <!-- User Name / Avatar -->
                                         <div class="user-details">
-                                            <div class="user-avatar status-online"><img src="{{ app.user.image ? asset(vich_uploader_asset(app.user,'imageFile'))  : asset('images/user-avatar-small-01.jpg') }} " alt=""></div>
+                                            {% if is_granted('ROLE_FREELANCER') %}
+                                            <div class="user-avatar status-online">  <img src="{{ app.user.image ? asset(vich_uploader_asset(app.user,'imageFile'))  : asset('images/user-avatar-small-01.jpg') }} " alt=""></div>
+                                            {% elseif is_granted('ROLE_CLIENT') %}
+                                                <div class="user-avatar status-online"> <img src="{{ app.user.image ? asset(vich_uploader_asset(app.user,'imageFile'))  : asset('images/user-avatar-small-01.jpg') }} " alt=""></div>
+
+                                            {% else %}
+                                                <img src="{{ asset('images/user-avatar-small-01.jpg') }} " alt="">
+                                            {% endif %}
                                             <div class="user-name">
                                                 {{app.user.username}} <span>
                                                     {% if is_granted('ROLE_FREELANCER') %}

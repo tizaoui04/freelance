@@ -48,7 +48,7 @@ class DefaultController extends Controller
             array("fcount"=>$fcount,"pcount"=>$pcount,"postcount"=>$postcount,"jobs"=>$jobs,"freelancers"=>$freelancers) );
     }
     /**
-     * @Route("/persist", name="homepage")
+     * @Route("/persist", name="persit")
      */
     public function persistance(){
         //this function to add user accounts to database or anything else you want
@@ -66,7 +66,7 @@ class DefaultController extends Controller
         $em->flush();
 
         //client
-
+/*
         $client=new Client();
 
         $client->setPrenom("mirak");
@@ -97,7 +97,7 @@ class DefaultController extends Controller
         $freelancer->setDomaine("Dev Web");
         $freelancer->addRole("ROLE_FREELANCER");
         $em->persist($freelancer);
-        $em->flush();
+        $em->flush();*/
 
         return "nice";
 

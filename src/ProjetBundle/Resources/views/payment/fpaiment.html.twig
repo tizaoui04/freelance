@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+    <div class="dashboard-container">
+
+        <!-- Dashboard Sidebar
+        ================================================== -->
+
+        {{ include('Fsidebar.html.twig') }}
+
+        <div class="dashboard-content-container" data-simplebar>
+            <div class="dashboard-content-inner" >
+                <!-- Dashboard Headline -->
+                <div class="dashboard-headline">
+                    <h3>Les Paiements effectué</h3>
+
+                    <!-- Breadcrumbs -->
+                    <nav id="breadcrumbs" class="dark">
+                        <ul>
+                            <li><a href="#">Acceuil</a></li>
+                            <li><a href="#">Dashboard</a></li>
+                            <li>Les Paiements effectué</li>
+                        </ul>
+                    </nav>
+                </div>
+                <!-- Dashboard Sidebar / End -->
+                <div class="row">
+
+                    <!-- Dashboard Box -->
+                    <div class="col-xl-12">
+                        <div class="dashboard-box margin-top-0">
+
+                            <!-- Headline -->
+                            <div class="headline">
+                                <h3><i class="icon-material-outline-business-center"></i> Liste Paiements</h3>
+                            </div>
+
+                            {% for paiement in paiments %}
+
+
+
+
+
+
+                                <div class="content">
+                                    <ul class="dashboard-box-list">
+                                        <li>
+                                            <!-- Job Listing -->
+                                            <div class="job-listing width-adjustment">
+
+                                                <!-- Job Listing Details -->
+                                                <div class="job-listing-details">
+
+                                                    <!-- Details -->
+                                                    <div class="job-listing-description">
+                                                        <h3 class="job-listing-title">{{ paiement.postulation.project.titre }}</h3>
+                                                        <div class="job-listing-footer">
+                                                            <ul>
+                                                                <li><i class="icon-material-outline-access-time"></i>{{paiement.datepaiment |date("d-m-y")}}</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Task Details -->
+                                            <ul class="dashboard-task-info">
+                                                <li><strong>{{ paiement.montant/1.2 }} DT</strong><span>Montant</span></li>
+                                                <li><strong>{{ paiement.postulation.projet.client.nom ~" "~ paiement.postulation.projet.client.prenom }}</strong><span>Client</span></li>
+                                            </ul>
+
+                                            <!-- Buttons -->
+
+                                        </li>
+
+
+                                    </ul>
+                                </div>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Row / End -->
+    </div>
+
+{% endblock %} {% block footer %}
+
+{% endblock %}
+

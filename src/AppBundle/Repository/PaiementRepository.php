@@ -21,4 +21,21 @@ class PaiementRepository extends \Doctrine\ORM\EntityRepository
 
     }
 
+    public function paimentclient($id)
+    {
+        $q = $this->getEntityManager()->createQuery("select p from AppBundle:Paiement p LEFT JOIN p.postulation post 
+LEFT JOIN post.project proj LEFT JOIN proj.client c where c=:id")->setParameter("id",$id);
+        return $query=$q->getResult();
+
+
+    }
+    public function paimentfreelance($id)
+    {
+        $q = $this->getEntityManager()->createQuery("select p from AppBundle:Paiement p LEFT JOIN p.postulation post 
+LEFT JOIN post.freelance fr  where fr=:id")->setParameter("id",$id);
+        return $query=$q->getResult();
+
+
+    }
+
 }

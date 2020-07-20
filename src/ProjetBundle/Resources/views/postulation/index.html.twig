@@ -44,104 +44,104 @@
                                 <h3><i class="icon-material-outline-supervisor-account"></i>Liste Des Freelancers</h3>
                             </div>
                             {% for postulation in postulations %}
-                            <div class="content">
-                                <ul class="dashboard-box-list">
-                                    <li>
-                                        <!-- Overview -->
-                                        <div class="freelancer-overview manage-candidates">
-                                            <div class="freelancer-overview-inner">
+                                <div class="content">
+                                    <ul class="dashboard-box-list">
+                                        <li>
+                                            <!-- Overview -->
+                                            <div class="freelancer-overview manage-candidates">
+                                                <div class="freelancer-overview-inner">
 
-                                                <!-- Avatar -->
-                                                <div class="freelancer-avatar">
-                                                    {% if postulation.accepte == 'ACCEPTED' %}
-                                                    <div class="verified-badge"></div>
+                                                    <!-- Avatar -->
+                                                    <div class="freelancer-avatar">
+                                                        {% if postulation.accepte == 'ACCEPTED' %}
+                                                            <div class="verified-badge"></div>
 
-                                                    {% endif %}
-                                                    <a href="#"> <img src="{{ postulation.freelance.image ? asset(vich_uploader_asset(postulation.freelance,'imageFile'))  : asset('images/user-avatar-small-01.jpg') }} " alt=""></a>
-                                                </div>
-
-                                                <!-- Name -->
-                                                <div class="freelancer-name">
-                                                    <h4><a href="#">{{ postulation.freelance.nom}}{{ postulation.freelance.prenom}} <img class="flag" src="images/flags/au.svg" alt="" title="Australia" data-tippy-placement="top"></a></h4>
-
-                                                    <h4><a href="#">{{ postulation.lettre}} <img class="flag" src="images/flags/au.svg" alt="" title="Australia" data-tippy-placement="top"></a></h4>
-
-                                                    <!-- Details -->
-                                                    <span class="freelancer-detail-item"><a href="#"><i class="icon-feather-mail"></i>{{ postulation.freelance.email}}</a></span>
-                                                    <span class="freelancer-detail-item"><i class="icon-feather-phone"></i> {{ postulation.freelance.numtel}}</span>
-
-                                                    <!-- Rating -->
-                                                    <div class="freelancer-rating">
-                                                        {% set sumratings = 0 %}
-                                                        {% set total = postulation.freelance.notes|length %}
-                                                        {% for rating in postulation.freelance.notes %}
-                                                            {% set sumratings = sumratings + rating.note %}
-                                                        {% endfor %}
-                                                        {% if total==0 %}
-                                                        {% set total=1 %}
                                                         {% endif %}
-
-                                                        <div class="star-rating" data-rating="{{  sumratings / total }}"></div>
+                                                        <a href="{{path('freelancer_show',{"id":postulation.freelance.id})}}"> <img src="{{ postulation.freelance.image ? asset(vich_uploader_asset(postulation.freelance,'imageFile'))  : asset('images/user-avatar-small-01.jpg') }} " alt=""></a>
                                                     </div>
 
-                                                    <!-- Buttons -->
+                                                    <!-- Name -->
+                                                    <div class="freelancer-name">
+                                                        <h4><a href="{{path('freelancer_show',{"id":postulation.freelance.id})}}">{{ postulation.freelance.nom}} {{ postulation.freelance.prenom}} <img class="flag" src="images/flags/au.svg" alt="" title="Australia" data-tippy-placement="top"></a></h4>
 
-                                                    <div class="buttons-to-right always-visible margin-top-25 margin-bottom-5">
-                                                        {% if postulation.accepte == 'ACCEPTED' %}
+                                                        <h4><a href="#">{{ postulation.lettre}} <img class="flag" src="images/flags/au.svg" alt="" title="Australia" data-tippy-placement="top"></a></h4>
+
+                                                        <!-- Details -->
+                                                        <span class="freelancer-detail-item"><a href="#"><i class="icon-feather-mail"></i>{{ postulation.freelance.email}}</a></span>
+                                                        <span class="freelancer-detail-item"><i class="icon-feather-phone"></i> {{ postulation.freelance.numtel}}</span>
+
+                                                        <!-- Rating -->
+                                                        <div class="freelancer-rating">
+                                                            {% set sumratings = 0 %}
+                                                            {% set total = postulation.freelance.notes|length %}
+                                                            {% for rating in postulation.freelance.notes %}
+                                                                {% set sumratings = sumratings + rating.note %}
+                                                            {% endfor %}
+                                                            {% if total==0 %}
+                                                                {% set total=1 %}
+                                                            {% endif %}
+
+                                                            <div class="star-rating" data-rating="{{  sumratings / total }}"></div>
+                                                        </div>
+
+                                                        <!-- Buttons -->
+
+                                                        <div class="buttons-to-right always-visible margin-top-25 margin-bottom-5">
+                                                            {% if postulation.accepte == 'ACCEPTED' %}
 
 
-                                                                {% if postulation.paiement is defined %}
-                                                                <a href="/" onclick="return false;" disabled class="button dark ripple-effect"><i class="icon-material-outline-check"></i>Payé</a>
+                                                                {% if postulation.paiement is defined  %}
+                                                                    <a href="/" onclick="return false;" disabled class="button dark ripple-effect"><i class="icon-material-outline-check"></i>Payé</a>
                                                                     <a href="#small-dialog-3" data-id="{{ postulation.freelance.id }}" data-name="{{ postulation.freelance.nom ~" "~ postulation.freelance.prenom}}"
                                                                        data-proj="{{ postulation.project.titre}}" data-projid="{{ postulation.project.id}}"
-                                                                     class="popup-with-zoom-anim button reviewmodal ripple-effect "><i class="icon-material-outline-thumb-up"></i> Noter freelancer</a>
+                                                                       class="popup-with-zoom-anim button reviewmodal ripple-effect "><i class="icon-material-outline-thumb-up"></i> Noter freelancer</a>
 
 
 
 
                                                                 {% else %}
-                                                                <a href="{{ path('payment_project',{"id":postulation.id}) }}" class="button ripple-effect"><i class="icon-material-outline-check"></i>Payer</a>
+                                                                    <a href="{{ path('payment_project',{"id":postulation.id}) }}" class="button ripple-effect">Payer</a>
                                                                 {% endif %}
 
 
-                                                            <a href="#small-dialog-2" data-id="{{ postulation.freelance.id }}" data-name="{{ postulation.freelance.nom ~" "~ postulation.freelance.prenom}}"
-                                                                               data-proj="{{ postulation.project.id }}"
-                                                                               class="popup-with-zoom-anim msgmodal button dark ripple-effect"><i class="icon-feather-mail"></i> Envoyer un message</a>
+                                                                <a href="#small-dialog-2" data-id="{{ postulation.freelance.id }}" data-name="{{ postulation.freelance.nom ~" "~ postulation.freelance.prenom}}"
+                                                                   data-proj="{{ postulation.project.id }}"
+                                                                   class="popup-with-zoom-anim msgmodal button dark ripple-effect"><i class="icon-feather-mail"></i> Envoyer un message</a>
 
 
 
-                                                        {% elseif  postulation.accepte == 'REFUSED' %}
+                                                            {% elseif  postulation.accepte == 'REFUSED' %}
 
 
-                                                            <a href="/" onclick="return false;" class="popup-with-zoom-anim  button dark ripple-effect"><i class="icon-material-outline-highlight-off"></i> Refusé</a>
+                                                                <a href="/" onclick="return false;" class="popup-with-zoom-anim  button dark ripple-effect"><i class="icon-material-outline-highlight-off"></i> Refusé</a>
 
-                                                            <a href="#small-dialog-2" data-id="{{ postulation.freelance.id }}" data-name="{{ postulation.freelance.nom ~" "~ postulation.freelance.prenom}}"
-                                                              data-proj="{{ postulation.project.id }}"
-                                                              class="popup-with-zoom-anim msgmodal button dark ripple-effect"><i class="icon-feather-mail"></i> Envoyer un message</a>
-
-
-                                                        <a href="#" class="button gray ripple-effect ico" title="Supprimer Candidate" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
-                                                        {% else %}
-                                                            <a href="{{ path('acceptpost',{"id":postulation.id}) }}" class="button ripple-effect"><i class="icon-material-outline-check"></i>Accepter</a>
-                                                            <a href="{{ path('refusepost',{"id":postulation.id}) }}"  class="  button dark ripple-effect"><i class="icon-material-outline-highlight-off"></i> Refuser</a>
-
-                                                            <a href="#small-dialog-2" data-id="{{ postulation.freelance.id }}" data-name="{{ postulation.freelance.nom ~" "~ postulation.freelance.prenom}}"
-                                                               data-proj="{{ postulation.project.id }}"
-                                                               class="popup-with-zoom-anim msgmodal button dark ripple-effect"><i class="icon-feather-mail"></i> Envoyer un message</a>
+                                                                <a href="#small-dialog-2" data-id="{{ postulation.freelance.id }}" data-name="{{ postulation.freelance.nom ~" "~ postulation.freelance.prenom}}"
+                                                                   data-proj="{{ postulation.project.id }}"
+                                                                   class="popup-with-zoom-anim msgmodal button dark ripple-effect"><i class="icon-feather-mail"></i> Envoyer un message</a>
 
 
-                                                            <a href="#" class="button gray ripple-effect ico" title="Supprimer Candidate" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
-                                                        {% endif %}
+                                                                <a href="#" class="button gray ripple-effect ico" title="Supprimer Candidate" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
+                                                            {% else %}
+                                                                <a href="{{ path('acceptpost',{"id":postulation.id}) }}" class="button ripple-effect"><i class="icon-material-outline-check"></i>Accepter</a>
+                                                                <a href="{{ path('refusepost',{"id":postulation.id}) }}"  class="  button dark ripple-effect"><i class="icon-material-outline-highlight-off"></i> Refuser</a>
+
+                                                                <a href="#small-dialog-2" data-id="{{ postulation.freelance.id }}" data-name="{{ postulation.freelance.nom ~" "~ postulation.freelance.prenom}}"
+                                                                   data-proj="{{ postulation.project.id }}"
+                                                                   class="popup-with-zoom-anim msgmodal button dark ripple-effect"><i class="icon-feather-mail"></i> Envoyer un message</a>
+
+
+                                                                <a href="#" class="button gray ripple-effect ico" title="Supprimer Candidate" data-tippy-placement="top"><i class="icon-feather-trash-2"></i></a>
+                                                            {% endif %}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </li>
+                                        </li>
 
 
 
-                                </ul>
-                            </div>
+                                    </ul>
+                                </div>
                             {% endfor %}
                         </div>
                     </div>
@@ -273,9 +273,7 @@
             crossorigin="anonymous"></script>
     <script>
         $(".msgmodal").on("click" , function () {
-           console.log("no prob");
-
-
+            console.log("no prob");
             var id = $(this).data('id');
             console.log(id);
             var name=$(this).data('name');
@@ -291,15 +289,10 @@
 
     <script>
         $(".reviewmodal").on("click" , function () {
-
-
-
             var id = $(this).data('id');
-
             var name=$(this).data('name');
             var proj=$(this).data('proj');
             var projid=$(this).data('projid');
-
             document.getElementById("freelancerid").value = id;
             document.getElementById("nomprojet").text = proj;
             document.getElementById("nomfreelancer").text = name;

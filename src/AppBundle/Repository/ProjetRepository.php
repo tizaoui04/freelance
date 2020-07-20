@@ -37,7 +37,7 @@ class ProjetRepository extends \Doctrine\ORM\EntityRepository
                 ->setParameter('filter', '%' .$filter. '%');
         }
         if($categorie){
-            $qb=$qb->andWhere("a.categorie.id=:cat")->setParameter("cat",$categorie);
+            $qb=$qb->andWhere("a.categorie=:cat")->setParameter("cat",$categorie);
         }
         if($pricemin){
             $qb=$qb->andWhere("a.budget Between :min AND :max")->setParameter("min",$pricemin)->setParameter("max",$pricemax);

@@ -19,77 +19,18 @@
                 <!-- Category -->
                 <div class="sidebar-widget">
                     <h3>Categorie</h3>
-                    <select class="selectpicker default" multiple data-selected-text-format="count" data-size="7" title="All Categories" >
-
-                        <option>Design & Creative</option>
-                        <option>Legal</option>
-                        <option>Software Developing</option>
-
-                        <option>Sales & Marketing</option>
+                    <select name="categorie" class="selectpicker default" multiple data-selected-text-format="count"  title="Tout Categories" >
+                        {% for categorie in categorie %}
+                            <option value="{{ categorie.id }}">{{categorie.libelle}}</option>
+                        {% endfor %}
                     </select>
                 </div>
 
-                <!-- Keywords -->
-                <div class="sidebar-widget">
-                    <h3>Mot Cle</h3>
-                    <div class="keywords-container">
-                        <div class="keyword-input-container">
-                            <input type="text" class="keyword-input" placeholder="e.g. task title"/>
-                            <button class="keyword-input-button ripple-effect"><i class="icon-material-outline-add"></i></button>
-                        </div>
-                        <div class="keywords-list"><!-- keywords go here --></div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
 
 
 
-                <!-- Tags -->
-                <div class="sidebar-widget">
-                    <h3>Skills</h3>
 
-                    <div class="tags-container">
-                        <div class="tag">
-                            <input type="checkbox" id="tag1"/>
-                            <label for="tag1">front-end dev</label>
-                        </div>
-                        <div class="tag">
-                            <input type="checkbox" id="tag2"/>
-                            <label for="tag2">angular</label>
-                        </div>
-                        <div class="tag">
-                            <input type="checkbox" id="tag3"/>
-                            <label for="tag3">react</label>
-                        </div>
-                        <div class="tag">
-                            <input type="checkbox" id="tag4"/>
-                            <label for="tag4">vue js</label>
-                        </div>
-                        <div class="tag">
-                            <input type="checkbox" id="tag5"/>
-                            <label for="tag5">web apps</label>
-                        </div>
-                        <div class="tag">
-                            <input type="checkbox" id="tag6"/>
-                            <label for="tag6">design</label>
-                        </div>
-                        <div class="tag">
-                            <input type="checkbox" id="tag7"/>
-                            <label for="tag7">wordpress</label>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
 
-                    <!-- More Skills -->
-                    <div class="keywords-container margin-top-20">
-                        <div class="keyword-input-container">
-                            <input type="text" class="keyword-input" placeholder="add more skills"/>
-                            <button class="keyword-input-button ripple-effect"><i class="icon-material-outline-add"></i></button>
-                        </div>
-                        <div class="keywords-list"><!-- keywords go here --></div>
-                        <div class="clearfix"></div>
-                    </div>
-                </div>
                 <div class="clearfix"></div>
 
             </div>
@@ -111,7 +52,7 @@
                 <!-- Avatar -->
                 <div class="freelancer-avatar">
 
-                    <a href="single-freelancer-profile.html"> <img src="{{ app.user.image ? asset(vich_uploader_asset(app.user,'imageFile'))  : asset('images/user-avatar-small-01.jpg') }} " alt=""></a>
+                    <a href="single-freelancer-profile.html"> <img src="{{ freelancer.image ? asset(vich_uploader_asset(freelancer,'imageFile'))  : asset('images/user-avatar-small-01.jpg') }} " alt=""></a>
                 </div>
 
                 <!-- Name -->

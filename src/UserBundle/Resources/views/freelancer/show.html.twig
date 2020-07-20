@@ -15,7 +15,17 @@
                             <div class="header-details">
                                 <h3>{{freelancer.prenom}} {{ freelancer.nom }}<span>{{freelancer.domaine}}</span></h3>
                                 <ul>
-                                    <li><div class="star-rating" data-rating="5.0"></div></li>
+                                    <li>{% set sumratings = 0 %}
+                                        {% set total =  freelancer.notes|length %}
+                                        {% for rating in freelancer.notes %}
+                                            {% set sumratings = sumratings + rating.note %}
+                                        {% endfor %}
+                                        {% if total==0 %}
+                                            {% set total=1 %}
+                                        {% endif %}
+
+                                        <div class="star-rating" data-rating="{{  sumratings / total }}"></div>
+                                         </li>
 
 
                                 </ul>
@@ -60,11 +70,8 @@
 
                     </div>
 
-                    <!-- Button -->
-                    <a href="#small-dialog" class="apply-now-button popup-with-zoom-anim margin-bottom-50">Accepter </a>
-
                     <!-- Freelancer Indicators -->
-                    <a href="#small-dialog-2" class="apply-now-button popup-with-zoom-anim margin-bottom-50"> Envoyer un message</a>
+                    <a href="#small-dialog-2" data-id="{{ freelancer.id }}" data-name="{{ freelancer.nom ~" "~ freelancer.prenom }}" class="apply-now-button msgmodal popup-with-zoom-anim margin-bottom-50"> Envoyer un message</a>
 
 
 
@@ -96,7 +103,7 @@
 
                     <!-- Form -->
                     <form method="post" action="{{ path('sendmsg') }}" id="send-pm">
-                        <input name="frmodal" value="from modal" type="hidden">
+                        <input name="freelancershow" value="freelancershow" type="hidden">
                         <input name="to" id="userid" type="hidden" value="">
                         <input name="projid" id="projid" type="hidden" value="">
                         <textarea   cols="10" name="mstxt" placeholder="Message" class="with-border" required></textarea>
@@ -123,9 +130,10 @@
             var id = $(this).data('id');
             console.log(id);
             var name=$(this).data('name');
-            var proj=$(this).data('proj');
+            console.log(name)
+
             document.getElementById("userid").value = id;
-            document.getElementById("projid").value = proj;
+
             document.getElementById("username").textContent = name;
             // As pointed out in comments,
             // it is unnecessary to have to manually call the modal.

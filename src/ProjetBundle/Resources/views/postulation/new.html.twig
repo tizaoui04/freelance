@@ -31,7 +31,7 @@
             </div>
         </div>
     </div>
-    {{ form_start(form) }}
+
     <div class="container">
         <div class="row">
 
@@ -65,6 +65,8 @@
                     <!-- Sidebar Widget -->
                     <div class="sidebar-widget">
                         <div class="job-overview">
+                            {% if is_granted('ROLE_FREELANCER') %}
+                            {{ form_start(form) }}
                             <div class="job-overview-headline">Postuler sur ce travail!</div>
                             <div class="job-overview-inner">
 
@@ -75,6 +77,8 @@
                                 <input type="submit" value="Postuler" />
 
                             </div>
+                            {{ form_end(form) }}
+                            {% endif %}
                         </div>
                     </div>
 
@@ -87,8 +91,6 @@
 
 
     </div>
-
-    {{ form_end(form) }}
 
 
 {% endblock %}

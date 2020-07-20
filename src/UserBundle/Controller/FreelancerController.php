@@ -2,6 +2,7 @@
 
 namespace UserBundle\Controller;
 
+use AppBundle\Entity\Categorie;
 use AppBundle\Entity\Freelancer;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -99,7 +100,10 @@ class FreelancerController extends Controller
 
         $paginator  = $this->get('knp_paginator');
 
-
+        $categorie=null;
+        if($request->get("categorie")){
+            $categorie= $request->get("categorie");
+        };
         $rq = $paginator->paginate(
             $freelancers,
             $request->query->get('page',1) /*page number*/,
@@ -107,8 +111,10 @@ class FreelancerController extends Controller
         );
 
 
+        $categories=$em->getRepository(Categorie::class)->findAll();
         return $this->render('@User/freelancer/index.html.twig', array(
             'freelancers' => $rq,
+            'categories'=>$categories,
         ));
     }
 
@@ -127,7 +133,7 @@ class FreelancerController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
-            $freelancer->addRole("ROLE_ADMIN");
+            $freelancer->addRole("ROLE_FREELANCER");
 
             $em->persist($freelancer);
             $em->flush();
