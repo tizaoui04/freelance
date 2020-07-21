@@ -20,14 +20,7 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class DefaultController extends Controller
 {
-    /**
-     * @Route("/signin-form",name="formsignin")
-     */
-    public function indexAction()
-    {
 
-        return $this->render('@User/Default/login.html.twig');
-    }
 
 
 
@@ -83,7 +76,7 @@ class DefaultController extends Controller
 
                 $this->get('mailer')->send($message);
 
-                return new Response("<p> check your email </p>");
+                return $this->redirectToRoute('homepage');
             }
         }else{
             $client=new Client();
@@ -123,7 +116,7 @@ class DefaultController extends Controller
 
                 $this->get('mailer')->send($message);
 
-                return new Response("<p> check your email </p>");
+                return $this->redirectToRoute('homepage');
             }
         }
 
@@ -192,7 +185,7 @@ class DefaultController extends Controller
             }
 
             if(!$user->isEnabled()){
-                return $this->render("@User/Default/login.html.twig",array("msg"=>"username n'est pas active check your email"));
+                return $this->render("@User/Default/login.html.twig",array("msg"=>"compte n'est pas active vérifier votre email"));
             }
 
             /// Start verification

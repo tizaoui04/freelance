@@ -9,6 +9,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -29,7 +30,9 @@ class projetType extends AbstractType
             ->add('description', TextareaType::class, [
                 'attr' => ['class' => 'description'],
             ])
-            ->add('budget')
+            ->add('budget',TextType::class,array(
+                "attr"=>array("class"=> "with-border","placeholder"=>"Budget")
+            ))
 
 
             ->add('Categorie', EntityType::class, [

@@ -21,4 +21,10 @@ class FreelancerRepository extends \Doctrine\ORM\EntityRepository
 
         return $query=$q->execute();
     }
+
+    public function searchfr($kw){
+        $rs=$this->getEntityManager()->createQuery("select  f from AppBundle:Freelancer f where (f.aboutme like :kw) or (f.nom like :kw) or (f.prenom like :kw) or (f.domaine like :kw)   ")
+        ->setParameter("kw","%".$kw."%");
+        return $rs->getResult();
+    }
 }

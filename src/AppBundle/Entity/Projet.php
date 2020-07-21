@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Projet
@@ -34,7 +35,8 @@ class Projet
 
     /**
      * @var string
-     *
+     * @Assert\NotBlank(message="veuillez saisir le titre de projet")
+     * @Assert\Regex(pattern="/^[a-zA-Z0-9_ ]+$/i",htmlPattern = "^[a-zA-Z0-9_ ]+$")
      * @ORM\Column(name="titre", type="string", length=255)
      */
     private $titre;
@@ -48,14 +50,15 @@ class Projet
 
     /**
      * @var string
-     *
+     *@Assert\NotBlank(message="veuillez saisir la descriptione de projet")
      * @ORM\Column(name="description", type="string", length=255)
      */
     private $description;
 
     /**
      * @var float
-     *
+
+     * @Assert\NotBlank()
      * @ORM\Column(name="budget", type="float")
      */
     private $budget;

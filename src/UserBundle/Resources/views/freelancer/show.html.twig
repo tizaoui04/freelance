@@ -10,7 +10,10 @@
                 <div class="col-md-12">
                     <div class="single-page-header-inner">
                         <div class="left-side">
-                            <div class="header-image"><img src="{{ freelancer.image ? asset(vich_uploader_asset(freelancer,'imageFile'))  : asset('images/user-avatar-small-01.jpg') }} " alt=""></div>
+
+                            <div class="header-image freelancer-avatar">
+                                <img src="{{ freelancer.image ? asset(vich_uploader_asset(freelancer,'imageFile'))  : asset('images/user-avatar-small-01.jpg') }}" alt="">
+                            </div>
 
                             <div class="header-details">
                                 <h3>{{freelancer.prenom}} {{ freelancer.nom }}<span>{{freelancer.domaine}}</span></h3>
@@ -52,8 +55,40 @@
                     <p>{{ freelancer.aboutme }}</p>
 
                 </div>
+                {% if freelancer.notes is not empty %}
+                <!-- Boxed List -->
+                <div class="boxed-list margin-bottom-60">
+                    <div class="boxed-list-headline">
+                        <h3><i class="icon-material-outline-thumb-up"></i> Commentaires des clients</h3>
+                    </div>
+                    <ul class="boxed-list-ul">
+                        {% for note in freelancer.notes %}
+                        <li>
+                            <div class="boxed-list-item">
+                                <!-- Content -->
+                                <div class="item-content">
+                                    <h4>{{ note.client.nom ~" "~note.client.prenom }} <span>Client</span></h4>
+                                    <div class="item-details margin-top-10">
+                                        <div class="star-rating" data-rating="{{note.note}}"></div>
+                                        <div class="detail-item"><i class="icon-material-outline-date-range"></i> {{note.datenote|date("d F y")}}</div>
+                                    </div>
+                                    <div class="item-description">
+                                        <p>{{note.commentaire}} </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+
+                    </ul>
 
 
+
+
+                </div>
+                <!-- Boxed List / End -->
+
+                {% endif %}
 
 
             </div>
@@ -71,8 +106,9 @@
                     </div>
 
                     <!-- Freelancer Indicators -->
+                    {% if is_granted("ROLE_CLIENT") %}
                     <a href="#small-dialog-2" data-id="{{ freelancer.id }}" data-name="{{ freelancer.nom ~" "~ freelancer.prenom }}" class="apply-now-button msgmodal popup-with-zoom-anim margin-bottom-50"> Envoyer un message</a>
-
+                    {% endif %}
 
 
                 </div>

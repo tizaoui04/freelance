@@ -17,14 +17,23 @@
 
 
                 <!-- Category -->
-                <div class="sidebar-widget">
-                    <h3>Categorie</h3>
-                    <select name="categorie" class="selectpicker default" multiple data-selected-text-format="count"  title="Tout Categories" >
-                        {% for categorie in categorie %}
-                            <option value="{{ categorie.id }}">{{categorie.libelle}}</option>
-                        {% endfor %}
-                    </select>
-                </div>
+
+
+                    <div class="sidebar-widget">
+                        <h3>Mot clé</h3>
+                        <div class="keywords-container">
+                            <div class="keyword-input-container">
+                                <form action="{{ path('freelancer_index') }}" method="post">
+                                <input type="text" name="kw" class="with-border" placeholder="Mot clé"/>
+                              <br/>
+                                <button type="submit" class="button button-sliding-icon ripple-effect">Rechercher</button>
+                                </form>
+                            </div>
+
+                            <div class="clearfix"></div>
+                        </div>
+                    </div>
+
 
 
 
@@ -57,11 +66,19 @@
 
                 <!-- Name -->
                 <div class="freelancer-name">
-                    <h4><a href="#">{{ freelancer.nom ~" "~freelancer.prenom }}</a></h4>
+                    <h4><a href="{{ path('freelancer_show',{"id":freelancer.id}) }}">{{ freelancer.nom ~" "~freelancer.prenom }}</a></h4>
                     <span>{{ freelancer.domaine }}</span>
                     <!-- Rating -->
                     <div class="freelancer-rating">
-                        <div class="star-rating" data-rating="4.9"></div>
+                        {% set sumratings = 0 %}
+                        {% set total = freelancer.notes|length %}
+                        {% for rating in freelancer.notes %}
+                            {% set sumratings = sumratings + rating.note %}
+                        {% endfor %}
+                        {% if total==0 %}
+                            {% set total=1 %}
+                        {% endif %}
+                        <div class="star-rating" data-rating="{{  sumratings / total }}"></div>
                     </div>
                 </div>
             </div>
@@ -72,11 +89,11 @@
             <div class="freelancer-details-list">
                 <ul>
                     <li>Domaine <strong><i class="icon-material-outline-location-on"></i> {{ freelancer.domaine }} </strong></li>
-                    <li>Rate <strong>$60 / hr</strong></li>
-                    <li>Job Success <strong>95%</strong></li>
+                    <li>Numéro <strong>{{freelancer.numtel}}</strong></li>
+
                 </ul>
             </div>
-            <a href="{{ path('freelancer_show' ,{"id":freelancer.id})}}" class="button button-sliding-icon ripple-effect">View Profile <i class="icon-material-outline-arrow-right-alt"></i></a>
+            <a href="{{ path('freelancer_show' ,{"id":freelancer.id})}}" class="button button-sliding-icon ripple-effect">Voire Profile <i class="icon-material-outline-arrow-right-alt"></i></a>
         </div>
     </div>
     <!-- Freelancer / End -->
@@ -109,5 +126,5 @@
 
     </div>
 </div>
-
+    </div>
     {% endblock %}

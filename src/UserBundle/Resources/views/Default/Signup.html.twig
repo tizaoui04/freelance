@@ -31,15 +31,15 @@
 
                     <div class="input-with-icon-left">
                         <i class="icon-feather-user"></i>
-                        <input type="text" class="input-text with-border" name="nom" id="emailaddress-register" placeholder="Nom" required/>
+                        <input type="text" class="input-text with-border" name="nom" id="emailaddress-register" placeholder="Nom" pattern="^[A-Za-z -]+$" required/>
                     </div>
                     <div class="input-with-icon-left">
                         <i class="icon-feather-user"></i>
-                        <input type="text" class="input-text with-border" name="prenom" id="emailaddress-register" placeholder="Prenom" required/>
+                        <input type="text" class="input-text with-border" name="prenom" id="emailaddress-register" placeholder="Prenom" pattern="^[A-Za-z -]+$" required/>
                     </div>
                     <div class="input-with-icon-left">
                         <i class="icon-line-awesome-mobile-phone"></i>
-                        <input type="text" class="input-text with-border" name="numtel" id="name-register" placeholder="Numéro Telephone" required/>
+                        <input type="text" class="input-text with-border" name="numtel" id="name-register" placeholder="Numéro Telephone" pattern="[0-9]{8}" required/>
                     </div>
                     <div class="input-with-icon-left">
                         <i class="icon-material-outline-date-range"></i>
@@ -48,7 +48,7 @@
 
                     <div class="input-with-icon-left">
                         <i class="icon-material-baseline-mail-outline"></i>
-                        <input type="text" class="input-text with-border" name="mail" id="emailaddress-register" placeholder="Email Address" required/>
+                        <input type="text" class="input-text with-border" name="mail" id="emailaddress-register" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,6}" title="email invalide" placeholder="Email Address" required/>
                     </div>
                     <div class="input-with-icon-left">
                         <i class="icon-line-awesome-user"></i>

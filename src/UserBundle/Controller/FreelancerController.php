@@ -95,15 +95,15 @@ class FreelancerController extends Controller
     public function indexAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
-
-        $freelancers = $em->getRepository(Freelancer::class)->findAll();
+        $kw="";
+        if($request->get("kw")){
+            $kw= $request->get("kw");
+        };
+        $freelancers = $em->getRepository(Freelancer::class)->searchfr($kw);
 
         $paginator  = $this->get('knp_paginator');
 
-        $categorie=null;
-        if($request->get("categorie")){
-            $categorie= $request->get("categorie");
-        };
+
         $rq = $paginator->paginate(
             $freelancers,
             $request->query->get('page',1) /*page number*/,
